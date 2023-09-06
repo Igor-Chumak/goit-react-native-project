@@ -18,8 +18,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    // borderWidth: 1,
-    // borderColor: "blue",
+    // borderWidth: 2,
+    // borderColor: "orange",
   },
   imagebg: {
     height: "100%",
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: "500",
-    color: "blue",
+    color: "orange",
     textAlign: "center",
   },
 });
