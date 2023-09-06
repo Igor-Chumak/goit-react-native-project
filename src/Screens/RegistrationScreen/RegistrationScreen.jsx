@@ -4,7 +4,7 @@ import { RegistrationForm } from "./RegistrationForm";
 export const RegistrationScreen = () => {
   return (
     <View style={styles.wrap}>
-      <Text style={styles.text}>Registration Screen</Text>
+      {/* <Text style={styles.text}>Registration Screen</Text> */}
       <RegistrationForm />
     </View>
   );

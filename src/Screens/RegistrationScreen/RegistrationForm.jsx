@@ -1,13 +1,18 @@
+import * as React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import photoDefault from "../../Img/React512.png";
-import btnAddIcon from "../../Img/add.svg";
+import BtnAddIcon from "../../Img/Union.png";
 
 export const RegistrationForm = () => {
   return (
     <View style={styles.wrapForm}>
       <View style={styles.wrapPhoto}>
         <Image source={photoDefault} style={styles.photo} />
-        <View style={styles.btnAddBox}>{/* <btnAddIcon style={styles.btnAddIcon} /> */}</View>
+        <View style={styles.btnAddBox}>
+          <Image source={BtnAddIcon} style={styles.btnAddIcon} />
+          {/* <BtnAddIcon style={styles.btnAddIcon} /> */}
+          {/* <BtnAddIcon width={13} height={13} /> */}
+        </View>
       </View>
       <Text style={styles.text}>Реєстрація</Text>
     </View>
@@ -62,6 +67,8 @@ const styles = StyleSheet.create({
   btnAddIcon: {
     width: 13,
     height: 13,
+    // overflow: "visible",
+    // zIndex: 10,
   },
   text: {
     fontSize: 20,
