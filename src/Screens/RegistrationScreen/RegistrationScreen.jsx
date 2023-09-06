@@ -3,21 +3,25 @@ import { RegistrationForm } from "./RegistrationForm";
 
 export const RegistrationScreen = () => {
   return (
-    <View style={styles.wrap}>
-      <Text style={styles.text}>Open up App.js to start working on your app!</Text>
+    <View style={styles.wrapScreen}>
+      <Text style={styles.text}>Registration Screen</Text>
       <RegistrationForm />
     </View>
   );
 };
 const styles = StyleSheet.create({
-  wrap: {
+  wrapScreen: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: "flex-end",
+    // flexDirection: "column",
+    // alignItems: "center",
+    borderWidth: 2,
+    borderColor: "white",
   },
   text: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "500",
     color: "white",
+    textAlign: "center",
   },
 });
