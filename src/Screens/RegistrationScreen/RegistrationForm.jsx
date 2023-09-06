@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import photoDefault from "../../Img/React512.png";
-import BtnAddIcon from "../../Img/Union.png";
+import BtnAddIcon from "../../Img/Union.svg";
 
 export const RegistrationForm = () => {
   return (
@@ -9,8 +9,8 @@ export const RegistrationForm = () => {
       <View style={styles.wrapPhoto}>
         <Image source={photoDefault} style={styles.photo} />
         <View style={styles.btnAddBox}>
-          <Image source={BtnAddIcon} style={styles.btnAddIcon} />
-          {/* <BtnAddIcon style={styles.btnAddIcon} /> */}
+          {/* <Image source={BtnAddIcon} style={styles.btnAddIcon} /> */}
+          <BtnAddIcon style={styles.btnAddIcon} />
           {/* <BtnAddIcon width={13} height={13} /> */}
         </View>
       </View>
@@ -67,8 +67,6 @@ const styles = StyleSheet.create({
   btnAddIcon: {
     width: 13,
     height: 13,
-    // overflow: "visible",
-    // zIndex: 10,
   },
   text: {
     fontSize: 20,
