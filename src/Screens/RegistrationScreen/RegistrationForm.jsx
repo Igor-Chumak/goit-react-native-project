@@ -1,9 +1,21 @@
-import React from "react";
-import { Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export const RegistrationForm = () => {
   return;
-  <>
-    <Text>RegistrationForm</Text>;
-  </>;
+  <View style={styles.wrap}>
+    <Text style={styles.text}>RegistrationForm</Text>
+  </View>;
 };
+
+const styles = StyleSheet.create({
+  wrap: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 25,
+    fontWeight: "500",
+    color: "red",
+  },
+});

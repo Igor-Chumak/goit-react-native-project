@@ -1,11 +1,13 @@
 // import { StatusBar } from "expo-status-bar";
-import { ImageBackground, SafeAreaView, StyleSheet, Switch, Text, View } from "react-native";
+import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import BGImage from "./src/Img/Photo_BG.png";
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
+      {/* <StatusBar translucent={false} hidden={false} style="auto" /> */}
+      {/* <Text>Open up App.js to start working on your app!</Text> */}
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <RegistrationScreen />
       </ImageBackground>
