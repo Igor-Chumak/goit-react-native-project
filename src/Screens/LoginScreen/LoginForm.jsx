@@ -1,20 +1,11 @@
 import * as React from "react";
 import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import photoDefault from "../../Img/React512.png";
-import BtnAddIcon from "../../Img/Union.svg";
 
-export const RegistrationForm = () => {
+export const LoginForm = () => {
   return (
     <View style={styles.wrapForm}>
-      <View style={styles.wrapPhoto}>
-        <Image source={photoDefault} style={styles.photo} />
-        <Pressable style={styles.btnAddBox}>
-          <BtnAddIcon style={styles.btnAddIcon} />
-        </Pressable>
-      </View>
-      <Text style={styles.title}>Реєстрація</Text>
+      <Text style={styles.title}>Увійти</Text>
       <View style={styles.inputBox}>
-        <TextInput style={styles.textInput} placeholder="Логін" placeholderTextColor="#BDBDBD" />
         <TextInput
           style={styles.textInput}
           placeholder="Адреса електронної пошти"
@@ -32,10 +23,10 @@ export const RegistrationForm = () => {
         </View>
       </View>
       <Pressable style={styles.button}>
-        <Text style={styles.btnText}>Зареєструватися</Text>
+        <Text style={styles.btnText}>Увійти</Text>
       </Pressable>
       <Pressable>
-        <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
+        <Text style={styles.btnLogIn}>Немає акаунту? Зареєструватися</Text>
       </Pressable>
     </View>
   );
@@ -44,51 +35,19 @@ export const RegistrationForm = () => {
 const styles = StyleSheet.create({
   wrapForm: {
     width: "100%",
-    // height: 549-34,
-    position: "relative",
+    // height: 489-34,
     alignItems: "center",
-    paddingTop: 92,
+    paddingTop: 32,
     paddingLeft: 16,
     paddingRight: 16,
-    paddingBottom: 78,
-    // paddingBottom: 45,
+    paddingBottom: 111,
+    // paddingBottom: 144,
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     //
     // borderWidth: 1,
     // borderColor: "red",
-  },
-  wrapPhoto: {
-    position: "absolute",
-    width: 120,
-    height: 120,
-    top: -60,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
-    //
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-  photo: {
-    width: "100%",
-    height: "100%",
-  },
-  btnAddBox: {
-    position: "absolute",
-    bottom: 14,
-    right: -12,
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#FF6C00",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  btnAddIcon: {
-    width: 13,
-    height: 13,
   },
   title: {
     marginBottom: 32,
