@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
     // paddingBottom: 11,
     justifyContent: "center",
     // alignItems: "center",
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   title: {
     fontFamily: "RobotoM",

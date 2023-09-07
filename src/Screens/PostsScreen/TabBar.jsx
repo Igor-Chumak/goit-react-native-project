@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     // borderColor: "blue",
   },
   boxTabBar: {
-    width: "100%",
+    // width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

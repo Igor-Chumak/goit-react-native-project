@@ -1,16 +1,17 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import photoDefault from "../../Img/react512.png";
 
 export const User = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
-        <Image source={{ uri: "https://reactjs.org/logo-og.png" }} style={styles.userPhoto}></Image>
-        <View style={styles.textBox}>
+      <Pressable style={styles.userBox}>
+        <Image source={photoDefault} style={styles.userPhoto}></Image>
+        <View style={styles.userDataBox}>
           <Text style={styles.userName}>React Native</Text>
           <Text style={styles.userEmail}>native@react.com</Text>
         </View>
-      </View>
+      </Pressable>
     </View>
   );
 };
@@ -19,41 +20,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    // height: "100%",
-    backgroundColor: "white",
-    flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "flex-start",
-
-    borderColor: "rgba(0,0,0,0.3)",
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 32,
-    paddingBottom: 32,
-  },
-  box: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
     backgroundColor: "white",
+    paddingVertical: 32,
+    paddingHorizontal: 16,
+    // borderWidth: 1,
+    // borderColor: "blue",
+  },
+  userBox: {
     width: 171,
     height: 60,
-    marginTop: 9,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    gap: 8,
     alignItems: "center",
+    backgroundColor: "white",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
-  textBox: {
-    marginLeft: 8,
+  userDataBox: {
+    flex: 1,
+    // borderWidth: 1,
+    // borderColor: "blue",
   },
   userName: {
+    fontFamily: "RobotoB",
     fontSize: 13,
-    // fontWeight: 700,
-    fontFamily: "RobotoR",
     lineHeight: 15,
+    color: "#212121",
   },
   userEmail: {
     fontFamily: "RobotoR",
     fontSize: 11,
-    // fontWeight: 400,
     lineHeight: 13,
+    color: "#212121",
   },
   userPhoto: {
     width: 60,

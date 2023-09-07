@@ -1,5 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 import { Header } from "./Header";
 import { TabBar } from "./TabBar";
@@ -9,7 +9,7 @@ export const PostsScreen = () => {
   return (
     <View style={styles.container}>
       <Header />
-      {/* <User /> */}
+      <User />
       <TabBar />
     </View>
   );
