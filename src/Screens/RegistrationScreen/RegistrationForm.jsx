@@ -27,6 +27,9 @@ export const RegistrationForm = () => {
       <Pressable style={styles.button}>
         <Text style={styles.btnText}>Зареєструватися</Text>
       </Pressable>
+      <Pressable>
+        <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
+      </Pressable>
     </View>
   );
 };
@@ -100,8 +103,6 @@ const styles = StyleSheet.create({
     height: 50,
     // marginBottom: 16,
     // borderWidth: 1,
-    // paddingTop: 16,
-    // paddingBottom: 15,
     paddingLeft: 16,
     fontSize: 16,
     lineHeight: 19,
@@ -123,6 +124,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "white",
+    fontFamily: "RobotoR",
+  },
+  btnLogIn: {
+    // width: 159,
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#1B4371",
     fontFamily: "RobotoR",
   },
 });

@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
     // borderColor: "blue",
   },
   text: {
+    fontFamily: "RobotoM",
     fontSize: 20,
-    fontWeight: "500",
     color: "blue",
     textAlign: "center",
   },

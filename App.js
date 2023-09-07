@@ -1,5 +1,5 @@
 // import { StatusBar } from "expo-status-bar";
-import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import BGImage from "./src/Img/Photo_BG.png";
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   text: {
+    fontFamily: "RobotoM",
     fontSize: 20,
-    fontWeight: "500",
     color: "orange",
     textAlign: "center",
   },
