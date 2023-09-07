@@ -8,9 +8,9 @@ import { User } from "./User";
 export const PostsScreen = () => {
   return (
     <View style={styles.container}>
-      <Header style={styles.header}></Header>
-      {/* <User></User> */}
-      {/* <TabBar style={styles.footer}></TabBar> */}
+      <Header />
+      {/* <User /> */}
+      <TabBar />
     </View>
   );
 };
@@ -22,13 +22,5 @@ const styles = StyleSheet.create({
     // height: "100%",
     backgroundColor: "white",
     justifyContent: "space-between",
-  },
-  header: {
-    // // position: "absolute",
-    // top: 0,
-  },
-  footer: {
-    // position: "absolute",
-    // bottom: 0,
   },
 });
