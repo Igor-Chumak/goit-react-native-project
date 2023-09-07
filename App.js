@@ -1,9 +1,10 @@
 // import { StatusBar } from "expo-status-bar";
 import { ImageBackground, PixelRatio, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
-import BGImage from "./src/Img/Photo_BG.png";
+import BGImage from "./src/Img/photo_BG.png";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
+import { PostsScreen } from "./src/Screens/PostsScreen/PostsScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,7 +22,8 @@ export default function App() {
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         {/* <Text style={styles.text}>App.js</Text> */}
         {/* <RegistrationScreen /> */}
-        <LoginScreen />
+        {/* <LoginScreen /> */}
+        {/* <PostsScreen /> */}
       </ImageBackground>
     </SafeAreaView>
   );

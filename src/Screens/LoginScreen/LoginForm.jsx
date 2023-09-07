@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export const LoginForm = () => {
   return (
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     paddingLeft: 16,
     paddingRight: 16,
-    paddingBottom: 111,
-    // paddingBottom: 144,
+    // paddingBottom: 111,
+    paddingBottom: 144,
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,

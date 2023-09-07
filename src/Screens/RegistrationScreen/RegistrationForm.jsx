@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import photoDefault from "../../Img/React512.png";
-import BtnAddIcon from "../../Img/Union.svg";
+import photoDefault from "../../Img/react512.png";
+import BtnAddIcon from "../../Img/union.svg";
 
 export const RegistrationForm = () => {
   return (
@@ -9,7 +9,7 @@ export const RegistrationForm = () => {
       <View style={styles.wrapPhoto}>
         <Image source={photoDefault} style={styles.photo} />
         <Pressable style={styles.btnAddBox}>
-          <BtnAddIcon style={styles.btnAddIcon} />
+          <BtnAddIcon width={13} height={13} />
         </Pressable>
       </View>
       <Text style={styles.title}>Реєстрація</Text>
@@ -85,10 +85,6 @@ const styles = StyleSheet.create({
     borderColor: "#FF6C00",
     justifyContent: "center",
     alignItems: "center",
-  },
-  btnAddIcon: {
-    width: 13,
-    height: 13,
   },
   title: {
     marginBottom: 32,
