@@ -1,5 +1,5 @@
 // import { StatusBar } from "expo-status-bar";
-import { ImageBackground, SafeAreaView, StyleSheet, Text } from "react-native";
+import { ImageBackground, PixelRatio, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import BGImage from "./src/Img/Photo_BG.png";
@@ -13,6 +13,7 @@ export default function App() {
   if (!fontsLoaded) {
     return null;
   }
+
   return (
     <SafeAreaView style={styles.container}>
       {/* <StatusBar translucent={false} hidden={false} style="auto" /> */}

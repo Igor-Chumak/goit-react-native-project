@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import photoDefault from "../../Img/React512.png";
 import BtnAddIcon from "../../Img/Union.svg";
 
@@ -15,14 +15,17 @@ export const RegistrationForm = () => {
       <Text style={styles.title}>Реєстрація</Text>
       <View style={styles.inputBox}>
         <TextInput style={styles.textInput} placeholder="Логін" placeholderTextColor="#BDBDBD" />
-
         <TextInput
           style={styles.textInput}
           placeholder="Адреса електронної пошти"
           placeholderTextColor="#BDBDBD"
         />
-
-        <TextInput style={styles.textInput} placeholder="Пароль" placeholderTextColor="#BDBDBD" />
+        <View style={styles.wrapInputDelete}>
+          <TextInput style={styles.textInput} placeholder="Пароль" placeholderTextColor="#BDBDBD" />
+          <Pressable>
+            <Text style={styles.btnShow}>Показати</Text>
+          </Pressable>
+        </View>
       </View>
       <Pressable style={styles.button}>
         <Text style={styles.btnText}>Зареєструватися</Text>
@@ -109,6 +112,24 @@ const styles = StyleSheet.create({
     color: "#212121",
     backgroundColor: "#E8E8E8",
   },
+  wrapInputDelete: {
+    position: "relative",
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
+  btnShow: {
+    position: "absolute",
+    top: -36,
+    right: 16,
+    width: 72,
+    height: 22,
+    fontFamily: "RobotoR",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#1B4371",
+    // borderWidth: 1,
+    // borderColor: "#1B4371",
+  },
   button: {
     width: "100%",
     // height: 51,
@@ -121,16 +142,16 @@ const styles = StyleSheet.create({
   },
   btnText: {
     // width: 120,
+    fontFamily: "RobotoR",
     fontSize: 16,
     lineHeight: 19,
     color: "white",
-    fontFamily: "RobotoR",
   },
   btnLogIn: {
     // width: 159,
+    fontFamily: "RobotoR",
     fontSize: 16,
     lineHeight: 19,
     color: "#1B4371",
-    fontFamily: "RobotoR",
   },
 });
