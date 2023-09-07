@@ -21,7 +21,11 @@ export const RegistrationForm = () => {
           placeholderTextColor="#BDBDBD"
         />
         <View style={styles.wrapInputDelete}>
-          <TextInput style={styles.textInput} placeholder="Пароль" placeholderTextColor="#BDBDBD" />
+          <TextInput
+            style={[styles.InputDelete, styles.textInput]}
+            placeholder="Пароль"
+            placeholderTextColor="#BDBDBD"
+          />
           <Pressable>
             <Text style={styles.btnShow}>Показати</Text>
           </Pressable>
@@ -116,6 +120,9 @@ const styles = StyleSheet.create({
     position: "relative",
     // borderWidth: 1,
     // borderColor: "red",
+  },
+  InputDelete: {
+    paddingRight: 90,
   },
   btnShow: {
     position: "absolute",
