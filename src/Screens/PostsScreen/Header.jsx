@@ -5,7 +5,7 @@ import ArrowLeftIcon from "../../Img/arrow_left.svg";
 
 export const Header = () => {
   return (
-    <View style={styles.headerWrap}>
+    <View style={styles.container}>
       <Pressable style={styles.arrowLeftBox}>
         <ArrowLeftIcon width={24} height={24} />
       </Pressable>
@@ -20,14 +20,13 @@ export const Header = () => {
 };
 
 const styles = StyleSheet.create({
-  headerWrap: {
+  container: {
     width: "100%",
     height: 88,
     // height: 44,
     // paddingTop: 44,
-    flexDirection: "row",
-    alignItems: "flex-end",
-    justifyContent: "center",
+    justifyContent: "flex-end",
+    alignItems: "center",
     backgroundColor: "white",
     borderBottomWidth: StyleSheet.hairlineWidth,
     // borderWidth: 2,

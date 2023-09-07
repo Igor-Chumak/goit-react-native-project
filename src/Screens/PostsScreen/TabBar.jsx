@@ -1,5 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import GridIcon from "../../Img/grid.svg";
 import UserIcon from "../../Img/user.svg";
@@ -8,7 +8,7 @@ import BtnAddIcon from "../../Img/union_post.svg";
 export const TabBar = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
+      <View style={styles.boxTabBar}>
         <Pressable style={styles.icon}>
           <GridIcon width={24} height={24} />
         </Pressable>
@@ -25,31 +25,27 @@ export const TabBar = () => {
 
 const styles = StyleSheet.create({
   container: {
+    bottom: 0,
     width: "100%",
     height: 83,
-    backgroundColor: "white",
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "center",
+    paddingTop: 9,
+    alignItems: "center",
+    justifyContent: "flex-start",
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: "rgba(0,0,0,0.3)",
     position: "absolute",
-    bottom: 0,
+    backgroundColor: "white",
+    // borderWidth: 1,
+    // borderColor: "blue",
   },
-  box: {
+  boxTabBar: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 9,
     alignItems: "center",
-  },
-  text: {
-    fontSize: 17,
-  },
-  textbox: {
-    width: 175,
-    height: 44,
-    justifyContent: "center",
-    alignItems: "center",
+    gap: 31,
+    // borderWidth: 1,
+    // borderColor: "blue",
   },
   icon: {
     width: 40,
@@ -57,26 +53,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  header: {
-    justifyContent: "center",
-    alignItems: "center",
-
-    width: "100%",
-    height: 44,
-  },
   button: {
-    marginLeft: 31,
-    marginRight: 31,
-    backgroundColor: "#FF6C00",
     paddingVertical: 16,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 20,
     width: 70,
     height: 40,
-  },
-  btnText: {
-    fontSize: 16,
-    color: "white",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FF6C00",
+    borderRadius: 20,
   },
 });
