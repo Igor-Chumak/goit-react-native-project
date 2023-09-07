@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import photoDefault from "../../Img/React512.png";
 import BtnAddIcon from "../../Img/Union.svg";
 
@@ -9,12 +9,21 @@ export const RegistrationForm = () => {
       <View style={styles.wrapPhoto}>
         <Image source={photoDefault} style={styles.photo} />
         <View style={styles.btnAddBox}>
-          {/* <Image source={BtnAddIcon} style={styles.btnAddIcon} /> */}
           <BtnAddIcon style={styles.btnAddIcon} />
-          {/* <BtnAddIcon width={13} height={13} /> */}
         </View>
       </View>
-      <Text style={styles.text}>Реєстрація</Text>
+      <Text style={styles.title}>Реєстрація</Text>
+      <View style={styles.inputBox}>
+        <TextInput style={styles.textInput} placeholder="Логін" placeholderTextColor="#BDBDBD" />
+
+        <TextInput
+          style={styles.textInput}
+          placeholder="Адреса електронної пошти"
+          placeholderTextColor="#BDBDBD"
+        />
+
+        <TextInput style={styles.textInput} placeholder="Пароль" placeholderTextColor="#BDBDBD" />
+      </View>
     </View>
   );
 };
@@ -68,10 +77,46 @@ const styles = StyleSheet.create({
     width: 13,
     height: 13,
   },
-  text: {
-    fontSize: 20,
-    fontWeight: "500",
-    color: "red",
-    // textAlign: "center",
+  title: {
+    marginBottom: 32,
+    fontFamily: "RobotoM",
+    fontSize: 30,
+    lineHeight: 35,
+    letterSpacing: 0.2,
+    color: "#212121",
+    textAlign: "center",
+  },
+  inputBox: {
+    width: "100%",
+    gap: 16,
+    marginBottom: 43,
+  },
+  //
+  textInput: {
+    width: "100%",
+    // height: 50,
+    // marginBottom: 16,
+    // borderWidth: 1,
+    paddingTop: 16,
+    paddingBottom: 15,
+    paddingLeft: 16,
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#212121",
+    backgroundColor: "#E8E8E8",
+  },
+  button: {
+    width: "100%",
+    backgroundColor: "#FF6C00",
+    paddingVertical: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 43,
+    borderRadius: 27,
+  },
+  btnText: {
+    fontSize: 16,
+    color: "white",
+    fontFamily: "Roboto-400",
   },
 });

@@ -6,9 +6,9 @@ import BGImage from "./src/Img/Photo_BG.png";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    RobotoReg: require("./assets/fonts/Roboto-Regular.ttf"),
-    RobotoMed: require("./assets/fonts/Roboto-Medium.ttf"),
-    RobotoBold: require("./assets/fonts/Roboto-Bold.ttf"),
+    RobotoR: require("./assets/fonts/Roboto-Regular.ttf"),
+    RobotoM: require("./assets/fonts/Roboto-Medium.ttf"),
+    RobotoB: require("./assets/fonts/Roboto-Bold.ttf"),
   });
   if (!fontsLoaded) {
     return null;
