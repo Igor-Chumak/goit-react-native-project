@@ -1,16 +1,17 @@
 // import * as React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import LogoutIcon from "../../Img/log_out.svg";
+import ArrowLeftIcon from "../../Img/arrow_left.svg";
 
 export const Header = () => {
   return (
-    <View style={styles.container}>
-      {/* <View style={styles.header}> */}
+    <View style={styles.headerWrap}>
+      <Pressable style={styles.arrowLeftBox}>
+        <ArrowLeftIcon width={24} height={24} />
+      </Pressable>
       <View style={styles.titleBox}>
         <Text style={styles.title}>Публікації</Text>
       </View>
-      {/* </View> */}
-
       <Pressable style={styles.logOutBox}>
         <LogoutIcon width={24} height={24} />
       </Pressable>
@@ -19,7 +20,7 @@ export const Header = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  headerWrap: {
     width: "100%",
     height: 88,
     // height: 44,
@@ -29,13 +30,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "white",
     borderBottomWidth: StyleSheet.hairlineWidth,
+    // borderWidth: 2,
+    // borderColor: "blue",
   },
   titleBox: {
     width: 175,
     height: 44,
-    paddingBottom: 11,
-    // justifyContent: "center",
+    // paddingBottom: 11,
+    justifyContent: "center",
     // alignItems: "center",
+    borderWidth: 1,
+    borderColor: "red",
   },
   title: {
     fontFamily: "RobotoM",
@@ -45,15 +50,14 @@ const styles = StyleSheet.create({
     color: "#212121",
     textAlign: "center",
   },
+  arrowLeftBox: {
+    position: "absolute",
+    left: 16,
+    bottom: 10,
+  },
   logOutBox: {
     position: "absolute",
     right: 10,
     bottom: 10,
   },
-  // header: {
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   width: "100%",
-  //   height: 44,
-  // },
 });

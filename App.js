@@ -23,7 +23,7 @@ export default function App() {
         {/* <Text style={styles.text}>App.js</Text> */}
         {/* <RegistrationScreen /> */}
         {/* <LoginScreen /> */}
-        {/* <PostsScreen /> */}
+        <PostsScreen />
       </ImageBackground>
     </SafeAreaView>
   );
