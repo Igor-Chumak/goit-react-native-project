@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, StyleSheet, Text, TextInput, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import photoDefault from "../../Img/React512.png";
 import BtnAddIcon from "../../Img/Union.svg";
 
@@ -8,9 +8,9 @@ export const RegistrationForm = () => {
     <View style={styles.wrapForm}>
       <View style={styles.wrapPhoto}>
         <Image source={photoDefault} style={styles.photo} />
-        <View style={styles.btnAddBox}>
+        <Pressable style={styles.btnAddBox}>
           <BtnAddIcon style={styles.btnAddIcon} />
-        </View>
+        </Pressable>
       </View>
       <Text style={styles.title}>Реєстрація</Text>
       <View style={styles.inputBox}>
@@ -24,6 +24,9 @@ export const RegistrationForm = () => {
 
         <TextInput style={styles.textInput} placeholder="Пароль" placeholderTextColor="#BDBDBD" />
       </View>
+      <Pressable style={styles.button}>
+        <Text style={styles.btnText}>Зареєструватися</Text>
+      </Pressable>
     </View>
   );
 };
@@ -31,7 +34,7 @@ export const RegistrationForm = () => {
 const styles = StyleSheet.create({
   wrapForm: {
     width: "100%",
-    height: 549,
+    // height: 549,
     position: "relative",
     alignItems: "center",
     paddingTop: 92,
@@ -43,8 +46,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     //
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   wrapPhoto: {
     position: "absolute",
@@ -94,11 +97,11 @@ const styles = StyleSheet.create({
   //
   textInput: {
     width: "100%",
-    // height: 50,
+    height: 50,
     // marginBottom: 16,
     // borderWidth: 1,
-    paddingTop: 16,
-    paddingBottom: 15,
+    // paddingTop: 16,
+    // paddingBottom: 15,
     paddingLeft: 16,
     fontSize: 16,
     lineHeight: 19,
@@ -107,16 +110,19 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "100%",
-    backgroundColor: "#FF6C00",
+    // height: 51,
+    marginBottom: 16,
     paddingVertical: 16,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 43,
-    borderRadius: 27,
+    backgroundColor: "#FF6C00",
+    borderRadius: 100,
   },
   btnText: {
+    // width: 120,
     fontSize: 16,
+    lineHeight: 19,
     color: "white",
-    fontFamily: "Roboto-400",
+    fontFamily: "RobotoR",
   },
 });

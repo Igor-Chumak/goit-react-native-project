@@ -17,7 +17,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       {/* <StatusBar translucent={false} hidden={false} style="auto" /> */}
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
-        <Text style={styles.text}>App.js</Text>
+        {/* <Text style={styles.text}>App.js</Text> */}
         <RegistrationScreen />
       </ImageBackground>
     </SafeAreaView>

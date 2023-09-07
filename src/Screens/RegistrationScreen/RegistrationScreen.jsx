@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     // alignItems: "center",
-    borderWidth: 2,
-    borderColor: "blue",
+    // borderWidth: 2,
+    // borderColor: "blue",
   },
   text: {
     fontSize: 20,
