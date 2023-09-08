@@ -1,34 +1,86 @@
-import * as React from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useEffect, useReducer, useState } from "react";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [visiblePassword, setVisiblePassword] = useState(true);
+  const [state, dispatch] = useReducer(reducer, { email, password });
+
+  function reducer(state, action) {
+    if (action.type === "submitRegForm") return { email, password };
+  }
+
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+    console.log("LogIn Form:", state);
+  }, [state]);
+
+  const handleSubmit = () => {
+    if (!email || !password) return;
+    // console.log("email :>> ", email);
+    // console.log("password :>> ", password);
+    setVisiblePassword(true);
+    dispatch({ type: "submitRegForm" });
+    // setEmail("");
+    // setPassword("");
+    return;
+  };
+
+  const toggleVisiblePassword = () => {
+    setVisiblePassword(!visiblePassword);
+  };
+
   return (
-    <View style={styles.wrapForm}>
-      <Text style={styles.title}>Увійти</Text>
-      <View style={styles.inputBox}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Адреса електронної пошти"
-          placeholderTextColor="#BDBDBD"
-        />
-        <View style={styles.wrapInputDelete}>
-          <TextInput
-            style={[styles.InputDelete, styles.textInput]}
-            placeholder="Пароль"
-            placeholderTextColor="#BDBDBD"
-          />
-          <Pressable>
-            <Text style={styles.btnShow}>Показати</Text>
+    <Pressable onPress={Keyboard.dismiss}>
+      <View style={styles.wrapForm}>
+        <Text style={styles.title}>Увійти</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          style={styles.wrapProvider}
+        >
+          <View style={styles.inputBox}>
+            <TextInput
+              style={styles.textInput}
+              autoComplete="email"
+              placeholder="Адреса електронної пошти"
+              placeholderTextColor="#BDBDBD"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <View style={styles.wrapInputDelete}>
+              <TextInput
+                style={[styles.InputDelete, styles.textInput]}
+                autoComplete="password"
+                placeholder="Пароль"
+                placeholderTextColor="#BDBDBD"
+                secureTextEntry={visiblePassword}
+                value={password}
+                onChangeText={setPassword}
+              />
+              <Pressable onPress={toggleVisiblePassword}>
+                <Text style={styles.btnShow}>Показати</Text>
+              </Pressable>
+            </View>
+          </View>
+          <Pressable style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.btnText}>Увійти</Text>
           </Pressable>
-        </View>
+          <Pressable>
+            <Text style={styles.btnLogIn}>Немає акаунту? Зареєструватися</Text>
+          </Pressable>
+        </KeyboardAvoidingView>
       </View>
-      <Pressable style={styles.button}>
-        <Text style={styles.btnText}>Увійти</Text>
-      </Pressable>
-      <Pressable>
-        <Text style={styles.btnLogIn}>Немає акаунту? Зареєструватися</Text>
-      </Pressable>
-    </View>
+    </Pressable>
   );
 };
 
@@ -57,6 +109,10 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
     color: "#212121",
     textAlign: "center",
+  },
+  wrapProvider: {
+    width: "100%",
+    alignItems: "center",
   },
   inputBox: {
     width: "100%",

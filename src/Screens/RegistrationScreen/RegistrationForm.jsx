@@ -1,43 +1,108 @@
-import * as React from "react";
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { useEffect, useReducer, useState } from "react";
+import {
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import photoDefault from "../../Img/react512.png";
 import BtnAddIcon from "../../Img/union.svg";
 
 export const RegistrationForm = () => {
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [visiblePassword, setVisiblePassword] = useState(true);
+  const [state, dispatch] = useReducer(reducer, { login, email, password });
+
+  function reducer(state, action) {
+    if (action.type === "submitRegForm") return { login, email, password };
+  }
+
+  useEffect(() => {
+    setLogin("");
+    setEmail("");
+    setPassword("");
+    console.log("Registration Form:", state);
+  }, [state]);
+
+  const handleSubmit = () => {
+    if (!login || !email || !password) return;
+    // console.log("login :>> ", login);
+    // console.log("email :>> ", email);
+    // console.log("password :>> ", password);
+    setVisiblePassword(true);
+    dispatch({ type: "submitRegForm" });
+    // setLogin("");
+    // setEmail("");
+    // setPassword("");
+    return;
+  };
+
+  const toggleVisiblePassword = () => {
+    setVisiblePassword(!visiblePassword);
+  };
+
   return (
-    <View style={styles.wrapForm}>
-      <View style={styles.wrapPhoto}>
-        <Image source={photoDefault} style={styles.photo} />
-        <Pressable style={styles.btnAddBox}>
-          <BtnAddIcon width={13} height={13} />
-        </Pressable>
-      </View>
-      <Text style={styles.title}>Реєстрація</Text>
-      <View style={styles.inputBox}>
-        <TextInput style={styles.textInput} placeholder="Логін" placeholderTextColor="#BDBDBD" />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Адреса електронної пошти"
-          placeholderTextColor="#BDBDBD"
-        />
-        <View style={styles.wrapInputDelete}>
-          <TextInput
-            style={[styles.InputDelete, styles.textInput]}
-            placeholder="Пароль"
-            placeholderTextColor="#BDBDBD"
-          />
-          <Pressable>
-            <Text style={styles.btnShow}>Показати</Text>
+    <Pressable onPress={Keyboard.dismiss}>
+      <View style={styles.wrapForm}>
+        <View style={styles.wrapPhoto}>
+          <Image source={photoDefault} style={styles.photo} />
+          <Pressable style={styles.btnAddBox}>
+            <BtnAddIcon width={13} height={13} />
           </Pressable>
         </View>
+        <Text style={styles.title}>Реєстрація</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          style={styles.wrapProvider}
+        >
+          <View style={styles.inputBox}>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Логін"
+              placeholderTextColor="#BDBDBD"
+              value={login}
+              onChangeText={setLogin}
+            />
+            <TextInput
+              style={styles.textInput}
+              autoComplete="email"
+              placeholder="Адреса електронної пошти"
+              placeholderTextColor="#BDBDBD"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <View style={styles.wrapInputDelete}>
+              <TextInput
+                style={[styles.InputDelete, styles.textInput]}
+                name="password"
+                autoComplete="password"
+                placeholder="Пароль"
+                placeholderTextColor="#BDBDBD"
+                secureTextEntry={visiblePassword}
+                value={password}
+                onChangeText={setPassword}
+              />
+              <Pressable onPress={toggleVisiblePassword}>
+                <Text style={styles.btnShow}>Показати</Text>
+              </Pressable>
+            </View>
+          </View>
+          <Pressable style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.btnText}>Зареєструватися</Text>
+          </Pressable>
+          <Pressable>
+            <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
+          </Pressable>
+        </KeyboardAvoidingView>
       </View>
-      <Pressable style={styles.button}>
-        <Text style={styles.btnText}>Зареєструватися</Text>
-      </Pressable>
-      <Pressable>
-        <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
-      </Pressable>
-    </View>
+    </Pressable>
   );
 };
 
@@ -95,12 +160,15 @@ const styles = StyleSheet.create({
     color: "#212121",
     textAlign: "center",
   },
+  wrapProvider: {
+    width: "100%",
+    alignItems: "center",
+  },
   inputBox: {
     width: "100%",
     gap: 16,
     marginBottom: 43,
   },
-  //
   textInput: {
     width: "100%",
     height: 50,

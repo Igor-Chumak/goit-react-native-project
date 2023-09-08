@@ -21,9 +21,9 @@ export default function App() {
       {/* <StatusBar translucent={false} hidden={false} style="auto" /> */}
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         {/* <Text style={styles.text}>App.js</Text> */}
-        {/* <RegistrationScreen /> */}
+        <RegistrationScreen />
         {/* <LoginScreen /> */}
-        <PostsScreen />
+        {/* <PostsScreen /> */}
       </ImageBackground>
     </SafeAreaView>
   );
