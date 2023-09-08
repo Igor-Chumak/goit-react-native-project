@@ -1,7 +1,15 @@
-import * as React from "react";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [visiblePassword, setVisiblePassword] = useState(false);
+
+  const toggleVisiblePassword = () => {
+    setVisiblePassword(!visiblePassword);
+  };
+
   return (
     <View style={styles.wrapForm}>
       <Text style={styles.title}>Увійти</Text>
@@ -11,6 +19,8 @@ export const LoginForm = () => {
           autoComplete="email"
           placeholder="Адреса електронної пошти"
           placeholderTextColor="#BDBDBD"
+          value={email}
+          onChangeText={setEmail}
         />
         <View style={styles.wrapInputDelete}>
           <TextInput
@@ -18,8 +28,11 @@ export const LoginForm = () => {
             autoComplete="password"
             placeholder="Пароль"
             placeholderTextColor="#BDBDBD"
+            secureTextEntry={visiblePassword}
+            value={password}
+            onChangeText={setPassword}
           />
-          <Pressable>
+          <Pressable onPress={toggleVisiblePassword}>
             <Text style={styles.btnShow}>Показати</Text>
           </Pressable>
         </View>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import {
   Image,
   Keyboard,
@@ -15,63 +15,70 @@ import photoDefault from "../../Img/react512.png";
 import BtnAddIcon from "../../Img/union.svg";
 
 export const RegistrationForm = () => {
-  const [login, setLogin] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [login, setLogin] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [visiblePassword, setVisiblePassword] = useState(false);
+
+  const toggleVisiblePassword = () => {
+    setVisiblePassword(!visiblePassword);
+  };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.wrapForm}>
-        <View style={styles.wrapPhoto}>
-          <Image source={photoDefault} style={styles.photo} />
-          <Pressable style={styles.btnAddBox}>
-            <BtnAddIcon width={13} height={13} />
-          </Pressable>
-        </View>
-        <Text style={styles.title}>Реєстрація</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-          style={styles.wrapProvider}
-        >
-          <View style={styles.inputBox}>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Логін"
-              placeholderTextColor="#BDBDBD"
-              value={login}
-              onChangeText={setLogin}
-            />
-            <TextInput
-              style={styles.textInput}
-              autoComplete="email"
-              placeholder="Адреса електронної пошти"
-              placeholderTextColor="#BDBDBD"
-              value={email}
-              onChangeText={setEmail}
-            />
-            <View style={styles.wrapInputDelete}>
-              <TextInput
-                style={[styles.InputDelete, styles.textInput]}
-                autoComplete="password"
-                placeholder="Пароль"
-                placeholderTextColor="#BDBDBD"
-                value={password}
-                onChangeText={setPassword}
-              />
-              <Pressable>
-                <Text style={styles.btnShow}>Показати</Text>
-              </Pressable>
-            </View>
-          </View>
-          <Pressable style={styles.button}>
-            <Text style={styles.btnText}>Зареєструватися</Text>
-          </Pressable>
-          <Pressable>
-            <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
-          </Pressable>
-        </KeyboardAvoidingView>
+    // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={styles.wrapForm}>
+      <View style={styles.wrapPhoto}>
+        <Image source={photoDefault} style={styles.photo} />
+        <Pressable style={styles.btnAddBox}>
+          <BtnAddIcon width={13} height={13} />
+        </Pressable>
       </View>
-    </TouchableWithoutFeedback>
+      <Text style={styles.title}>Реєстрація</Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={styles.wrapProvider}
+      >
+        <View style={styles.inputBox}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Логін"
+            placeholderTextColor="#BDBDBD"
+            value={login}
+            onChangeText={setLogin}
+          />
+          <TextInput
+            style={styles.textInput}
+            autoComplete="email"
+            placeholder="Адреса електронної пошти"
+            placeholderTextColor="#BDBDBD"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <View style={styles.wrapInputDelete}>
+            <TextInput
+              style={[styles.InputDelete, styles.textInput]}
+              name="password"
+              autoComplete="password"
+              placeholder="Пароль"
+              placeholderTextColor="#BDBDBD"
+              secureTextEntry={visiblePassword}
+              value={password}
+              onChangeText={setPassword}
+            />
+            <Pressable onPress={toggleVisiblePassword}>
+              <Text style={styles.btnShow}>Показати</Text>
+            </Pressable>
+          </View>
+        </View>
+        <Pressable style={styles.button}>
+          <Text style={styles.btnText}>Зареєструватися</Text>
+        </Pressable>
+        <Pressable>
+          <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
+        </Pressable>
+      </KeyboardAvoidingView>
+    </View>
+    // </TouchableWithoutFeedback>
   );
 };
 
@@ -131,6 +138,7 @@ const styles = StyleSheet.create({
   },
   wrapProvider: {
     width: "100%",
+    alignItems: "center",
   },
   inputBox: {
     width: "100%",
