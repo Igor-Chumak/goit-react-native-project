@@ -17,7 +17,7 @@ export const RegistrationForm = () => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [visiblePassword, setVisiblePassword] = useState(false);
+  const [visiblePassword, setVisiblePassword] = useState(true);
   const [state, dispatch] = useReducer(reducer, { login, email, password });
 
   function reducer(state, action) {
@@ -25,12 +25,11 @@ export const RegistrationForm = () => {
   }
 
   useEffect(() => {
-    console.log(state);
+    setLogin("");
+    setEmail("");
+    setPassword("");
+    console.log("Registration Form:", state);
   }, [state]);
-
-  const toggleVisiblePassword = () => {
-    setVisiblePassword(!visiblePassword);
-  };
 
   const handleSubmit = () => {
     if (!login || !email || !password) return;
@@ -39,10 +38,14 @@ export const RegistrationForm = () => {
     // console.log("password :>> ", password);
     setVisiblePassword(true);
     dispatch({ type: "submitRegForm" });
-    setLogin("");
-    setEmail("");
-    setPassword("");
+    // setLogin("");
+    // setEmail("");
+    // setPassword("");
     return;
+  };
+
+  const toggleVisiblePassword = () => {
+    setVisiblePassword(!visiblePassword);
   };
 
   return (
