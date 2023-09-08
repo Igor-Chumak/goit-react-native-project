@@ -1,9 +1,24 @@
 import * as React from "react";
-import { Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import photoDefault from "../../Img/react512.png";
 import BtnAddIcon from "../../Img/union.svg";
 
 export const RegistrationForm = () => {
+  const [login, setLogin] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
   return (
     <View style={styles.wrapForm}>
       <View style={styles.wrapPhoto}>
@@ -13,32 +28,49 @@ export const RegistrationForm = () => {
         </Pressable>
       </View>
       <Text style={styles.title}>Реєстрація</Text>
-      <View style={styles.inputBox}>
-        <TextInput style={styles.textInput} placeholder="Логін" placeholderTextColor="#BDBDBD" />
-        <TextInput
-          style={styles.textInput}
-          autoComplete="email"
-          placeholder="Адреса електронної пошти"
-          placeholderTextColor="#BDBDBD"
-        />
-        <View style={styles.wrapInputDelete}>
-          <TextInput
-            style={[styles.InputDelete, styles.textInput]}
-            autoComplete="password"
-            placeholder="Пароль"
-            placeholderTextColor="#BDBDBD"
-          />
-          <Pressable>
-            <Text style={styles.btnShow}>Показати</Text>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+          style={styles.wrapProvider}
+        >
+          <View style={styles.inputBox}>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Логін"
+              placeholderTextColor="#BDBDBD"
+              value={login}
+              onChangeText={setLogin}
+            />
+            <TextInput
+              style={styles.textInput}
+              autoComplete="email"
+              placeholder="Адреса електронної пошти"
+              placeholderTextColor="#BDBDBD"
+              value={email}
+              onChangeText={setEmail}
+            />
+            <View style={styles.wrapInputDelete}>
+              <TextInput
+                style={[styles.InputDelete, styles.textInput]}
+                autoComplete="password"
+                placeholder="Пароль"
+                placeholderTextColor="#BDBDBD"
+                value={password}
+                onChangeText={setPassword}
+              />
+              <Pressable>
+                <Text style={styles.btnShow}>Показати</Text>
+              </Pressable>
+            </View>
+          </View>
+          <Pressable style={styles.button}>
+            <Text style={styles.btnText}>Зареєструватися</Text>
           </Pressable>
-        </View>
-      </View>
-      <Pressable style={styles.button}>
-        <Text style={styles.btnText}>Зареєструватися</Text>
-      </Pressable>
-      <Pressable>
-        <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
-      </Pressable>
+          <Pressable>
+            <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
+          </Pressable>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
@@ -97,12 +129,14 @@ const styles = StyleSheet.create({
     color: "#212121",
     textAlign: "center",
   },
+  wrapProvider: {
+    width: "100%",
+  },
   inputBox: {
     width: "100%",
     gap: 16,
     marginBottom: 43,
   },
-  //
   textInput: {
     width: "100%",
     height: 50,
