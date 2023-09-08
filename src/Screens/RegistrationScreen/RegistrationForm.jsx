@@ -20,15 +20,15 @@ export const RegistrationForm = () => {
   const [password, setPassword] = React.useState("");
 
   return (
-    <View style={styles.wrapForm}>
-      <View style={styles.wrapPhoto}>
-        <Image source={photoDefault} style={styles.photo} />
-        <Pressable style={styles.btnAddBox}>
-          <BtnAddIcon width={13} height={13} />
-        </Pressable>
-      </View>
-      <Text style={styles.title}>Реєстрація</Text>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.wrapForm}>
+        <View style={styles.wrapPhoto}>
+          <Image source={photoDefault} style={styles.photo} />
+          <Pressable style={styles.btnAddBox}>
+            <BtnAddIcon width={13} height={13} />
+          </Pressable>
+        </View>
+        <Text style={styles.title}>Реєстрація</Text>
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
           style={styles.wrapProvider}
@@ -70,8 +70,8 @@ export const RegistrationForm = () => {
             <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
           </Pressable>
         </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
