@@ -8,12 +8,14 @@ export const LoginForm = () => {
       <View style={styles.inputBox}>
         <TextInput
           style={styles.textInput}
+          autoComplete="email"
           placeholder="Адреса електронної пошти"
           placeholderTextColor="#BDBDBD"
         />
         <View style={styles.wrapInputDelete}>
           <TextInput
             style={[styles.InputDelete, styles.textInput]}
+            autoComplete="password"
             placeholder="Пароль"
             placeholderTextColor="#BDBDBD"
           />
