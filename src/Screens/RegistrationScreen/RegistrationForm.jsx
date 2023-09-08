@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import {
   Image,
   Keyboard,
@@ -18,6 +18,15 @@ export const RegistrationForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visiblePassword, setVisiblePassword] = useState(false);
+  const [state, dispatch] = useReducer(reducer, { login, email, password });
+
+  function reducer(state, action) {
+    if (action.type === "submitRegForm") return { login, email, password };
+  }
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   const toggleVisiblePassword = () => {
     setVisiblePassword(!visiblePassword);
@@ -25,9 +34,15 @@ export const RegistrationForm = () => {
 
   const handleSubmit = () => {
     if (!login || !email || !password) return;
-    console.log("login :>> ", login);
-    console.log("email :>> ", email);
-    console.log("password :>> ", password);
+    // console.log("login :>> ", login);
+    // console.log("email :>> ", email);
+    // console.log("password :>> ", password);
+    setVisiblePassword(true);
+    dispatch({ type: "submitRegForm" });
+    setLogin("");
+    setEmail("");
+    setPassword("");
+    return;
   };
 
   return (
