@@ -59,7 +59,7 @@ export const LoginForm = () => {
             />
             <View style={styles.wrapInputDelete}>
               <TextInput
-                style={[styles.InputDelete, styles.textInput]}
+                style={[styles.inputDelete, styles.textInput]}
                 autoComplete="password"
                 placeholder="Пароль"
                 placeholderTextColor="#BDBDBD"
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
   },
-  InputDelete: {
+  inputDelete: {
     paddingRight: 90,
   },
   btnShow: {

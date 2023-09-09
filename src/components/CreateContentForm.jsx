@@ -34,13 +34,13 @@ export const CreateContentForm = () => {
         <TextInput
           style={styles.textInput}
           placeholder="Назва..."
-          placeholderTextColor="#E8E8E8"
+          placeholderTextColor="#BDBDBD"
           value={title}
           onChangeText={setTitle}
         />
-        <View style={styles.wrapInputDelete}>
+        <View style={styles.wrapInputLocation}>
           <TextInput
-            style={[styles.InputDelete, styles.textInput]}
+            style={[styles.textInput, styles.inputLocation]}
             autoComplete="password"
             placeholder="Пароль"
             placeholderTextColor="#BDBDBD"
@@ -79,27 +79,24 @@ const styles = StyleSheet.create({
   inputBox: {
     width: "100%",
     gap: 16,
-    marginBottom: 43,
+    marginBottom: 32,
   },
   //
   textInput: {
     width: "100%",
     height: 50,
-    // marginBottom: 16,
-    // borderWidth: 1,
-    paddingLeft: 16,
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",
     backgroundColor: "#E8E8E8",
   },
-  wrapInputDelete: {
+  wrapInputLocation: {
     position: "relative",
     // borderWidth: 1,
     // borderColor: "red",
   },
   InputDelete: {
-    paddingRight: 90,
+    paddingLeft: 16,
   },
   btnShow: {
     position: "absolute",
