@@ -1,12 +1,14 @@
 import { StyleSheet, View } from "react-native";
 
-import { Header, TabBar, User } from "../components";
+import { ContentBox, Header, TabBar, User } from "../components";
 
 export const PostsScreen = () => {
   return (
     <View style={styles.container}>
       <Header type={"exit"} title={"Публікації"} />
-      <User />
+      <ContentBox>
+        <User />
+      </ContentBox>
       <TabBar />
     </View>
   );
