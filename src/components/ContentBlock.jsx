@@ -1,5 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+
 import imageDefault from "../Img/no_images.png";
+import MapPin from "../Img/map-pin.svg";
 
 export const ContentBlock = () => {
   return (
@@ -11,11 +13,18 @@ export const ContentBlock = () => {
         <Text style={styles.contentTitle}>React Native</Text>
       </View>
       <View style={styles.contentDetailsBox}>
-        <View style={styles.comment_likes_Box}>
+        <View style={styles.icon_text_Box}>
+          <MapPin width={24} height={24} />
           <Text style={styles.contentDetailsText}>Comments</Text>
+        </View>
+        <View style={[styles.icon_text_Box, styles.likes_Box]}>
+          <MapPin width={24} height={24} />
           <Text style={styles.contentDetailsText}>Likes</Text>
         </View>
-        <Text style={styles.contentDetailsText}>Ukraine</Text>
+        <View style={[styles.icon_text_Box, styles.mapBox]}>
+          <MapPin width={24} height={24} />
+          <Text style={[styles.contentDetailsText]}>Ukraine</Text>
+        </View>
       </View>
     </View>
   );
@@ -28,7 +37,7 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
     backgroundColor: "white",
-    borderWidth: StyleSheet.hairlineWidth,
+    // borderWidth: StyleSheet.hairlineWidth,
   },
   contentImageBox: {
     width: "100%",
@@ -45,8 +54,6 @@ const styles = StyleSheet.create({
   },
   contentTitleBox: {
     width: "100%",
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "blue",
   },
   contentTitle: {
     fontFamily: "RobotoM",
@@ -57,23 +64,29 @@ const styles = StyleSheet.create({
   contentDetailsBox: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "red",
-  },
-  comment_likes_Box: {
-    flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    gap: 24,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "black",
+    // borderWidth: StyleSheet.hairlineWidth,
+    // borderColor: "red",
+  },
+  icon_text_Box: {
+    flexDirection: "row",
+    // justifyContent: "flex-start",
+    alignItems: "center",
+    gap: 6,
+    // borderWidth: StyleSheet.hairlineWidth,
+    // borderColor: "blue",
   },
   contentDetailsText: {
     fontFamily: "RobotoR",
     fontSize: 16,
     lineHeight: 19,
     color: "#212121",
+  },
+  likes_Box: {
+    marginLeft: 24,
+  },
+  mapBox: {
+    marginLeft: "auto",
   },
 });
