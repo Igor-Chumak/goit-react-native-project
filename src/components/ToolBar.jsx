@@ -1,13 +1,13 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import Trash from "../Img/trash_toolbar.svg";
+import TrashIcon from "../Img/trash_toolbar.svg";
 
 export const ToolBar = () => {
   return (
     <View style={styles.container}>
       <View style={styles.boxToolBar}>
         <Pressable style={styles.pressIcon}>
-          <Trash width={24} height={24} />
+          <TrashIcon width={24} height={24} />
         </Pressable>
       </View>
     </View>

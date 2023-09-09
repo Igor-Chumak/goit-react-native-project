@@ -1,7 +1,9 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 import imageDefault from "../Img/no_images.png";
-import MapPin from "../Img/map-pin.svg";
+import CommentIcon from "../Img/comment_fill.svg";
+import ThumbsIcon from "../Img/thumbs-up.svg";
+import MapPinIcon from "../Img/map-pin.svg";
 
 export const ContentBlock = () => {
   return (
@@ -14,15 +16,15 @@ export const ContentBlock = () => {
       </View>
       <View style={styles.contentDetailsBox}>
         <View style={styles.icon_text_Box}>
-          <MapPin width={24} height={24} />
+          <CommentIcon width={24} height={24} fill={"#00ff37"} stroke={"#4400ffef"} />
           <Text style={styles.contentDetailsText}>Comments</Text>
         </View>
         <View style={[styles.icon_text_Box, styles.likes_Box]}>
-          <MapPin width={24} height={24} />
+          <ThumbsIcon width={24} height={24} fill={"#FF6C00"} />
           <Text style={styles.contentDetailsText}>Likes</Text>
         </View>
         <View style={[styles.icon_text_Box, styles.mapBox]}>
-          <MapPin width={24} height={24} />
+          <MapPinIcon width={24} height={24} />
           <Text style={[styles.contentDetailsText]}>Ukraine</Text>
         </View>
       </View>
