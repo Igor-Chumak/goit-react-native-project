@@ -2,6 +2,7 @@
 import { ImageBackground, PixelRatio, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import BGImage from "./src/Img/photo_BG.png";
+// import { RegistrationScreen, LoginScreen, PostsScreen} from "./src/Screens/";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen";
 import { LoginScreen } from "./src/Screens/LoginScreen";
 import { PostsScreen } from "./src/Screens/PostsScreen";
