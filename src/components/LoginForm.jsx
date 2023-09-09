@@ -12,7 +12,7 @@ import {
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [visiblePassword, setVisiblePassword] = useState(true);
+  const [passwordHidden, setPasswordHidden] = useState(true);
   const [state, dispatch] = useReducer(reducer, { email, password });
 
   function reducer(state, action) {
@@ -29,7 +29,7 @@ export const LoginForm = () => {
     if (!email || !password) return;
     // console.log("email :>> ", email);
     // console.log("password :>> ", password);
-    setVisiblePassword(true);
+    setPasswordHidden(true);
     dispatch({ type: "submitRegForm" });
     // setEmail("");
     // setPassword("");
@@ -37,7 +37,7 @@ export const LoginForm = () => {
   };
 
   const toggleVisiblePassword = () => {
-    setVisiblePassword(!visiblePassword);
+    setPasswordHidden(!passwordHidden);
   };
 
   return (
@@ -63,7 +63,7 @@ export const LoginForm = () => {
                 autoComplete="password"
                 placeholder="Пароль"
                 placeholderTextColor="#BDBDBD"
-                secureTextEntry={visiblePassword}
+                secureTextEntry={passwordHidden}
                 value={password}
                 onChangeText={setPassword}
               />

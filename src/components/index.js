@@ -5,4 +5,6 @@ export * from "./TabBar";
 export * from "./ToolBar";
 export * from "./ContentBox";
 export * from "./User";
+export * from "./CreateContentBlock";
+export * from "./CreateContentForm";
 export * from "./ContentBlock";

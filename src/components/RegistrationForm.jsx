@@ -17,7 +17,7 @@ export const RegistrationForm = () => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [visiblePassword, setVisiblePassword] = useState(true);
+  const [passwordHidden, setPasswordHidden] = useState(true);
   const [state, dispatch] = useReducer(reducer, { login, email, password });
 
   function reducer(state, action) {
@@ -36,7 +36,7 @@ export const RegistrationForm = () => {
     // console.log("login :>> ", login);
     // console.log("email :>> ", email);
     // console.log("password :>> ", password);
-    setVisiblePassword(true);
+    setPasswordHidden(true);
     dispatch({ type: "submitRegForm" });
     // setLogin("");
     // setEmail("");
@@ -45,7 +45,7 @@ export const RegistrationForm = () => {
   };
 
   const toggleVisiblePassword = () => {
-    setVisiblePassword(!visiblePassword);
+    setPasswordHidden(!passwordHidden);
   };
 
   return (
@@ -81,11 +81,10 @@ export const RegistrationForm = () => {
             <View style={styles.wrapInputDelete}>
               <TextInput
                 style={[styles.InputDelete, styles.textInput]}
-                name="password"
                 autoComplete="password"
                 placeholder="Пароль"
                 placeholderTextColor="#BDBDBD"
-                secureTextEntry={visiblePassword}
+                secureTextEntry={passwordHidden}
                 value={password}
                 onChangeText={setPassword}
               />
