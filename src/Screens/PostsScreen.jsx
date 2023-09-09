@@ -1,9 +1,7 @@
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { Header } from "./Header";
-import { TabBar } from "./TabBar";
-import { User } from "./User";
+import { Header, TabBar, User } from "../components";
 
 export const PostsScreen = () => {
   return (

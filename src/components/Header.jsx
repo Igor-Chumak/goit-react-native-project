@@ -1,7 +1,7 @@
 // import * as React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import LogoutIcon from "../../Img/log_out.svg";
-import ArrowLeftIcon from "../../Img/arrow_left.svg";
+import LogoutIcon from "../Img/log_out.svg";
+import ArrowLeftIcon from "../Img/arrow_left.svg";
 
 export const Header = () => {
   return (

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import GridIcon from "../../Img/grid.svg";
-import UserIcon from "../../Img/user.svg";
-import BtnAddIcon from "../../Img/union_post.svg";
+import GridIcon from "../Img/grid.svg";
+import UserIcon from "../Img/user.svg";
+import BtnAddIcon from "../Img/union_post.svg";
 
 export const TabBar = () => {
   return (

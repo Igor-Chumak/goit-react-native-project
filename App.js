@@ -2,9 +2,9 @@
 import { ImageBackground, PixelRatio, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import BGImage from "./src/Img/photo_BG.png";
-import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
-import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
-import { PostsScreen } from "./src/Screens/PostsScreen/PostsScreen";
+import { RegistrationScreen } from "./src/Screens/RegistrationScreen";
+import { LoginScreen } from "./src/Screens/LoginScreen";
+import { PostsScreen } from "./src/Screens/PostsScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,9 +21,9 @@ export default function App() {
       {/* <StatusBar translucent={false} hidden={false} style="auto" /> */}
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         {/* <Text style={styles.text}>App.js</Text> */}
-        <RegistrationScreen />
+        {/* <RegistrationScreen /> */}
         {/* <LoginScreen /> */}
-        {/* <PostsScreen /> */}
+        <PostsScreen />
       </ImageBackground>
     </SafeAreaView>
   );

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import photoDefault from "../../Img/react512.png";
+import photoDefault from "../Img/react512.png";
 
 export const User = () => {
   return (

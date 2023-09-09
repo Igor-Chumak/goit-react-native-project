@@ -10,8 +10,8 @@ import {
   TextInput,
   View,
 } from "react-native";
-import photoDefault from "../../Img/react512.png";
-import BtnAddIcon from "../../Img/union.svg";
+import photoDefault from "../Img/react512.png";
+import BtnAddIcon from "../Img/union.svg";
 
 export const RegistrationForm = () => {
   const [login, setLogin] = useState("");

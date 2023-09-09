@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { LoginForm } from "./LoginForm";
+import { LoginForm } from "../components";
 
 export const LoginScreen = () => {
   return (

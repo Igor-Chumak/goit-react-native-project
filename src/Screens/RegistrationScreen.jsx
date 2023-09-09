@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { RegistrationForm } from "./RegistrationForm";
+import { RegistrationForm } from "../components";
 
 export const RegistrationScreen = () => {
   return (
