@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import { Header, TabBar, User } from "../components";
+import { Header, ToolBar, User } from "../components";
 
 export const CreatePostsScreen = () => {
   return (
     <View style={styles.container}>
-      <Header type={"exit"} title={"Публікації"} />
-      <User />
-      <TabBar />
+      <Header type={"left"} title={"Створити публікацію"} />
+      {/* <User /> */}
+      <ToolBar />
     </View>
   );
 };

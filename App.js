@@ -6,6 +6,7 @@ import BGImage from "./src/Img/photo_BG.png";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen";
 import { LoginScreen } from "./src/Screens/LoginScreen";
 import { PostsScreen } from "./src/Screens/PostsScreen";
+import { CreatePostsScreen } from "./src/Screens/CreatePostsScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,7 +25,8 @@ export default function App() {
         {/* <Text style={styles.text}>App.js</Text> */}
         {/* <RegistrationScreen /> */}
         {/* <LoginScreen /> */}
-        <PostsScreen />
+        {/* <PostsScreen /> */}
+        <CreatePostsScreen />
       </ImageBackground>
     </SafeAreaView>
   );
