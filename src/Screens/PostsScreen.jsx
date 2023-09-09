@@ -6,7 +6,7 @@ import { Header, TabBar, User } from "../components";
 export const PostsScreen = () => {
   return (
     <View style={styles.container}>
-      <Header />
+      <Header type={"exit"} title={"Публікації"} />
       <User />
       <TabBar />
     </View>
