@@ -1,9 +1,8 @@
-import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import { Header, TabBar, User } from "../components";
 
-export const PostsScreen = () => {
+export const CreatePostsScreen = () => {
   return (
     <View style={styles.container}>
       <Header type={"exit"} title={"Публікації"} />

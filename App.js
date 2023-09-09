@@ -1,5 +1,5 @@
 // import { StatusBar } from "expo-status-bar";
-import { ImageBackground, PixelRatio, SafeAreaView, StyleSheet, Text } from "react-native";
+import { ImageBackground, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import BGImage from "./src/Img/photo_BG.png";
 // import { RegistrationScreen, LoginScreen, PostsScreen} from "./src/Screens/";

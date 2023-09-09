@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import GridIcon from "../Img/grid.svg";
