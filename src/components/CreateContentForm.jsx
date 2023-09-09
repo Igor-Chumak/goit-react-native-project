@@ -41,16 +41,11 @@ export const CreateContentForm = () => {
         <View style={styles.wrapInputLocation}>
           <TextInput
             style={[styles.textInput, styles.inputLocation]}
-            autoComplete="password"
-            placeholder="Пароль"
+            placeholder="Місцевість..."
             placeholderTextColor="#BDBDBD"
-            secureTextEntry={passwordHidden}
-            value={password}
-            onChangeText={setPassword}
+            value={location}
+            onChangeText={setLocation}
           />
-          <Pressable onPress={toggleVisiblePassword}>
-            <Text style={styles.btnShow}>Показати</Text>
-          </Pressable>
         </View>
       </View>
       <Pressable style={styles.button} onPress={handleSubmit}>
@@ -95,21 +90,8 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
   },
-  InputDelete: {
-    paddingLeft: 16,
-  },
-  btnShow: {
-    position: "absolute",
-    top: -36,
-    right: 16,
-    width: 72,
-    height: 22,
-    fontFamily: "RobotoR",
-    fontSize: 16,
-    lineHeight: 19,
-    color: "#1B4371",
-    // borderWidth: 1,
-    // borderColor: "#1B4371",
+  inputLocation: {
+    paddingLeft: 28,
   },
   button: {
     width: "100%",
