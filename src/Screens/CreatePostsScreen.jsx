@@ -7,7 +7,7 @@ export const CreatePostsScreen = () => {
     <View style={styles.container}>
       <Header type={"left"} title={"Створити публікацію"} />
       <ContentBox>
-        <ContentBlock />
+        <ContentBlock likes={false} />
       </ContentBox>
       <ToolBar />
     </View>
