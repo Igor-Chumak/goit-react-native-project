@@ -1,13 +1,13 @@
 import { StyleSheet, View } from "react-native";
 
-import { ContentBox, Header, ToolBar, User } from "../components";
+import { ContentBox, Header, ToolBar, ContentBlock } from "../components";
 
 export const CreatePostsScreen = () => {
   return (
     <View style={styles.container}>
       <Header type={"left"} title={"Створити публікацію"} />
       <ContentBox>
-        <User />
+        <ContentBlock />
       </ContentBox>
       <ToolBar />
     </View>

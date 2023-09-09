@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     backgroundColor: "white",
+    // borderWidth: StyleSheet.hairlineWidth,
     borderBottomWidth: 1,
     borderColor: "rgba(0,0,0,0.3)",
     // borderWidth: 2,
