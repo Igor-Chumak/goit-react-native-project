@@ -5,6 +5,10 @@ import CommentIcon from "../Img/comment_stroke.svg";
 import ThumbsIcon from "../Img/thumbs-up.svg";
 import MapPinIcon from "../Img/map-pin.svg";
 
+// title - text under the picture
+// detailsBox: [boolean] is rendered
+// likes: [boolean] is rendered
+// fill ["transparent"] - filling svg icon Comment (given "#FF6C00")
 export const ContentBlock = ({
   detailsBox = true,
   title = "",

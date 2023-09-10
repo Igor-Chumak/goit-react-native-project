@@ -3,6 +3,8 @@ import { Image, StyleSheet, Text, View } from "react-native";
 // import imageDefault from "../Img/no_images.png";
 import CameraIcon from "../Img/camera.svg";
 
+// title - text under the picture
+// fill ['#BDBDBD'] - filling svg icon camera, if 'white' - additionally change background: rgba(255, 255, 255, 0.3)
 export const CreateContentBlock = ({ title = "", fill = "#BDBDBD" }) => {
   return (
     <View style={styles.contentBox}>
