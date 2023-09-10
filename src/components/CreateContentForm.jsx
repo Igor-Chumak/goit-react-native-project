@@ -26,43 +26,43 @@ export const CreateContentForm = () => {
 
   return (
     <View style={styles.wrapForm}>
-      <KeyboardAvoidingView
+      {/* <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={styles.wrapProvider}
-      >
-        <View style={styles.inputBox}>
+      > */}
+      <View style={styles.inputBox}>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Назва..."
+          placeholderTextColor="#BDBDBD"
+          value={title}
+          onChangeText={setTitle}
+          editable={true}
+        />
+        <View style={styles.wrapInputLocation}>
           <TextInput
-            style={styles.textInput}
-            placeholder="Назва..."
+            style={[styles.textInput, styles.inputLocation]}
+            placeholder="Місцевість..."
             placeholderTextColor="#BDBDBD"
-            value={title}
-            onChangeText={setTitle}
+            value={location}
+            onChangeText={setLocation}
             editable={true}
           />
-          <View style={styles.wrapInputLocation}>
-            <TextInput
-              style={[styles.textInput, styles.inputLocation]}
-              placeholder="Місцевість..."
-              placeholderTextColor="#BDBDBD"
-              value={location}
-              onChangeText={setLocation}
-              editable={true}
-            />
-            <View style={styles.locationIconBox}>
-              <MapPinIcon width={24} height={24} />
-            </View>
+          <View style={styles.locationIconBox}>
+            <MapPinIcon width={24} height={24} />
           </View>
         </View>
-        <Pressable
-          style={[styles.button, { backgroundColor: { disable } ? "#E8E8E8" : "#FF6C00" }]}
-          onPress={handleSubmit}
-          disabled={disable}
-        >
-          <Text style={[styles.btnText, { color: { disable } ? "#BDBDBD" : "white" }]}>
-            Опублікувати
-          </Text>
-        </Pressable>
-      </KeyboardAvoidingView>
+      </View>
+      <Pressable
+        style={[styles.button, { backgroundColor: { disable } ? "#E8E8E8" : "#FF6C00" }]}
+        onPress={handleSubmit}
+        disabled={disable}
+      >
+        <Text style={[styles.btnText, { color: { disable } ? "#BDBDBD" : "white" }]}>
+          Опублікувати
+        </Text>
+      </Pressable>
+      {/* </KeyboardAvoidingView> */}
     </View>
   );
 };
@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
   },
-  wrapProvider: {
-    // flex: 1,
-    flexGrow: 1,
-    width: "100%",
-    // alignItems: "center",
-  },
+  // wrapProvider: {
+  // flex: 1,
+  // flexGrow: 1,
+  // width: "100%",
+  // alignItems: "center",
+  // },
   inputBox: {
     width: "100%",
     gap: 16,
