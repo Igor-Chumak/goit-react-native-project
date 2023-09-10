@@ -13,11 +13,11 @@ export const CommentsScreen = () => {
     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
       <View style={styles.container}>
         <Header type={"left"} title={"Коментарі"} />
-        <ContentScrollBox>
+        <ContentBox>
           <ContentBlockImage />
           <CommentsBlock />
-          <InputSearchBar />
-        </ContentScrollBox>
+        </ContentBox>
+        <InputSearchBar />
       </View>
     </Pressable>
   );

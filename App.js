@@ -26,8 +26,8 @@ export default function App() {
         {/* <RegistrationScreen /> */}
         {/* <LoginScreen /> */}
         {/* <PostsScreen /> */}
-        <CreatePostsScreen />
-        {/* <CommentsScreen /> */}
+        {/* <CreatePostsScreen /> */}
+        <CommentsScreen />
       </ImageBackground>
     </SafeAreaView>
   );

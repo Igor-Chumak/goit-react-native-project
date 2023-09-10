@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     // borderColor: "red",
   },
   wrapProvider: {
-    // flexGrow: 1,
+    // flex: 1,
+    flexGrow: 1,
     width: "100%",
     // alignItems: "center",
   },

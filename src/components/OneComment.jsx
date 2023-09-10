@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     position: "relative",
     paddingLeft: 44,
     width: "100%",
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "red",
+    // borderWidth: StyleSheet.hairlineWidth,
+    // borderColor: "red",
   },
   commentTextBox: {
     padding: 16,
