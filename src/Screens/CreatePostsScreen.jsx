@@ -1,20 +1,46 @@
-import { StyleSheet, View } from "react-native";
-import { ContentBox, Header, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  StyleSheet,
+  View,
+} from "react-native";
+import {
+  ContentBox,
+  Header,
+  ToolBar,
+  CreateContentBlock,
+  CreateContentForm,
+  ContentScrollBox,
+} from "../components";
 
 export const CreatePostsScreen = () => {
   return (
-    <View style={styles.container}>
-      <Header type={"left"} title={"Створити публікацію"} />
-      <ContentBox>
-        <CreateContentBlock title={"Завантажте фото"} />
-        <CreateContentForm />
-      </ContentBox>
-      <ToolBar />
-    </View>
+    <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
+      <View style={styles.container}>
+        <Header type={"left"} title={"Створити публікацію"} />
+        <ContentScrollBox>
+          {/* <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={styles.wrapProvider}
+          > */}
+          <CreateContentBlock title={"Завантажте фото"} />
+          <CreateContentForm />
+          {/* </KeyboardAvoidingView> */}
+        </ContentScrollBox>
+        <ToolBar />
+      </View>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapProvider: {
+    flexGrow: 1,
+    width: "100%",
+    // alignItems: "center",
+  },
   container: {
     flex: 1,
     width: "100%",

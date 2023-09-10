@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "100%",
-    // height: 51,
+    height: 51,
     marginBottom: 16,
     // paddingVertical: 16,
     alignItems: "center",

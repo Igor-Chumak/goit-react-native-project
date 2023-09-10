@@ -1,13 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import MapPinIcon from "../Img/map-pin.svg";
 
@@ -33,60 +25,61 @@ export const CreateContentForm = () => {
   };
 
   return (
-    // <Pressable onPress={Keyboard.dismiss} style={styles.wrapForm}>*/}
-    // <View style={styles.wrapForm}>
-    <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}
-      style={styles.wrapProvider}
-    >
-      <View style={styles.inputBox}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Назва..."
-          placeholderTextColor="#BDBDBD"
-          value={title}
-          onChangeText={setTitle}
-          editable={true}
-        />
-        <View style={styles.wrapInputLocation}>
+    <View style={styles.wrapForm}>
+      <KeyboardAvoidingView
+        // behavior={Platform.OS == "ios" ? "padding" : "height"}
+        behavior={"padding"}
+        style={styles.wrapProvider}
+      >
+        <View style={styles.inputBox}>
           <TextInput
-            style={[styles.textInput, styles.inputLocation]}
-            placeholder="Місцевість..."
+            style={styles.textInput}
+            placeholder="Назва..."
             placeholderTextColor="#BDBDBD"
-            value={location}
-            onChangeText={setLocation}
+            value={title}
+            onChangeText={setTitle}
             editable={true}
           />
-          <View style={styles.locationIconBox}>
-            <MapPinIcon width={24} height={24} />
+          <View style={styles.wrapInputLocation}>
+            <TextInput
+              style={[styles.textInput, styles.inputLocation]}
+              placeholder="Місцевість..."
+              placeholderTextColor="#BDBDBD"
+              value={location}
+              onChangeText={setLocation}
+              editable={true}
+            />
+            <View style={styles.locationIconBox}>
+              <MapPinIcon width={24} height={24} />
+            </View>
           </View>
         </View>
-      </View>
-      <Pressable
-        style={[styles.button, { backgroundColor: { disable } ? "#E8E8E8" : "#FF6C00" }]}
-        onPress={handleSubmit}
-        disabled={disable}
-      >
-        <Text style={[styles.btnText, { color: { disable } ? "#BDBDBD" : "white" }]}>
-          Опублікувати
-        </Text>
-      </Pressable>
-    </KeyboardAvoidingView>
-    // </View>
-    // </Pressable>
+        <Pressable
+          style={[styles.button, { backgroundColor: { disable } ? "#E8E8E8" : "#FF6C00" }]}
+          onPress={handleSubmit}
+          disabled={disable}
+        >
+          <Text style={[styles.btnText, { color: { disable } ? "#BDBDBD" : "white" }]}>
+            Опублікувати
+          </Text>
+        </Pressable>
+        {/* <View style={{ height: 60 }} /> */}
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapForm: {
-    // width: "100%",
-    // alignItems: "center",
+    width: "100%",
+    alignItems: "center",
     // borderWidth: 1,
     // borderColor: "red",
   },
   wrapProvider: {
+    // flexGrow: 1,
     width: "100%",
-    alignItems: "center",
+    // alignItems: "center",
   },
   inputBox: {
     width: "100%",
