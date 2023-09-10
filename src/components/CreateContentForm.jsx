@@ -1,11 +1,20 @@
 import { useEffect, useReducer, useState } from "react";
-import { Image, Keyboard, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
-import mapPinIcon from "../Img/map-pin.svg";
+import MapPinIcon from "../Img/map-pin.svg";
 
 export const CreateContentForm = () => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
+  const [disable, setDisable] = useState(true);
   const [state, dispatch] = useReducer(reducer, { title, location });
 
   function reducer(state, action) {
@@ -24,7 +33,7 @@ export const CreateContentForm = () => {
   };
 
   return (
-    // <Pressable onPress={Keyboard.dismiss} style={styles.contentBox}>
+    // <Pressable onPress={Keyboard.dismiss} style={styles.wrapForm}>*/}
     // <View style={styles.wrapForm}>
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -37,6 +46,7 @@ export const CreateContentForm = () => {
           placeholderTextColor="#BDBDBD"
           value={title}
           onChangeText={setTitle}
+          editable={true}
         />
         <View style={styles.wrapInputLocation}>
           <TextInput
@@ -45,18 +55,23 @@ export const CreateContentForm = () => {
             placeholderTextColor="#BDBDBD"
             value={location}
             onChangeText={setLocation}
+            editable={true}
           />
+          <MapPinIcon width={24} height={24} style={styles.btnIcon} />
         </View>
       </View>
-      <Pressable style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.btnText}>Увійти</Text>
-      </Pressable>
-      <Pressable>
-        <Text style={styles.btnLogIn}>Немає акаунту? Зареєструватися</Text>
+      <Pressable
+        style={[styles.button, { backgroundColor: { disable } ? "#E8E8E8" : "#FF6C00" }]}
+        onPress={handleSubmit}
+        disabled={disable}
+      >
+        <Text style={[styles.btnText, { color: { disable } ? "#BDBDBD" : "white" }]}>
+          Опублікувати
+        </Text>
       </Pressable>
     </KeyboardAvoidingView>
     // </View>
-    /* </Pressable> */
+    // </Pressable>
   );
 };
 
@@ -93,14 +108,18 @@ const styles = StyleSheet.create({
   inputLocation: {
     paddingLeft: 28,
   },
+  locationIconBox: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+  },
   button: {
     width: "100%",
-    // height: 51,
-    marginBottom: 16,
-    paddingVertical: 16,
+    height: 51,
+    // paddingVertical: 16,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FF6C00",
+    // backgroundColor: "#FF6C00",
     borderRadius: 100,
   },
   btnText: {
@@ -109,55 +128,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "white",
-  },
-  btnLogIn: {
-    // width: 159,
-    fontFamily: "RobotoR",
-    fontSize: 16,
-    lineHeight: 19,
-    color: "#1B4371",
-  },
-  //
-  contentBox: {
-    marginBottom: 32,
-    width: "100%",
-    justifyContent: "flex-start",
-    gap: 8,
-    alignItems: "center",
-    backgroundColor: "white",
-    // borderWidth: StyleSheet.hairlineWidth,
-  },
-  contentImageBox: {
-    width: "100%",
-    height: 240,
-    backgroundColor: "#E8E8E8",
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "blue",
-  },
-  contentImage: {
-    width: "100%",
-    height: 240,
-    resizeMode: "center",
-  },
-  contentTitleBox: {
-    width: "100%",
-  },
-  contentTitle: {
-    fontFamily: "RobotoM",
-    fontSize: 16,
-    lineHeight: 19,
-    color: "#BDBDBD",
-  },
-  icon_Box: {
-    width: 60,
-    height: 60,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    borderRadius: 30,
   },
 });

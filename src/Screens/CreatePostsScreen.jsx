@@ -7,8 +7,8 @@ export const CreatePostsScreen = () => {
       <Header type={"left"} title={"Створити публікацію"} />
       <ContentBox>
         <CreateContentBlock title={"Завантажте фото"} />
-        {/* <CreateContentForm /> */}
         {/* <ContentBlock likes={false} title={"Редагувати фото"} fill={'white'} /> */}
+        <CreateContentForm />
       </ContentBox>
       <ToolBar />
     </View>
