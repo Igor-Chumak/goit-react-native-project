@@ -25,8 +25,7 @@ export const CommentsScreen = () => {
 const styles = StyleSheet.create({
   wrapProvider: {
     flexGrow: 1,
-    width: "100%",
-    // alignItems: "center",
+    // width: "100%",
   },
   container: {
     flex: 1,
