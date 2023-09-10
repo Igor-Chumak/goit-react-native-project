@@ -6,7 +6,7 @@ export const CommentsBlock = () => {
   return (
     <View style={styles.contentBox}>
       <OneComment />
-      <MyComment />
+      <OneComment />
       <OneComment />
     </View>
   );
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "white",
     alignItems: "stretch",
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
     borderColor: "rgba(0,0,0,0.3)",
     paddingLeft: 16,
     paddingRight: 16,

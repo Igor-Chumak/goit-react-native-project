@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, View } from "react-native";
+import { Keyboard, Pressable, StyleSheet, View } from "react-native";
 import {
   ContentBox,
   Header,
@@ -9,18 +9,25 @@ import {
 
 export const CommentsScreen = () => {
   return (
-    <View style={styles.container}>
-      <Header type={"left"} title={"Коментарі"} />
-      <ContentBox>
-        <ContentBlockImage />
-        <CommentsBlock />
-        <InputSearchBar />
-      </ContentBox>
-    </View>
+    <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
+      <View style={styles.container}>
+        <Header type={"left"} title={"Коментарі"} />
+        <ContentBox>
+          <ContentBlockImage />
+          <CommentsBlock />
+          <InputSearchBar />
+        </ContentBox>
+      </View>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapProvider: {
+    flexGrow: 1,
+    width: "100%",
+    // alignItems: "center",
+  },
   container: {
     flex: 1,
     width: "100%",
