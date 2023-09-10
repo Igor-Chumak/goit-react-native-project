@@ -6,21 +6,14 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import {
-  ContentBox,
-  Header,
-  ToolBar,
-  CreateContentBlock,
-  CreateContentForm,
-  ContentScrollBox,
-} from "../components";
+import { ContentBox, Header, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
 export const CreatePostsScreen = () => {
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
       <View style={styles.container}>
         <Header type={"left"} title={"Створити публікацію"} />
-        <ContentScrollBox>
+        <ContentBox>
           {/* <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
             style={styles.wrapProvider}
@@ -28,7 +21,7 @@ export const CreatePostsScreen = () => {
           <CreateContentBlock title={"Завантажте фото"} />
           <CreateContentForm />
           {/* </KeyboardAvoidingView> */}
-        </ContentScrollBox>
+        </ContentBox>
         <ToolBar />
       </View>
     </Pressable>
