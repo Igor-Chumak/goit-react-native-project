@@ -22,8 +22,8 @@ export const InputSearchBar = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // position: "absolute",
-    // bottom: 0,
+    position: "absolute",
+    bottom: 0,
     width: "100%",
     height: 83,
     // paddingTop: 17,

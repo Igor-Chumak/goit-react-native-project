@@ -27,8 +27,7 @@ export const CreateContentForm = () => {
   return (
     <View style={styles.wrapForm}>
       <KeyboardAvoidingView
-        // behavior={Platform.OS == "ios" ? "padding" : "height"}
-        behavior={"padding"}
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={styles.wrapProvider}
       >
         <View style={styles.inputBox}>
@@ -63,7 +62,6 @@ export const CreateContentForm = () => {
             Опублікувати
           </Text>
         </Pressable>
-        {/* <View style={{ height: 60 }} /> */}
       </KeyboardAvoidingView>
     </View>
   );
@@ -71,8 +69,9 @@ export const CreateContentForm = () => {
 
 const styles = StyleSheet.create({
   wrapForm: {
+    flex: 1,
     width: "100%",
-    alignItems: "center",
+    // alignItems: "center",
     // borderWidth: 1,
     // borderColor: "red",
   },

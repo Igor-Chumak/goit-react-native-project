@@ -5,6 +5,7 @@ import {
   ContentBlockImage,
   InputSearchBar,
   CommentsBlock,
+  ContentScrollBox,
 } from "../components";
 
 export const CommentsScreen = () => {
@@ -12,11 +13,11 @@ export const CommentsScreen = () => {
     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
       <View style={styles.container}>
         <Header type={"left"} title={"Коментарі"} />
-        <ContentBox>
+        <ContentScrollBox>
           <ContentBlockImage />
           <CommentsBlock />
           <InputSearchBar />
-        </ContentBox>
+        </ContentScrollBox>
       </View>
     </Pressable>
   );

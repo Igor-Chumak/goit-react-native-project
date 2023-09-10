@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   wrapProvider: {
     flexGrow: 1,
     width: "100%",
-    // alignItems: "center",
   },
   container: {
     flex: 1,
