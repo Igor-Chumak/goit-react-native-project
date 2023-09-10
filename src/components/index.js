@@ -9,3 +9,8 @@ export * from "./User";
 export * from "./CreateContentBlock";
 export * from "./CreateContentForm";
 export * from "./ContentBlock";
+export * from "./ContentBlockImage";
+export * from "./InputSearchBar";
+export * from "./CommentsBlock";
+export * from "./MyComment";
+export * from "./OneComment";

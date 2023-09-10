@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
+import { ContentBlockImage } from "./ContentBlockImage";
 
-import imageDefault from "../Img/no_images.png";
+// import imageDefault from "../Img/no_images.png";
 import CommentIcon from "../Img/comment_stroke.svg";
 import ThumbsIcon from "../Img/thumbs-up.svg";
 import MapPinIcon from "../Img/map-pin.svg";
@@ -17,9 +18,7 @@ export const ContentBlock = ({
 }) => {
   return (
     <View style={styles.contentBox}>
-      <View style={styles.contentImageBox}>
-        <Image source={imageDefault} style={styles.contentImage}></Image>
-      </View>
+      <ContentBlockImage />
       <View style={styles.contentTitleBox}>
         <Text style={styles.contentTitle}>{title}</Text>
       </View>
@@ -54,19 +53,20 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     // borderWidth: StyleSheet.hairlineWidth,
   },
-  contentImageBox: {
-    width: "100%",
-    height: 240,
-    backgroundColor: "#E8E8E8",
-    borderRadius: 8,
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "blue",
-  },
-  contentImage: {
-    width: "100%",
-    height: 240,
-    resizeMode: "center",
-  },
+  // contentImageBox: {
+  //   width: "100%",
+  //   height: 240,
+  //   backgroundColor: "#E8E8E8",
+  //   borderRadius: 8,
+  // borderWidth: StyleSheet.hairlineWidth,
+  // borderColor: "blue",
+  // },
+  // contentImage: {
+  //   width: "100%",
+  //   height: 240,
+  //   resizeMode: "cover",
+  //   borderRadius: 8,
+  // },
   contentTitleBox: {
     width: "100%",
   },

@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingVertical: 32,
     paddingHorizontal: 16,
-    // borderWidth: 1,
-    // borderColor: "blue",
+    borderWidth: 1,
+    borderColor: "blue",
+    gap: 32,
   },
 });

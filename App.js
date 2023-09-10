@@ -6,6 +6,7 @@ import { RegistrationScreen } from "./src/Screens/RegistrationScreen";
 import { LoginScreen } from "./src/Screens/LoginScreen";
 import { PostsScreen } from "./src/Screens/PostsScreen";
 import { CreatePostsScreen } from "./src/Screens/CreatePostsScreen";
+import { CommentsScreen } from "./src/Screens/CommentsScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -25,7 +26,8 @@ export default function App() {
         {/* <RegistrationScreen /> */}
         {/* <LoginScreen /> */}
         {/* <PostsScreen /> */}
-        <CreatePostsScreen />
+        {/* <CreatePostsScreen /> */}
+        <CommentsScreen />
       </ImageBackground>
     </SafeAreaView>
   );
