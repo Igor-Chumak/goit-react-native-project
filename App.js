@@ -8,6 +8,7 @@ import { PostsScreen } from "./src/Screens/PostsScreen";
 import { CreatePostsScreen } from "./src/Screens/CreatePostsScreen";
 import { CommentsScreen } from "./src/Screens/CommentsScreen";
 import { ProfileScreen } from "./src/Screens/ProfileScreen";
+import { HomeScreen } from "./src/Screens/HomeScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -29,7 +30,8 @@ export default function App() {
         {/* <PostsScreen /> */}
         {/* <CreatePostsScreen /> */}
         {/* <CommentsScreen /> */}
-        <ProfileScreen />
+        {/* <ProfileScreen /> */}
+        <HomeScreen />
       </ImageBackground>
     </SafeAreaView>
   );

@@ -1,66 +1,46 @@
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { ContentBlock, TabBar } from "../components";
-
-import photoDefault from "../Img/react512.png";
-import BtnChangeIcon from "../Img/union_x.svg";
-import LogoutIcon from "../Img/log_out.svg";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ContentBlock, ContentBox, Header, TabBar, User } from "../components";
 
 import image1 from "../Img/blank/photo_test_1.jpg";
 import image2 from "../Img/blank/photo_test_2.jpg";
 import image3 from "../Img/blank/photo_test_3.jpg";
 
-export const ProfileScreen = () => {
+export const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.wrapProfile}>
-        <View style={styles.wrapPhoto}>
-          <Image source={photoDefault} style={styles.photo} />
-          <Pressable style={styles.btnChangeBox}>
-            <BtnChangeIcon width={13} height={13} />
-          </Pressable>
-        </View>
-        <Pressable style={styles.logOutBox}>
-          <LogoutIcon width={24} height={24} />
-        </Pressable>
-        <View style={styles.titleBox}>
-          <Text style={styles.title}>React Native</Text>
-        </View>
+      <Header type={"exit"} title={"Публікації"} />
+      <ContentBox>
+        <User />
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
           <ContentBlock
-            fill={"#FF6C00"}
             source={image1}
             title={"Ліс"}
             comments={"8"}
-            likes={"153"}
-            location={"Ukraine"}
+            location={"Ivano-Frankivsk Region, Ukraine"}
           />
           <ContentBlock
-            fill={"#FF6C00"}
             source={image2}
             title={"Захід на Чорному морі"}
             comments={"3"}
-            likes={"200"}
-            location={"Ukraine"}
+            location={"Odessa, Ukraine"}
           />
           <ContentBlock
-            fill={"#FF6C00"}
             source={image3}
             title={"Старий будиночок у Венеції"}
             comments={"50"}
-            likes={"200"}
-            location={"Italy"}
+            location={"Venezia, Italy"}
           />
         </ScrollView>
-      </View>
+      </ContentBox>
       <TabBar />
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-end",
+    backgroundColor: "white",
+    justifyContent: "space-between",
     // borderWidth: 2,
     // borderColor: "blue",
   },
