@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ContentBlock, TabBar } from "../components";
 
 import photoDefault from "../Img/react512.png";
@@ -21,30 +21,32 @@ export const ProfileScreen = () => {
           <View style={styles.titleBox}>
             <Text style={styles.title}>React Native</Text>
           </View>
-          <ContentBlock
-            fill={"#FF6C00"}
-            source={image1}
-            title={"Ліс"}
-            comments={"8"}
-            likes={"153"}
-            location={"Ukraine"}
-          />
-          <ContentBlock
-            fill={"#FF6C00"}
-            source={image2}
-            title={"Захід на Чорному морі"}
-            comments={"3"}
-            likes={"200"}
-            location={"Ukraine"}
-          />
-          <ContentBlock
-            fill={"#FF6C00"}
-            source={image3}
-            title={"Старий будиночок у Венеції"}
-            comments={"50"}
-            likes={"200"}
-            location={"Italy"}
-          />
+          <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
+            <ContentBlock
+              fill={"#FF6C00"}
+              source={image1}
+              title={"Ліс"}
+              comments={"8"}
+              likes={"153"}
+              location={"Ukraine"}
+            />
+            <ContentBlock
+              fill={"#FF6C00"}
+              source={image2}
+              title={"Захід на Чорному морі"}
+              comments={"3"}
+              likes={"200"}
+              location={"Ukraine"}
+            />
+            <ContentBlock
+              fill={"#FF6C00"}
+              source={image3}
+              title={"Старий будиночок у Венеції"}
+              comments={"50"}
+              likes={"200"}
+              location={"Italy"}
+            />
+          </ScrollView>
         </View>
         <TabBar />
       </View>
@@ -55,13 +57,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
-    // alignItems: "center",
-    borderWidth: 2,
-    borderColor: "blue",
+    // borderWidth: 2,
+    // borderColor: "blue",
   },
   wrapProfile: {
     position: "relative",
-    marginTop: 60,
+    marginTop: 170,
+    // marginTop: 120,
     width: "100%",
     paddingTop: 92,
     paddingHorizontal: 16,
@@ -73,8 +75,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     //
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   wrapPhoto: {
     position: "absolute",
