@@ -1,26 +1,116 @@
-import { StyleSheet, Text, View } from "react-native";
-import { RegistrationForm } from "../components";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { ContentBlock, TabBar } from "../components";
+
+import photoDefault from "../Img/react512.png";
+import BtnChangeIcon from "../Img/union_x.svg";
+import image1 from "../Img/blank/photo_test_1.jpg";
+import image2 from "../Img/blank/photo_test_2.jpg";
+import image3 from "../Img/blank/photo_test_3.jpg";
 
 export const ProfileScreen = () => {
   return (
-    <View style={styles.wrap}>
-      {/* <Text style={styles.text}>Registration Screen</Text> */}
-      <RegistrationForm />
-    </View>
+    <>
+      <View style={styles.container}>
+        <View style={styles.wrapProfile}>
+          <View style={styles.wrapPhoto}>
+            <Image source={photoDefault} style={styles.photo} />
+            <Pressable style={styles.btnChangeBox}>
+              <BtnChangeIcon width={13} height={13} />
+            </Pressable>
+          </View>
+          <View style={styles.titleBox}>
+            <Text style={styles.title}>React Native</Text>
+          </View>
+          <ContentBlock
+            fill={"#FF6C00"}
+            source={image1}
+            title={"Ліс"}
+            comments={"8"}
+            likes={"153"}
+            location={"Ukraine"}
+          />
+          <ContentBlock
+            fill={"#FF6C00"}
+            source={image2}
+            title={"Захід на Чорному морі"}
+            comments={"3"}
+            likes={"200"}
+            location={"Ukraine"}
+          />
+          <ContentBlock
+            fill={"#FF6C00"}
+            source={image3}
+            title={"Старий будиночок у Венеції"}
+            comments={"50"}
+            likes={"200"}
+            location={"Italy"}
+          />
+        </View>
+        <TabBar />
+      </View>
+    </>
   );
 };
 const styles = StyleSheet.create({
-  wrap: {
+  container: {
     flex: 1,
     justifyContent: "flex-end",
     // alignItems: "center",
-    // borderWidth: 2,
-    // borderColor: "blue",
+    borderWidth: 2,
+    borderColor: "blue",
   },
-  text: {
+  wrapProfile: {
+    position: "relative",
+    marginTop: 60,
+    width: "100%",
+    paddingTop: 92,
+    paddingHorizontal: 16,
+    paddingBottom: 83,
+    // paddingBottom: 43,
+    alignItems: "center",
+    gap: 32,
+    backgroundColor: "white",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    //
+    borderWidth: 1,
+    borderColor: "red",
+  },
+  wrapPhoto: {
+    position: "absolute",
+    width: 120,
+    height: 120,
+    top: -60,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 16,
+    //
+    // borderWidth: 1,
+    // borderColor: "red",
+  },
+  photo: {
+    width: "100%",
+    height: "100%",
+  },
+  btnChangeBox: {
+    position: "absolute",
+    bottom: 14,
+    right: -12,
+    width: 25,
+    height: 25,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  titleBox: {
+    width: "100%",
+    alignItems: "center",
+  },
+  title: {
     fontFamily: "RobotoM",
-    fontSize: 20,
-    color: "blue",
-    textAlign: "center",
+    fontSize: 30,
+    letterSpacing: 0.3,
+    color: "#212121",
   },
 });

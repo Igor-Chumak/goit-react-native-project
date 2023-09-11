@@ -8,17 +8,20 @@ import MapPinIcon from "../Img/map-pin.svg";
 
 // title - text under the picture
 // detailsBox: [boolean] is rendered
-// likes: [boolean] is rendered
+// likes: [number] is rendered
 // fill ["transparent"] - filling svg icon Comment (given "#FF6C00")
 export const ContentBlock = ({
   detailsBox = true,
-  title = "",
-  likes = true,
   fill = "transparent",
+  source,
+  title = "",
+  likes = "",
+  comments = "0",
+  location = "",
 }) => {
   return (
     <View style={styles.contentBox}>
-      <ContentBlockImage />
+      <ContentBlockImage source={source} />
       <View style={styles.contentTitleBox}>
         <Text style={styles.contentTitle}>{title}</Text>
       </View>
@@ -26,17 +29,17 @@ export const ContentBlock = ({
         <View style={styles.contentDetailsBox}>
           <View style={styles.icon_text_Box}>
             <CommentIcon width={24} height={24} fill={fill} />
-            <Text style={styles.contentDetailsText}>Comments</Text>
+            <Text style={styles.contentDetailsText}>{comments}</Text>
           </View>
           {likes && (
             <View style={[styles.icon_text_Box, styles.likes_Box]}>
               <ThumbsIcon width={24} height={24} fill={"#FF6C00"} />
-              <Text style={styles.contentDetailsText}>Likes</Text>
+              <Text style={styles.contentDetailsText}>{likes} </Text>
             </View>
           )}
           <View style={[styles.icon_text_Box, styles.mapBox]}>
             <MapPinIcon width={24} height={24} />
-            <Text style={[styles.contentDetailsText]}>Ukraine</Text>
+            <Text style={[styles.contentDetailsText]}>{location} </Text>
           </View>
         </View>
       )}
