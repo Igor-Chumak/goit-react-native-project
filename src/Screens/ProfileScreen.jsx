@@ -3,6 +3,8 @@ import { ContentBlock, TabBar } from "../components";
 
 import photoDefault from "../Img/react512.png";
 import BtnChangeIcon from "../Img/union_x.svg";
+import LogoutIcon from "../Img/log_out.svg";
+
 import image1 from "../Img/blank/photo_test_1.jpg";
 import image2 from "../Img/blank/photo_test_2.jpg";
 import image3 from "../Img/blank/photo_test_3.jpg";
@@ -18,6 +20,9 @@ export const ProfileScreen = () => {
               <BtnChangeIcon width={13} height={13} />
             </Pressable>
           </View>
+          <Pressable style={styles.logOutBox}>
+            <LogoutIcon width={24} height={24} />
+          </Pressable>
           <View style={styles.titleBox}>
             <Text style={styles.title}>React Native</Text>
           </View>
@@ -99,11 +104,19 @@ const styles = StyleSheet.create({
     right: -12,
     width: 25,
     height: 25,
+    backgroundColor: "white",
     borderRadius: 12,
     borderWidth: 1,
     borderColor: "#E8E8E8",
     justifyContent: "center",
     alignItems: "center",
+  },
+  logOutBox: {
+    position: "absolute",
+    right: 16,
+    top: 22,
+    width: 24,
+    height: 24,
   },
   titleBox: {
     width: "100%",
