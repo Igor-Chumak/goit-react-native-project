@@ -1,4 +1,5 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ContentBlockImage } from "./ContentBlockImage";
 
 // import imageDefault from "../Img/no_images.png";
@@ -19,6 +20,8 @@ export const ContentBlock = ({
   comments = "0",
   location = "",
 }) => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.contentBox}>
       <ContentBlockImage source={source} />
@@ -27,10 +30,10 @@ export const ContentBlock = ({
       </View>
       {detailsBox && (
         <View style={styles.contentDetailsBox}>
-          <View style={styles.icon_text_Box}>
+          <Pressable style={styles.icon_text_Box} onPress={() => navigation.navigate("Login")}>
             <CommentIcon width={24} height={24} fill={fill} />
             <Text style={styles.contentDetailsText}>{comments}</Text>
-          </View>
+          </Pressable>
           {likes && (
             <View style={[styles.icon_text_Box, styles.likes_Box]}>
               <ThumbsIcon width={24} height={24} fill={"#FF6C00"} />
