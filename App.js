@@ -35,29 +35,29 @@ export default function App() {
         <MainStack.Screen
           name="Login"
           component={LoginScreen}
-          options={{
-            headerStyle: {
-              // display: "none",
-            },
-          }}
+          // options={{
+          //   headerStyle: {
+          //     // display: "none",
+          //   },
+          // }}
         />
         <MainStack.Screen
           name="Home"
           component={HomeScreen}
-          options={{
-            headerStyle: {
-              backgroundColor: "#eede95",
-            },
-            title: "Публікації",
-            headerTintColor: "#212121",
-            headerTitleStyle: {
-              fontFamily: "RobotoM",
-              fontSize: 17,
-              lineHeight: 22,
-              letterSpacing: -0.4,
-            },
-            headerRight: () => <LogOutIconBox />,
-          }}
+          // options={{
+          //   headerStyle: {
+          //     backgroundColor: "#eede95",
+          //   },
+          //   title: "Публікації",
+          //   headerTintColor: "#212121",
+          //   headerTitleStyle: {
+          //     fontFamily: "RobotoM",
+          //     fontSize: 17,
+          //     lineHeight: 22,
+          //     letterSpacing: -0.4,
+          //   },
+          //   headerRight: () => <LogOutIconBox />,
+          // }}
         />
       </MainStack.Navigator>
       {/* <PostsScreen /> */}
