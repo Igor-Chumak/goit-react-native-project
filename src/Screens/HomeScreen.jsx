@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "./PostsScreen";
 import CreatePostScreen from "./CreatePostScreen";
 import ProfileScreen from "./ProfileScreen";
-import { GoBackIconBox, HeaderTitle, LogOutIconBox } from "../components";
+import { ArrowLeftIconBox, HeaderTitle, LogOutIconBox } from "../components";
 
 const Tabs = createBottomTabNavigator();
 
@@ -40,7 +40,7 @@ const HomeScreen = () => {
         name="CreatePost"
         component={CreatePostScreen}
         options={{
-          headerLeft: () => <GoBackIconBox />,
+          headerLeft: () => <ArrowLeftIconBox />,
           headerTitle: () => <HeaderTitle title={"Створити публікацію"} />,
         }}
       />

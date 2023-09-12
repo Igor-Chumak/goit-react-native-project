@@ -1,7 +1,6 @@
 import { Keyboard, Pressable, StyleSheet, View } from "react-native";
 import {
   ContentBox,
-  Header,
   ContentBlockImage,
   InputSearchBar,
   CommentsBlock,
@@ -12,7 +11,6 @@ const CommentsScreen = () => {
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
       <View style={styles.container}>
-        <Header type={"left"} title={"Коментарі"} />
         <ContentBox>
           <ContentBlockImage />
           <CommentsBlock />

@@ -12,7 +12,7 @@ import CommentsScreen from "./src/Screens/CommentsScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
 
-import { LogOutIconBox } from "./src/components";
+import { GoBackIconBox, HeaderTitle } from "./src/components";
 
 // import BGImage from "./src/Img/photo_BG.png";
 
@@ -33,13 +33,45 @@ export default function App() {
       <MainStack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          headerShown: false,
+          headerTitleAlign: "center",
+          // headerShown: false,
+          headerStyle: {
+            height: 88,
+            backgroundColor: "white",
+            borderBottomWidth: 1,
+            borderColor: "rgba(0,0,0,0.3)",
+          },
         }}
       >
-        <MainStack.Screen name="Registration" component={RegistrationScreen} />
-        <MainStack.Screen name="Login" component={LoginScreen} />
-        <MainStack.Screen name="Home" component={HomeScreen} />
-        <MainStack.Screen name="Comments" component={CommentsScreen} />
+        <MainStack.Screen
+          name="Registration"
+          component={RegistrationScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="Comments"
+          component={CommentsScreen}
+          options={{
+            headerLeft: () => <GoBackIconBox />,
+            headerTitle: () => <HeaderTitle title={"Коментарі"} />,
+          }}
+        />
       </MainStack.Navigator>
     </NavigationContainer>
   );
