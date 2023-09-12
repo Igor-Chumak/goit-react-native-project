@@ -16,7 +16,7 @@ export * from "./MyComment";
 export * from "./OneComment";
 export * from "./HeaderTitle";
 export * from "./LogOutIconBox";
-export * from "./ArrowLeftIconBox";
+export * from "./GoBackIconBox";
 export * from "./GridIconBox";
 export * from "./BtnAddIconBox";
 export * from "./UserIconBox";

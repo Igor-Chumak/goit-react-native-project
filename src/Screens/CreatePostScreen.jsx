@@ -7,7 +7,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { ContentBox, Header, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
+import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
 const CreatePostScreen = () => {
   return (
@@ -18,7 +18,6 @@ const CreatePostScreen = () => {
           style={styles.wrapProvider}
         >
           <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
-            <Header type={"left"} title={"Створити публікацію"} />
             <ContentBox>
               <CreateContentBlock title={"Завантажте фото"} />
               <CreateContentForm />

@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "./PostsScreen";
 import CreatePostScreen from "./CreatePostScreen";
 import ProfileScreen from "./ProfileScreen";
-import { ArrowLeftIconBox, HeaderTitle, LogOutIconBox } from "../components";
+import { GoBackIconBox, HeaderTitle, LogOutIconBox } from "../components";
 
 const Tabs = createBottomTabNavigator();
 
@@ -12,13 +12,13 @@ const HomeScreen = () => {
     <Tabs.Navigator
       initialRouteName="Posts"
       screenOptions={{
-        headerTintColor: "#212121",
+        // headerTintColor: "#212121",
         headerTitleAlign: "center",
         headerTitleStyle: {
-          fontFamily: "RobotoM",
-          fontSize: 17,
-          lineHeight: 22,
-          letterSpacing: -0.4,
+          // fontFamily: "RobotoM",
+          // fontSize: 22,
+          // lineHeight: 22,
+          // letterSpacing: -0.41,
         },
         headerStyle: {
           height: 88,
@@ -26,7 +26,6 @@ const HomeScreen = () => {
           borderBottomWidth: 1,
           borderColor: "rgba(0,0,0,0.3)",
         },
-        titleStyle: {},
       }}
     >
       <Tabs.Screen
@@ -41,7 +40,7 @@ const HomeScreen = () => {
         name="CreatePost"
         component={CreatePostScreen}
         options={{
-          headerLeft: () => <ArrowLeftIconBox />,
+          headerLeft: () => <GoBackIconBox />,
           headerTitle: () => <HeaderTitle title={"Створити публікацію"} />,
         }}
       />

@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
     height: 44,
     justifyContent: "flex-end",
     // alignItems: "center",
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   title: {
     fontFamily: "RobotoM",
@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     letterSpacing: -0.4,
     color: "#212121",
-    textAlign: "center",
+    // textAlign: "center",
   },
 });

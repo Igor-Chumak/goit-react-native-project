@@ -1,11 +1,11 @@
 import { Pressable, StyleSheet } from "react-native";
 
-import ArrowLeftIcon from "../Img/arrow_left.svg";
+import GoBackIcon from "../Img/arrow_left.svg";
 
-export const ArrowLeftIconBox = () => {
+export const GoBackIconBox = () => {
   return (
     <Pressable style={styles.arrowLeftBox}>
-      <ArrowLeftIcon width={24} height={24} />
+      <GoBackIcon width={24} height={24} />
     </Pressable>
   );
 };

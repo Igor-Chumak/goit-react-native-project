@@ -30,7 +30,7 @@ export const ContentBlock = ({
       </View>
       {detailsBox && (
         <View style={styles.contentDetailsBox}>
-          <Pressable style={styles.icon_text_Box} onPress={() => navigation.navigate("Login")}>
+          <Pressable style={styles.icon_text_Box} onPress={() => navigation.navigate("Profile")}>
             <CommentIcon width={24} height={24} fill={fill} />
             <Text style={styles.contentDetailsText}>{comments}</Text>
           </Pressable>
