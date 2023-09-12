@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { ContentBlock, ContentBox, TabBar, User } from "../components";
+import { ContentBlock, ContentBox, User } from "../components";
 
 import image1 from "../Img/blank/photo_test_1.jpg";
 import image2 from "../Img/blank/photo_test_2.jpg";
@@ -34,7 +34,6 @@ const PostsScreen = () => {
           />
         </ScrollView>
       </ContentBox>
-      <TabBar />
     </View>
   );
 };
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     justifyContent: "space-between",
-    paddingBottom: 51,
+    // paddingBottom: 51,
     // paddingBottom: 83-32,
     // borderWidth: 2,
     // borderColor: "blue",

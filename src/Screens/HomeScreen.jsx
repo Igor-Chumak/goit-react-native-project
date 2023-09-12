@@ -33,7 +33,22 @@ const HomeScreen = () => {
           borderBottomWidth: 1,
           borderColor: "rgba(0,0,0,0.3)",
         },
-        tabBarLabel: "",
+        // tabBarActiveTintColor: "#bd0643",
+        // tabBarInactiveTintColor: "#212121",
+        // tabBarActiveBackgroundColor: "red",
+        // tabBarInactiveBackgroundColor: "white",
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          // position: "absolute",
+          height: 83,
+          paddingTop: 9,
+          paddingLeft: 82,
+          paddingRight: 81,
+          paddingBottom: 34,
+          backgroundColor: "white",
+          borderTopWidth: 1,
+          borderColor: "rgba(0,0,0,0.3)",
+        },
       }}
     >
       <Tabs.Screen
@@ -42,7 +57,7 @@ const HomeScreen = () => {
         options={{
           headerTitle: () => <HeaderTitle title={"Публікації"} />,
           headerRight: () => <LogOutIconBox />,
-          tabBarIcon: () => <GridIconBox />,
+          tabBarIcon: ({ focused, color, size }) => <GridIconBox />,
         }}
       />
       <Tabs.Screen
@@ -51,7 +66,7 @@ const HomeScreen = () => {
         options={{
           headerLeft: () => <GoBackIconBox />,
           headerTitle: () => <HeaderTitle title={"Створити публікацію"} />,
-          tabBarIcon: () => <BtnAddIconBox />,
+          tabBarIcon: ({ focused, color, size }) => <BtnAddIconBox />,
           tabBarStyle: { display: "none" },
         }}
       />
@@ -60,7 +75,7 @@ const HomeScreen = () => {
         component={ProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: () => <UserIconBox />,
+          tabBarIcon: ({ focused, color, size }) => <UserIconBox />,
         }}
       />
     </Tabs.Navigator>

@@ -59,20 +59,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     // borderWidth: StyleSheet.hairlineWidth,
   },
-  // contentImageBox: {
-  //   width: "100%",
-  //   height: 240,
-  //   backgroundColor: "#E8E8E8",
-  //   borderRadius: 8,
-  // borderWidth: StyleSheet.hairlineWidth,
-  // borderColor: "blue",
-  // },
-  // contentImage: {
-  //   width: "100%",
-  //   height: 240,
-  //   resizeMode: "cover",
-  //   borderRadius: 8,
-  // },
   contentTitleBox: {
     width: "100%",
   },

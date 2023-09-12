@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { ContentBlock, TabBar } from "../components";
+import { ContentBlock } from "../components";
 
 import BGImage from "../Img/photo_BG.png";
 import photoDefault from "../Img/react512.png";
@@ -66,7 +66,6 @@ const ProfileScreen = () => {
               />
             </ScrollView>
           </View>
-          <TabBar />
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -86,27 +85,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
-    // paddingBottom: 170,
     // borderWidth: 2,
     // borderColor: "blue",
   },
   wrapProfile: {
     position: "relative",
-    // marginTop: 250,
-    // marginTop: 120,
     width: "100%",
     maxHeight: "80%",
     paddingTop: 92,
-    // paddingTop: 92,
     paddingHorizontal: 16,
-    paddingBottom: 83,
     // paddingBottom: 43,
     alignItems: "center",
     gap: 32,
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    //
     // borderWidth: 1,
     // borderColor: "red",
   },
@@ -117,7 +110,6 @@ const styles = StyleSheet.create({
     top: -60,
     backgroundColor: "#F6F6F6",
     borderRadius: 16,
-    //
     // borderWidth: 1,
     // borderColor: "red",
   },
