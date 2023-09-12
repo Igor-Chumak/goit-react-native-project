@@ -32,7 +32,15 @@ export default function App() {
     <NavigationContainer>
       <MainStack.Navigator initialRouteName="Home">
         <MainStack.Screen name="Registration" component={RegistrationScreen} />
-        <MainStack.Screen name="Login" component={LoginScreen} />
+        <MainStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerStyle: {
+              // display: "none",
+            },
+          }}
+        />
         <MainStack.Screen
           name="Home"
           component={HomeScreen}
