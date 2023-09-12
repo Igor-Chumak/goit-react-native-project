@@ -7,7 +7,7 @@ import { useFonts } from "expo-font";
 import RegistrationScreen from "./src/Screens/RegistrationScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
 import PostsScreen from "./src/Screens/PostsScreen";
-import CreatePostsScreen from "./src/Screens/CreatePostsScreen";
+import CreatePostScreen from "./src/Screens/CreatePostScreen";
 import CommentsScreen from "./src/Screens/CommentsScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
@@ -30,40 +30,16 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <MainStack.Navigator initialRouteName="Home">
+      <MainStack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
         <MainStack.Screen name="Registration" component={RegistrationScreen} />
-        <MainStack.Screen
-          name="Login"
-          component={LoginScreen}
-          // options={{
-          //   headerStyle: {
-          //     // display: "none",
-          //   },
-          // }}
-        />
-        <MainStack.Screen
-          name="Home"
-          component={HomeScreen}
-          // options={{
-          //   headerStyle: {
-          //     backgroundColor: "#eede95",
-          //   },
-          //   title: "Публікації",
-          //   headerTintColor: "#212121",
-          //   headerTitleStyle: {
-          //     fontFamily: "RobotoM",
-          //     fontSize: 17,
-          //     lineHeight: 22,
-          //     letterSpacing: -0.4,
-          //   },
-          //   headerRight: () => <LogOutIconBox />,
-          // }}
-        />
+        <MainStack.Screen name="Login" component={LoginScreen} />
+        <MainStack.Screen name="Home" component={HomeScreen} />
       </MainStack.Navigator>
-      {/* <PostsScreen /> */}
-      {/* <CreatePostsScreen /> */}
-      {/* <CommentsScreen /> */}
-      {/* <ProfileScreen /> */}
     </NavigationContainer>
   );
 }

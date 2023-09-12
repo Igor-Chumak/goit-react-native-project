@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { ContentBlock, ContentBox, Header, TabBar, User } from "../components";
+import { ContentBlock, ContentBox, Header, TabBar, User } from "../../components";
 
 import image1 from "../Img/blank/photo_test_1.jpg";
 import image2 from "../Img/blank/photo_test_2.jpg";
@@ -8,7 +8,7 @@ import image3 from "../Img/blank/photo_test_3.jpg";
 
 const Tabs = createBottomTabNavigator();
 
-const PostsScreen = () => {
+const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Header type={"exit"} title={"Публікації"} />
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostsScreen;
+export default HomeScreen;

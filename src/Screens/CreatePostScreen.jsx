@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { ContentBox, Header, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
-const CreatePostsScreen = () => {
+const CreatePostScreen = () => {
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
       <View style={styles.container}>
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreatePostsScreen;
+export default CreatePostScreen;

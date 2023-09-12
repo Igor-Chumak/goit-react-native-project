@@ -1,41 +1,21 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { ContentBlock, ContentBox, Header, TabBar, User } from "../components";
+import { StyleSheet } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import PostsScreen from "./PostsScreen";
+import CreatePostScreen from "./CreatePostScreen";
+import ProfileScreen from "./ProfileScreen";
 
-import image1 from "../Img/blank/photo_test_1.jpg";
-import image2 from "../Img/blank/photo_test_2.jpg";
-import image3 from "../Img/blank/photo_test_3.jpg";
+const Tabs = createBottomTabNavigator();
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      <Header type={"exit"} title={"Публікації"} />
-      <ContentBox>
-        <User />
-        <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
-          <ContentBlock
-            source={image1}
-            title={"Ліс"}
-            comments={"8"}
-            location={"Ivano-Frankivsk Region, Ukraine"}
-          />
-          <ContentBlock
-            source={image2}
-            title={"Захід на Чорному морі"}
-            comments={"3"}
-            location={"Odessa, Ukraine"}
-          />
-          <ContentBlock
-            source={image3}
-            title={"Старий будиночок у Венеції"}
-            comments={"50"}
-            location={"Venezia, Italy"}
-          />
-        </ScrollView>
-      </ContentBox>
-      <TabBar />
-    </View>
+    <Tabs.Navigator initialRouteName="Posts">
+      <Tabs.Screen name="Posts" component={PostsScreen} />
+      <Tabs.Screen name="CreatePost" component={CreatePostScreen} />
+      <Tabs.Screen name="Profile" component={ProfileScreen} />
+    </Tabs.Navigator>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -49,3 +29,21 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
+
+// options={{
+//   headerShown: "false",
+// }}
+// options={{
+//   headerStyle: {
+//     backgroundColor: "#eede95",
+//   },
+//   title: "Публікації",
+//   headerTintColor: "#212121",
+//   headerTitleStyle: {
+//     fontFamily: "RobotoM",
+//     fontSize: 17,
+//     lineHeight: 22,
+//     letterSpacing: -0.4,
+//   },
+//   headerRight: () => <LogOutIconBox />,
+// }}

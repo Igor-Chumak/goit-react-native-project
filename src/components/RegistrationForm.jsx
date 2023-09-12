@@ -44,6 +44,7 @@ export const RegistrationForm = () => {
     // setLogin("");
     // setEmail("");
     // setPassword("");
+    navigation.navigate("Home");
     return;
   };
 

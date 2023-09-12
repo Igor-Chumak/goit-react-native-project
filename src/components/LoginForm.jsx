@@ -35,6 +35,7 @@ export const LoginForm = () => {
     dispatch({ type: "submitRegForm" });
     // setEmail("");
     // setPassword("");
+    navigation.navigate("Home");
     return;
   };
 

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import {
   ImageBackground,
   SafeAreaView,
@@ -20,6 +21,7 @@ import image2 from "../Img/blank/photo_test_2.jpg";
 import image3 from "../Img/blank/photo_test_3.jpg";
 
 const ProfileScreen = () => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.containerSafe}>
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
@@ -31,7 +33,7 @@ const ProfileScreen = () => {
                 <BtnChangeIcon width={13} height={13} />
               </Pressable>
             </View>
-            <Pressable style={styles.logOutBox}>
+            <Pressable style={styles.logOutBox} onPress={() => navigation.navigate("Login")}>
               <LogoutIcon width={24} height={24} />
             </Pressable>
             <View style={styles.titleBox}>
