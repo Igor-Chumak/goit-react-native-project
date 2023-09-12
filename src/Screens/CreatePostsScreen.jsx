@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { ContentBox, Header, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
-export const CreatePostsScreen = () => {
+const CreatePostsScreen = () => {
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
       <View style={styles.container}>
@@ -44,3 +44,5 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
+
+export default CreatePostsScreen;

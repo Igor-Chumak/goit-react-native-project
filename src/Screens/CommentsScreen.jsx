@@ -8,7 +8,7 @@ import {
   ContentScrollBox,
 } from "../components";
 
-export const CommentsScreen = () => {
+const CommentsScreen = () => {
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
       <View style={styles.container}>
@@ -42,3 +42,5 @@ const styles = StyleSheet.create({
     // alignItems: "center",
   },
 });
+
+export default CommentsScreen;

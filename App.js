@@ -2,13 +2,13 @@
 import { ImageBackground, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import BGImage from "./src/Img/photo_BG.png";
-import { RegistrationScreen } from "./src/Screens/RegistrationScreen";
-import { LoginScreen } from "./src/Screens/LoginScreen";
-import { PostsScreen } from "./src/Screens/PostsScreen";
-import { CreatePostsScreen } from "./src/Screens/CreatePostsScreen";
-import { CommentsScreen } from "./src/Screens/CommentsScreen";
-import { ProfileScreen } from "./src/Screens/ProfileScreen";
-import { HomeScreen } from "./src/Screens/HomeScreen";
+import RegistrationScreen from "./src/Screens/RegistrationScreen";
+import LoginScreen from "./src/Screens/LoginScreen";
+import PostsScreen from "./src/Screens/PostsScreen";
+import CreatePostsScreen from "./src/Screens/CreatePostsScreen";
+import CommentsScreen from "./src/Screens/CommentsScreen";
+import ProfileScreen from "./src/Screens/ProfileScreen";
+import HomeScreen from "./src/Screens/HomeScreen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({

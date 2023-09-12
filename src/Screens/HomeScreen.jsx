@@ -5,7 +5,7 @@ import image1 from "../Img/blank/photo_test_1.jpg";
 import image2 from "../Img/blank/photo_test_2.jpg";
 import image3 from "../Img/blank/photo_test_3.jpg";
 
-export const HomeScreen = () => {
+const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Header type={"exit"} title={"Публікації"} />
@@ -47,3 +47,5 @@ const styles = StyleSheet.create({
     borderColor: "blue",
   },
 });
+
+export default HomeScreen;

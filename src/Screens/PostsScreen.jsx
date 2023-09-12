@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 
 import { ContentBox, Header, TabBar, User } from "../components";
 
-export const PostsScreen = () => {
+const PostsScreen = () => {
   return (
     <View style={styles.container}>
       <Header type={"exit"} title={"Публікації"} />
@@ -23,3 +23,5 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
+
+export default PostsScreen;
