@@ -30,8 +30,8 @@ export default function App() {
         {/* <PostsScreen /> */}
         {/* <CreatePostsScreen /> */}
         {/* <CommentsScreen /> */}
-        {/* <ProfileScreen /> */}
-        <HomeScreen />
+        <ProfileScreen />
+        {/* <HomeScreen /> */}
       </ImageBackground>
     </SafeAreaView>
   );
