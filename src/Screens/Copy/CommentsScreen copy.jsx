@@ -6,7 +6,7 @@ import {
   InputSearchBar,
   CommentsBlock,
   ContentScrollBox,
-} from "../components";
+} from "../../components";
 
 const CommentsScreen = () => {
   return (

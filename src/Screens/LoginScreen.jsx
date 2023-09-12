@@ -3,12 +3,12 @@ import { LoginForm } from "../components";
 
 import BGImage from "../Img/photo_BG.png";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.containerSafe}>
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <View style={styles.wrap}>
-          <LoginForm />
+          <LoginForm navigation={navigation} />
         </View>
       </ImageBackground>
     </SafeAreaView>

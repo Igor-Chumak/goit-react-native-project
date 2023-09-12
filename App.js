@@ -1,9 +1,9 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-// import { StatusBar } from "expo-status-bar";
-import { ImageBackground, SafeAreaView, StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
+
 import RegistrationScreen from "./src/Screens/RegistrationScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
 import PostsScreen from "./src/Screens/PostsScreen";
@@ -28,20 +28,25 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {/* <SafeAreaView style={styles.containerSafe}> */}
-      {/* <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}> */}
-      {/* <RegistrationScreen /> */}
-      {/* <LoginScreen /> */}
+      <MainStack.Navigator initialRouteName="Registration">
+        <MainStack.Screen name="Registration" component={RegistrationScreen} />
+        <MainStack.Screen name="Login" component={LoginScreen} />
+        <MainStack.Screen name="Home" component={HomeScreen} options={{ title: "Публікації" }} />
+      </MainStack.Navigator>
       {/* <PostsScreen /> */}
       {/* <CreatePostsScreen /> */}
       {/* <CommentsScreen /> */}
       {/* <ProfileScreen /> */}
-      <HomeScreen />
-      {/*  */}
-      {/* </ImageBackground> */}
-      {/* </SafeAreaView> */}
     </NavigationContainer>
   );
+}
+
+{
+  /* <SafeAreaView style={styles.containerSafe}>
+  <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
+  //  
+  </ImageBackground>
+</SafeAreaView>; */
 }
 
 const styles = StyleSheet.create({

@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 
-export const LoginForm = () => {
+export const LoginForm = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordHidden, setPasswordHidden] = useState(true);
@@ -75,7 +75,7 @@ export const LoginForm = () => {
           <Pressable style={styles.button} onPress={handleSubmit}>
             <Text style={styles.btnText}>Увійти</Text>
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => navigation.navigate("Registration")}>
             <Text style={styles.btnLogIn}>Немає акаунту? Зареєструватися</Text>
           </Pressable>
         </KeyboardAvoidingView>

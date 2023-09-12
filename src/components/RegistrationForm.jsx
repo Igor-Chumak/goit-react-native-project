@@ -13,7 +13,7 @@ import {
 import photoDefault from "../Img/react512.png";
 import BtnAddIcon from "../Img/union.svg";
 
-export const RegistrationForm = () => {
+export const RegistrationForm = ({ navigation }) => {
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -96,7 +96,7 @@ export const RegistrationForm = () => {
           <Pressable style={styles.button} onPress={handleSubmit}>
             <Text style={styles.btnText}>Зареєструватися</Text>
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => navigation.navigate("Login")}>
             <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
           </Pressable>
         </KeyboardAvoidingView>
