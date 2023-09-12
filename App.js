@@ -39,6 +39,7 @@ export default function App() {
         <MainStack.Screen name="Registration" component={RegistrationScreen} />
         <MainStack.Screen name="Login" component={LoginScreen} />
         <MainStack.Screen name="Home" component={HomeScreen} />
+        <MainStack.Screen name="Comments" component={CommentsScreen} />
       </MainStack.Navigator>
     </NavigationContainer>
   );
