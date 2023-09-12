@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingBottom: 51,
     // paddingBottom: 83-32,
-    borderWidth: 2,
-    borderColor: "blue",
+    // borderWidth: 2,
+    // borderColor: "blue",
   },
 });
 

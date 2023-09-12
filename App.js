@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
 // import { StatusBar } from "expo-status-bar";
 import { ImageBackground, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
@@ -21,19 +23,20 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* <StatusBar translucent={false} hidden={false} style="auto" /> */}
-      <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
-        {/* <Text style={styles.text}>App.js</Text> */}
-        {/* <RegistrationScreen /> */}
-        {/* <LoginScreen /> */}
-        {/* <PostsScreen /> */}
-        {/* <CreatePostsScreen /> */}
-        {/* <CommentsScreen /> */}
-        <ProfileScreen />
-        {/* <HomeScreen /> */}
-      </ImageBackground>
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaView style={styles.container}>
+        {/* <StatusBar translucent={false} hidden={false} style="auto" /> */}
+        <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
+          {/* <RegistrationScreen /> */}
+          {/* <LoginScreen /> */}
+          {/* <PostsScreen /> */}
+          {/* <CreatePostsScreen /> */}
+          {/* <CommentsScreen /> */}
+          {/* <ProfileScreen /> */}
+          <HomeScreen />
+        </ImageBackground>
+      </SafeAreaView>
+    </NavigationContainer>
   );
 }
 
@@ -48,9 +51,9 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   text: {
-    fontFamily: "RobotoM",
-    fontSize: 20,
-    color: "orange",
-    textAlign: "center",
+    // fontFamily: "RobotoM",
+    // fontSize: 20,
+    // color: "orange",
+    // textAlign: "center",
   },
 });
