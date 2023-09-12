@@ -14,3 +14,5 @@ export * from "./InputSearchBar";
 export * from "./CommentsBlock";
 export * from "./MyComment";
 export * from "./OneComment";
+export * from "./LogOutIconBox";
+export * from "./ArrowLeftIconBox";

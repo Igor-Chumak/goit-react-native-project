@@ -12,6 +12,8 @@ import CommentsScreen from "./src/Screens/CommentsScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
 
+import { LogOutIconBox } from "./src/components";
+
 // import BGImage from "./src/Img/photo_BG.png";
 
 const MainStack = createStackNavigator();
@@ -31,7 +33,24 @@ export default function App() {
       <MainStack.Navigator initialRouteName="Home">
         <MainStack.Screen name="Registration" component={RegistrationScreen} />
         <MainStack.Screen name="Login" component={LoginScreen} />
-        <MainStack.Screen name="Home" component={HomeScreen} options={{ title: "Публікації" }} />
+        <MainStack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerStyle: {
+              backgroundColor: "#eede95",
+            },
+            title: "Публікації",
+            headerTintColor: "#212121",
+            headerTitleStyle: {
+              fontFamily: "RobotoM",
+              fontSize: 17,
+              lineHeight: 22,
+              letterSpacing: -0.4,
+            },
+            headerRight: () => <LogOutIconBox />,
+          }}
+        />
       </MainStack.Navigator>
       {/* <PostsScreen /> */}
       {/* <CreatePostsScreen /> */}
