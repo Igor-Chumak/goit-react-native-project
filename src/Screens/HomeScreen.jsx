@@ -3,7 +3,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "./PostsScreen";
 import CreatePostScreen from "./CreatePostScreen";
 import ProfileScreen from "./ProfileScreen";
-import { ArrowLeftIconBox, HeaderTitle, LogOutIconBox } from "../components";
+import {
+  BtnAddIconBox,
+  GoBackIconBox,
+  GridIconBox,
+  HeaderTitle,
+  LogOutIconBox,
+  UserIconBox,
+} from "../components";
 
 const Tabs = createBottomTabNavigator();
 
@@ -26,6 +33,7 @@ const HomeScreen = () => {
           borderBottomWidth: 1,
           borderColor: "rgba(0,0,0,0.3)",
         },
+        tabBarLabel: "",
       }}
     >
       <Tabs.Screen
@@ -34,14 +42,17 @@ const HomeScreen = () => {
         options={{
           headerTitle: () => <HeaderTitle title={"Публікації"} />,
           headerRight: () => <LogOutIconBox />,
+          tabBarIcon: () => <GridIconBox />,
         }}
       />
       <Tabs.Screen
         name="CreatePost"
         component={CreatePostScreen}
         options={{
-          headerLeft: () => <ArrowLeftIconBox />,
+          headerLeft: () => <GoBackIconBox />,
           headerTitle: () => <HeaderTitle title={"Створити публікацію"} />,
+          tabBarIcon: () => <BtnAddIconBox />,
+          tabBarStyle: { display: "none" },
         }}
       />
       <Tabs.Screen
@@ -49,6 +60,7 @@ const HomeScreen = () => {
         component={ProfileScreen}
         options={{
           headerShown: false,
+          tabBarIcon: () => <UserIconBox />,
         }}
       />
     </Tabs.Navigator>
@@ -68,6 +80,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-
-//   headerRight: () => <LogOutIconBox />,
-// }}
