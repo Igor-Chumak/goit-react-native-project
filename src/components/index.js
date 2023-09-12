@@ -16,3 +16,6 @@ export * from "./MyComment";
 export * from "./OneComment";
 export * from "./LogOutIconBox";
 export * from "./ArrowLeftIconBox";
+export * from "./GridIconBox";
+export * from "./BtnAddIconBox";
+export * from "./UserIconBox";
