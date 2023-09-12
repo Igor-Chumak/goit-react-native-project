@@ -10,10 +10,13 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import photoDefault from "../Img/react512.png";
 import BtnAddIcon from "../Img/union.svg";
 
-export const RegistrationForm = ({ navigation }) => {
+export const RegistrationForm = () => {
+  const navigation = useNavigation();
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -1,14 +1,16 @@
-import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, SafeAreaView, StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { LoginForm } from "../components";
 
 import BGImage from "../Img/photo_BG.png";
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
+  // const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.containerSafe}>
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <View style={styles.wrap}>
-          <LoginForm navigation={navigation} />
+          <LoginForm />
         </View>
       </ImageBackground>
     </SafeAreaView>

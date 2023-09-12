@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useReducer, useState } from "react";
 import {
   Keyboard,
@@ -9,7 +10,8 @@ import {
   View,
 } from "react-native";
 
-export const LoginForm = ({ navigation }) => {
+export const LoginForm = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordHidden, setPasswordHidden] = useState(true);
