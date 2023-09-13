@@ -1,10 +1,22 @@
-// import { StatusBar } from "expo-status-bar";
-import { ImageBackground, PixelRatio, SafeAreaView, StyleSheet, Text } from "react-native";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
-import BGImage from "./src/Img/photo_BG.png";
-import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
-import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
-import { PostsScreen } from "./src/Screens/PostsScreen/PostsScreen";
+
+import RegistrationScreen from "./src/Screens/RegistrationScreen";
+import LoginScreen from "./src/Screens/LoginScreen";
+import PostsScreen from "./src/Screens/PostsScreen";
+import CreatePostScreen from "./src/Screens/CreatePostScreen";
+import CommentsScreen from "./src/Screens/CommentsScreen";
+import ProfileScreen from "./src/Screens/ProfileScreen";
+import HomeScreen from "./src/Screens/HomeScreen";
+
+import { GoBackIconBox, HeaderTitle } from "./src/components";
+
+// import BGImage from "./src/Img/photo_BG.png";
+
+const MainStack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -17,32 +29,70 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      {/* <StatusBar translucent={false} hidden={false} style="auto" /> */}
-      <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
-        {/* <Text style={styles.text}>App.js</Text> */}
-        <RegistrationScreen />
-        {/* <LoginScreen /> */}
-        {/* <PostsScreen /> */}
-      </ImageBackground>
-    </SafeAreaView>
+    <NavigationContainer>
+      <MainStack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerTitleAlign: "center",
+          // headerShown: false,
+          headerStyle: {
+            height: 88,
+            backgroundColor: "white",
+            borderBottomWidth: 1,
+            borderColor: "rgba(0,0,0,0.3)",
+          },
+        }}
+      >
+        <MainStack.Screen
+          name="Registration"
+          component={RegistrationScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <MainStack.Screen
+          name="Comments"
+          component={CommentsScreen}
+          options={{
+            headerLeft: () => <GoBackIconBox />,
+            headerTitle: () => <HeaderTitle title={"Коментарі"} />,
+          }}
+        />
+      </MainStack.Navigator>
+    </NavigationContainer>
   );
 }
 
+{
+  /* <SafeAreaView style={styles.containerSafe}>
+  <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
+  //  
+  </ImageBackground>
+</SafeAreaView>; */
+}
+
 const styles = StyleSheet.create({
-  container: {
+  containerSafe: {
     flexGrow: 1,
-    // borderWidth: 2,
+    // borderWidth: 1,
     // borderColor: "orange",
   },
   imagebg: {
     height: "100%",
     width: "100%",
-  },
-  text: {
-    fontFamily: "RobotoM",
-    fontSize: 20,
-    color: "orange",
-    textAlign: "center",
   },
 });

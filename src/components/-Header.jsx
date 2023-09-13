@@ -1,20 +1,23 @@
-// import * as React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import LogoutIcon from "../../Img/log_out.svg";
-import ArrowLeftIcon from "../../Img/arrow_left.svg";
+import LogoutIcon from "../Img/log_out.svg";
+import ArrowLeftIcon from "../Img/arrow_left.svg";
 
-export const Header = () => {
+export const Header = ({ type, title }) => {
   return (
     <View style={styles.container}>
-      <Pressable style={styles.arrowLeftBox}>
-        <ArrowLeftIcon width={24} height={24} />
-      </Pressable>
+      {type === "left" && (
+        <Pressable style={styles.arrowLeftBox}>
+          <ArrowLeftIcon width={24} height={24} />
+        </Pressable>
+      )}
       <View style={styles.titleBox}>
-        <Text style={styles.title}>Публікації</Text>
+        <Text style={styles.title}>{title}</Text>
       </View>
-      <Pressable style={styles.logOutBox}>
-        <LogoutIcon width={24} height={24} />
-      </Pressable>
+      {type === "exit" && (
+        <Pressable style={styles.logOutBox}>
+          <LogoutIcon width={24} height={24} />
+        </Pressable>
+      )}
     </View>
   );
 };
@@ -28,7 +31,9 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "center",
     backgroundColor: "white",
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    // borderWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: 1,
+    borderColor: "rgba(0,0,0,0.3)",
     // borderWidth: 2,
     // borderColor: "blue",
   },

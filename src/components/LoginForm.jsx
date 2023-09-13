@@ -1,75 +1,57 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useReducer, useState } from "react";
 import {
-  Image,
   Keyboard,
   KeyboardAvoidingView,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
-import photoDefault from "../../Img/react512.png";
-import BtnAddIcon from "../../Img/union.svg";
 
-export const RegistrationForm = () => {
-  const [login, setLogin] = useState("");
+export const LoginForm = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [visiblePassword, setVisiblePassword] = useState(true);
-  const [state, dispatch] = useReducer(reducer, { login, email, password });
+  const [passwordHidden, setPasswordHidden] = useState(true);
+  const [state, dispatch] = useReducer(reducer, { email, password });
 
   function reducer(state, action) {
-    if (action.type === "submitRegForm") return { login, email, password };
+    if (action.type === "submitRegForm") return { email, password };
   }
 
   useEffect(() => {
-    setLogin("");
     setEmail("");
     setPassword("");
-    console.log("Registration Form:", state);
+    console.log("LogIn Form:", state);
   }, [state]);
 
   const handleSubmit = () => {
-    if (!login || !email || !password) return;
-    // console.log("login :>> ", login);
+    if (!email || !password) return;
     // console.log("email :>> ", email);
     // console.log("password :>> ", password);
-    setVisiblePassword(true);
+    setPasswordHidden(true);
     dispatch({ type: "submitRegForm" });
-    // setLogin("");
     // setEmail("");
     // setPassword("");
+    navigation.navigate("Home");
     return;
   };
 
   const toggleVisiblePassword = () => {
-    setVisiblePassword(!visiblePassword);
+    setPasswordHidden(!passwordHidden);
   };
 
   return (
     <Pressable onPress={Keyboard.dismiss}>
       <View style={styles.wrapForm}>
-        <View style={styles.wrapPhoto}>
-          <Image source={photoDefault} style={styles.photo} />
-          <Pressable style={styles.btnAddBox}>
-            <BtnAddIcon width={13} height={13} />
-          </Pressable>
-        </View>
-        <Text style={styles.title}>Реєстрація</Text>
+        <Text style={styles.title}>Увійти</Text>
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
           style={styles.wrapProvider}
         >
           <View style={styles.inputBox}>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Логін"
-              placeholderTextColor="#BDBDBD"
-              value={login}
-              onChangeText={setLogin}
-            />
             <TextInput
               style={styles.textInput}
               autoComplete="email"
@@ -80,12 +62,11 @@ export const RegistrationForm = () => {
             />
             <View style={styles.wrapInputDelete}>
               <TextInput
-                style={[styles.InputDelete, styles.textInput]}
-                name="password"
+                style={[styles.inputDelete, styles.textInput]}
                 autoComplete="password"
                 placeholder="Пароль"
                 placeholderTextColor="#BDBDBD"
-                secureTextEntry={visiblePassword}
+                secureTextEntry={passwordHidden}
                 value={password}
                 onChangeText={setPassword}
               />
@@ -95,10 +76,10 @@ export const RegistrationForm = () => {
             </View>
           </View>
           <Pressable style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.btnText}>Зареєструватися</Text>
+            <Text style={styles.btnText}>Увійти</Text>
           </Pressable>
-          <Pressable>
-            <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
+          <Pressable onPress={() => navigation.navigate("Registration")}>
+            <Text style={styles.btnLogIn}>Немає акаунту? Зареєструватися</Text>
           </Pressable>
         </KeyboardAvoidingView>
       </View>
@@ -109,47 +90,19 @@ export const RegistrationForm = () => {
 const styles = StyleSheet.create({
   wrapForm: {
     width: "100%",
-    // height: 549-34,
-    position: "relative",
+    // height: 489-34,
     alignItems: "center",
-    paddingTop: 92,
+    paddingTop: 32,
     paddingLeft: 16,
     paddingRight: 16,
-    paddingBottom: 78,
-    // paddingBottom: 45,
+    // paddingBottom: 111,
+    paddingBottom: 144,
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     //
     // borderWidth: 1,
     // borderColor: "red",
-  },
-  wrapPhoto: {
-    position: "absolute",
-    width: 120,
-    height: 120,
-    top: -60,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
-    //
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-  photo: {
-    width: "100%",
-    height: "100%",
-  },
-  btnAddBox: {
-    position: "absolute",
-    bottom: 14,
-    right: -12,
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#FF6C00",
-    justifyContent: "center",
-    alignItems: "center",
   },
   title: {
     marginBottom: 32,
@@ -169,6 +122,7 @@ const styles = StyleSheet.create({
     gap: 16,
     marginBottom: 43,
   },
+  //
   textInput: {
     width: "100%",
     height: 50,
@@ -185,7 +139,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
   },
-  InputDelete: {
+  inputDelete: {
     paddingRight: 90,
   },
   btnShow: {
@@ -203,9 +157,9 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "100%",
-    // height: 51,
+    height: 51,
     marginBottom: 16,
-    paddingVertical: 16,
+    // paddingVertical: 16,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#FF6C00",

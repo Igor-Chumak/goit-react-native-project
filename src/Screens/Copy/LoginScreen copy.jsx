@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
-import { RegistrationForm } from "./RegistrationForm";
+import { LoginForm } from "../components";
 
-export const RegistrationScreen = () => {
+const LoginScreen = () => {
   return (
     <View style={styles.wrap}>
-      {/* <Text style={styles.text}>Registration Screen</Text> */}
-      <RegistrationForm />
+      {/* <Text style={styles.text}>LogIn Screen</Text> */}
+      <LoginForm />
     </View>
   );
 };
@@ -24,3 +24,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+export default LoginScreen;

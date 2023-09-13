@@ -1,21 +1,20 @@
-import * as React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import GridIcon from "../../Img/grid.svg";
-import UserIcon from "../../Img/user.svg";
-import BtnAddIcon from "../../Img/union_post.svg";
+import GridIcon from "../Img/grid.svg";
+import UserIcon from "../Img/user.svg";
+import BtnAddIcon from "../Img/union_post.svg";
 
 export const TabBar = () => {
   return (
     <View style={styles.container}>
       <View style={styles.boxTabBar}>
-        <Pressable style={styles.icon}>
+        <Pressable style={styles.pressIcon}>
           <GridIcon width={24} height={24} />
         </Pressable>
         <Pressable style={styles.button}>
           <BtnAddIcon width={13} height={13} />
         </Pressable>
-        <Pressable style={styles.icon}>
+        <Pressable style={styles.pressIcon}>
           <UserIcon width={24} height={24} />
         </Pressable>
       </View>
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     paddingTop: 9,
     alignItems: "center",
     justifyContent: "flex-start",
-    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: 1,
     borderColor: "rgba(0,0,0,0.3)",
     position: "absolute",
     backgroundColor: "white",
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "blue",
   },
-  icon: {
+  pressIcon: {
     width: 40,
     height: 40,
     justifyContent: "center",
