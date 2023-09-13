@@ -3,11 +3,11 @@ import { useNavigation } from "@react-navigation/native";
 
 import UserIcon from "../Img/user.svg";
 
-export const UserIconBox = () => {
+export const UserIconBox = ({ fill }) => {
   const navigation = useNavigation();
   return (
     <Pressable style={styles.pressIcon} onPress={() => navigation.navigate("Profile")}>
-      <UserIcon width={24} height={24} />
+      <UserIcon width={24} height={24} fill={fill} />
     </Pressable>
   );
 };

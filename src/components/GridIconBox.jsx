@@ -3,11 +3,11 @@ import { useNavigation } from "@react-navigation/native";
 
 import GridIcon from "../Img/grid.svg";
 
-export const GridIconBox = () => {
+export const GridIconBox = ({ fill }) => {
   const navigation = useNavigation();
   return (
     <Pressable style={styles.pressIcon} onPress={() => navigation.navigate("Posts")}>
-      <GridIcon width={24} height={24} />
+      <GridIcon width={24} height={24} fill={fill} />
     </Pressable>
   );
 };

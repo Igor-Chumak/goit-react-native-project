@@ -33,8 +33,8 @@ const HomeScreen = () => {
           borderBottomWidth: 1,
           borderColor: "rgba(0,0,0,0.3)",
         },
-        // tabBarActiveTintColor: "#bd0643",
-        // tabBarInactiveTintColor: "#212121",
+        tabBarActiveTintColor: "#0050c7",
+        tabBarInactiveTintColor: "white",
         // tabBarActiveBackgroundColor: "red",
         // tabBarInactiveBackgroundColor: "white",
         tabBarShowLabel: false,
@@ -57,7 +57,7 @@ const HomeScreen = () => {
         options={{
           headerTitle: () => <HeaderTitle title={"Публікації"} />,
           headerRight: () => <LogOutIconBox />,
-          tabBarIcon: ({ focused, color, size }) => <GridIconBox />,
+          tabBarIcon: ({ focused, color, size }) => <GridIconBox fill={color} />,
         }}
       />
       <Tabs.Screen
@@ -75,7 +75,7 @@ const HomeScreen = () => {
         component={ProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => <UserIconBox />,
+          tabBarIcon: ({ focused, color, size }) => <UserIconBox fill={color} />,
         }}
       />
     </Tabs.Navigator>
