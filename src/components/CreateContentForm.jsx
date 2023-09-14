@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 import MapPinIcon from "../Img/map-pin.svg";
 
@@ -19,6 +19,11 @@ export const CreateContentForm = () => {
     console.log("Publication :", state);
   }, [state]);
 
+  useEffect(() => {
+    if (!title || !location) return setDisable(true);
+    setDisable(false);
+  }, [title, location]);
+
   const handleSubmit = () => {
     if (!title || !location) return;
     return dispatch({ type: "submitPublication" });
@@ -26,10 +31,6 @@ export const CreateContentForm = () => {
 
   return (
     <View style={styles.wrapForm}>
-      {/* <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-        style={styles.wrapProvider}
-      > */}
       <View style={styles.inputBox}>
         <TextInput
           style={styles.textInput}
@@ -54,18 +55,17 @@ export const CreateContentForm = () => {
         </View>
       </View>
       <Pressable
-        style={[styles.button, { backgroundColor: { disable } ? "#E8E8E8" : "#FF6C00" }]}
+        style={[styles.button, { backgroundColor: disable ? "#E8E8E8" : "#FF6C00" }]}
         onPress={handleSubmit}
         disabled={disable}
       >
-        <Text style={[styles.btnText, { color: { disable } ? "#BDBDBD" : "white" }]}>
-          Опублікувати
-        </Text>
+        <Text style={[styles.btnText, { color: disable ? "#BDBDBD" : "white" }]}>Опублікувати</Text>
       </Pressable>
-      {/* </KeyboardAvoidingView> */}
     </View>
   );
 };
+
+// <Text style={[styles.btnText, { color: { disable } ? "#BDBDBD" : "white" }]}></Text>
 
 const styles = StyleSheet.create({
   wrapForm: {
