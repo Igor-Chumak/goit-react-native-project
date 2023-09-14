@@ -96,3 +96,12 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
+
+// import { useRoute } from "../route";
+// const Main = () => {
+//   const { stateChange } = useSelector((state) => state.auth);
+//   const routing = useRoute(true);
+//   return (
+//     <NavigationContainer >{routing}</NavigationContainer>
+//   );
+// };
