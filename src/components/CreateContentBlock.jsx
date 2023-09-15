@@ -1,11 +1,13 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
-// import imageDefault from "../Img/no_images.png";
 import CameraIcon from "../Img/camera.svg";
+import imgDEf from "../Img/no_images.png";
 
 // title - text under the picture
 // fill ['#BDBDBD'] - filling svg icon camera, if 'white' - additionally change background: rgba(255, 255, 255, 0.3)
-export const CreateContentBlock = ({ title = "", fill = "#BDBDBD" }) => {
+// source [''] - path to image
+export const CreateContentBlock = ({ title = "", source = "", fill = "#BDBDBD" }) => {
+  console.log("source :>> ", source);
   return (
     <View style={styles.contentBox}>
       <View style={styles.contentImageBox}>
@@ -17,7 +19,8 @@ export const CreateContentBlock = ({ title = "", fill = "#BDBDBD" }) => {
         >
           <CameraIcon width={24} height={24} fill={fill} />
         </View>
-        {false && <Image source={imageDefault} style={styles.contentImage}></Image>}
+        <Image source={imgDEf} style={styles.contentImage}></Image>
+        {/* {source && <Image source={imgDEf} style={styles.contentImage}></Image>} */}
       </View>
       <View style={styles.contentTitleBox}>
         <Text style={styles.contentTitle}>{title}</Text>
@@ -34,8 +37,11 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
     backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "blue",
   },
   contentImageBox: {
+    display: "relative",
     width: "100%",
     height: 240,
     backgroundColor: "#E8E8E8",
@@ -44,9 +50,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   contentImage: {
+    // position: "absolute",
     width: "100%",
     height: 240,
-    resizeMode: "center",
+    resizeMode: "cover",
   },
   contentTitleBox: {
     width: "100%",
@@ -58,6 +65,7 @@ const styles = StyleSheet.create({
     color: "#BDBDBD",
   },
   icon_Box: {
+    position: "absolute",
     width: 60,
     height: 60,
     flexDirection: "row",
@@ -65,5 +73,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 30,
+    zIndex: 10,
   },
 });

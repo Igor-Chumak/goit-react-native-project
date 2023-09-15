@@ -65,15 +65,14 @@ export const CreateContentForm = () => {
   );
 };
 
-// <Text style={[styles.btnText, { color: { disable } ? "#BDBDBD" : "white" }]}></Text>
-
 const styles = StyleSheet.create({
   wrapForm: {
     flex: 1,
     width: "100%",
     // alignItems: "center",
-    // borderWidth: 1,
-    // borderColor: "red",
+    borderWidth: 1,
+    borderColor: "red",
+    gap: 32,
   },
   // wrapProvider: {
   // flex: 1,
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
   inputBox: {
     width: "100%",
     gap: 16,
-    marginBottom: 32,
+    // marginBottom: 32,
   },
   //
   textInput: {
