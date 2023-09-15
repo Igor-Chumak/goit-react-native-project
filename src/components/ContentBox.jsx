@@ -6,14 +6,13 @@ export const ContentBox = ({ children }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    flexGrow: 1,
     width: "100%",
-    alignItems: "flex-start",
     justifyContent: "flex-start",
+    alignItems: "center",
     backgroundColor: "white",
-    // paddingVertical: 32,
     paddingTop: 32,
-    // paddingBottom: 32,
     paddingHorizontal: 16,
     gap: 32,
     // borderWidth: 1,

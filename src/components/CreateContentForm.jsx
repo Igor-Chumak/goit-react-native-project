@@ -67,7 +67,9 @@ export const CreateContentForm = () => {
 
 const styles = StyleSheet.create({
   wrapForm: {
-    flex: 1,
+    //mentor
+    // flex: 1,
+    //
     width: "100%",
     // alignItems: "center",
     borderWidth: 1,

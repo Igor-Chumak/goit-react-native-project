@@ -31,7 +31,7 @@ export const CreateContentBlock = ({ title = "", source = "", fill = "#BDBDBD" }
 
 const styles = StyleSheet.create({
   contentBox: {
-    marginBottom: 32,
+    // marginBottom: 32,
     width: "100%",
     justifyContent: "flex-start",
     gap: 8,
