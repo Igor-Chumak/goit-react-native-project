@@ -20,3 +20,4 @@ export * from "./GoBackIconBox";
 export * from "./GridIconBox";
 export * from "./BtnAddIconBox";
 export * from "./UserIconBox";
+export * from "./GetCamera";

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -7,29 +8,54 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
+import {
+  ContentBox,
+  ToolBar,
+  CreateContentBlock,
+  CreateContentForm,
+  GetCamera,
+} from "../components";
 
-// Редагувати фото
-import imgDef from "../Img/no_images_gray.png";
+// import imgDef from "../Img/no_images_gray.png";
 
 const CreatePostScreen = () => {
-  const pressedPhoto = (e) => {
-    console.log("Pressed photo :>> ");
+  const [photoRef, setCameraRef] = useState(null);
+  const [onCamera, setOnCamera] = useState(true);
+
+  const closeCamera = (ref) => {
+    setOnCamera(false);
+    setCameraRef(ref);
   };
+
+  // useEffect(() => {
+  //   if (!photoRef) return;
+  //   setOnCamera(false);
+  // }, [onCamera, photoRef]);
+
+  // const pressedPhoto = () => {
+  //   return;
+  // };
 
   return (
     <SafeAreaView>
-      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-        <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
-          <ContentBox>
-            <TouchableOpacity onPress={pressedPhoto} style={{ width: "100%" }}>
-              <CreateContentBlock title={"Завантажте фото"} source={imgDef} />
-            </TouchableOpacity>
-            <CreateContentForm />
-            <ToolBar />
-          </ContentBox>
-        </ScrollView>
-      </KeyboardAvoidingView>
+      {onCamera ? (
+        <GetCamera />
+      ) : (
+        <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+          <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
+            <ContentBox>
+              <TouchableOpacity onPress={() => setOnCamera(true)} style={{ width: "100%" }}>
+                <CreateContentBlock
+                  title={!photoRef ? "Завантажте фото" : "Редагувати фото"}
+                  source={photoRef}
+                />
+              </TouchableOpacity>
+              <CreateContentForm />
+              <ToolBar />
+            </ContentBox>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      )}
     </SafeAreaView>
   );
 };
