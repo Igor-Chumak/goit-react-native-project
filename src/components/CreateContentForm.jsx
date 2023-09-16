@@ -49,9 +49,9 @@ export const CreateContentForm = () => {
             onChangeText={setLocation}
             editable={true}
           />
-          <View style={styles.locationIconBox}>
-            <MapPinIcon width={24} height={24} />
-          </View>
+          {/* <View style={styles.locationIconBox}> */}
+          <MapPinIcon width={24} height={24} style={styles.locationIconBox} />
+          {/* </View> */}
         </View>
       </View>
       <Pressable
@@ -67,14 +67,11 @@ export const CreateContentForm = () => {
 
 const styles = StyleSheet.create({
   wrapForm: {
-    //mentor
-    // flex: 1,
-    //
     width: "100%",
     // alignItems: "center",
-    borderWidth: 1,
-    borderColor: "red",
     gap: 32,
+    // borderWidth: 1,
+    // borderColor: "red",
   },
   // wrapProvider: {
   // flex: 1,
