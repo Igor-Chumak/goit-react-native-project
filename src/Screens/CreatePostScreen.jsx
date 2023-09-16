@@ -3,11 +3,11 @@ import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet } 
 import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
 const CreatePostScreen = () => {
-  const [photo, setPhoto] = useState(null);
+  const [photoPost, setPhotoPost] = useState(null);
   const [resForm, setResForm] = useState(false);
 
   const resetForm = () => {
-    setPhoto(null);
+    setPhotoPost(null);
     setResForm(true);
   };
 
@@ -16,10 +16,10 @@ const CreatePostScreen = () => {
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
           <ContentBox>
-            <CreateContentBlock photo={photo} setPhoto={setPhoto} />
+            <CreateContentBlock photo={photoPost} setPhoto={setPhotoPost} />
             <CreateContentForm
-              photo={photo}
-              setPhoto={setPhoto}
+              photoPost={photoPost}
+              setPhotoPost={setPhotoPost}
               resForm={resForm}
               setResForm={setResForm}
             />
