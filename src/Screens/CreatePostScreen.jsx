@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -6,45 +5,21 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  View,
 } from "react-native";
-import {
-  ContentBox,
-  ToolBar,
-  CreateContentBlock,
-  CreateContentForm,
-  GetCamera,
-} from "../components";
+import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
 const CreatePostScreen = () => {
-  const [photoRef, setCameraRef] = useState(null);
-  const [onCamera, setOnCamera] = useState(false);
-
-  const closeCamera = (ref) => {
-    setOnCamera(false);
-    setCameraRef(ref);
-  };
-
   return (
     <SafeAreaView>
-      {onCamera ? (
-        <GetCamera closeCamera={closeCamera} />
-      ) : (
-        <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-          <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
-            <ContentBox>
-              <TouchableOpacity onPress={() => setOnCamera(true)} style={{ width: "100%" }}>
-                <CreateContentBlock
-                  title={!photoRef ? "Завантажте фото" : "Редагувати фото"}
-                  source={photoRef}
-                />
-              </TouchableOpacity>
-              <CreateContentForm />
-              <ToolBar />
-            </ContentBox>
-          </ScrollView>
-        </KeyboardAvoidingView>
-      )}
+      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+        <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
+          <ContentBox>
+            <CreateContentBlock />
+            <CreateContentForm />
+            <ToolBar />
+          </ContentBox>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
