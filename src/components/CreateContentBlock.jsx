@@ -1,41 +1,70 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { GetCamera } from "./GetCamera";
 
-// import imageDefault from "../Img/no_images.png";
 import CameraIcon from "../Img/camera.svg";
+// import imgDEf from "../Img/no_images.png";
 
 // title - text under the picture
 // fill ['#BDBDBD'] - filling svg icon camera, if 'white' - additionally change background: rgba(255, 255, 255, 0.3)
-export const CreateContentBlock = ({ title = "", fill = "#BDBDBD" }) => {
+// source [''] - path to image
+
+export const CreateContentBlock = ({ photo, setPhoto }) => {
+  const [onCamera, setOnCamera] = useState(false);
+  // const [photo, setPhoto] = useState(null);
+  const [title, setTitle] = useState("Завантажте фото");
+  const [colorsIcon, setColorsIcon] = useState({ fill: "#BDBDBD", bgColor: "white" });
+
+  useEffect(() => {
+    setTitle(!photo ? "Завантажте фото" : "Редагувати фото");
+    setColorsIcon(
+      !photo
+        ? { fill: "#BDBDBD", bgColor: "white" }
+        : { fill: "white", bgColor: "rgba(255, 255, 255, 0.3)" }
+    );
+  }, [photo]);
+
+  const closeCamera = (ref) => {
+    setOnCamera(false);
+    setPhoto(ref);
+  };
+
   return (
-    <View style={styles.contentBox}>
-      <View style={styles.contentImageBox}>
-        <View
-          style={[
-            styles.icon_Box,
-            fill === "white" ? { backgroundColor: "rgba(255, 255, 255, 0.3)" } : {},
-          ]}
-        >
-          <CameraIcon width={24} height={24} fill={fill} />
+    <TouchableOpacity onPress={() => setOnCamera(true)} style={{ width: "100%" }}>
+      <View style={styles.contentBox}>
+        <View style={styles.contentImageBox}>
+          {onCamera ? (
+            <GetCamera closeCamera={closeCamera} />
+          ) : (
+            <>
+              <View style={[styles.icon_Box, { backgroundColor: colorsIcon.bgColor }]}>
+                <CameraIcon width={24} height={24} fill={colorsIcon.fill} />
+              </View>
+              {photo && <Image source={{ uri: photo }} style={styles.contentImage}></Image>}
+            </>
+          )}
         </View>
-        {false && <Image source={imageDefault} style={styles.contentImage}></Image>}
+        <View style={styles.contentTitleBox}>
+          <Text style={styles.contentTitle}>{title}</Text>
+        </View>
       </View>
-      <View style={styles.contentTitleBox}>
-        <Text style={styles.contentTitle}>{title}</Text>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   contentBox: {
-    marginBottom: 32,
+    // marginBottom: 32,
     width: "100%",
     justifyContent: "flex-start",
     gap: 8,
     alignItems: "center",
     backgroundColor: "white",
+    // borderWidth: 1,
+    // borderColor: "blue",
   },
   contentImageBox: {
+    display: "relative",
     width: "100%",
     height: 240,
     backgroundColor: "#E8E8E8",
@@ -46,7 +75,7 @@ const styles = StyleSheet.create({
   contentImage: {
     width: "100%",
     height: 240,
-    resizeMode: "center",
+    resizeMode: "cover",
   },
   contentTitleBox: {
     width: "100%",
@@ -58,12 +87,14 @@ const styles = StyleSheet.create({
     color: "#BDBDBD",
   },
   icon_Box: {
+    position: "absolute",
     width: 60,
     height: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white",
+    // backgroundColor: "white",
     borderRadius: 30,
+    zIndex: 10,
   },
 });

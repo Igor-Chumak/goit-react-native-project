@@ -1,35 +1,59 @@
 import { useEffect, useReducer, useState } from "react";
-import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import * as Location from "expo-location";
 
 import MapPinIcon from "../Img/map-pin.svg";
 
-export const CreateContentForm = () => {
+export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm }) => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [disable, setDisable] = useState(true);
-  const [state, dispatch] = useReducer(reducer, { title, location });
+  const [position, setPosition] = useState(null);
+  const [state, dispatch] = useReducer(reducer, { title, location, photo: photoPost, position });
 
   function reducer(state, action) {
-    if (action.type === "submitPublication") return { title, location };
+    if (action.type === "submitPublication") return { title, location, photo: photoPost, position };
   }
 
   useEffect(() => {
     setTitle("");
     setLocation("");
+    setPhotoPost(null);
+    setResForm(false);
+    setPosition(null);
     console.log("Publication :", state);
-  }, [state]);
+  }, [state, resForm]);
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    if (!title || !location || !photoPost) return setDisable(true);
+    setDisable(false);
+  }, [title, location, photoPost]);
+
+  const definePosition = async () => {
+    console.log("location define");
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.log("Permission to access location was denied");
+      return;
+    }
+    console.log("location status", status);
+    let location = await Location.getCurrentPositionAsync({});
+    const coords = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    };
+    console.log("location :>> ", coords);
+    setPosition(coords);
+  };
+
+  const handleSubmit = async () => {
     if (!title || !location) return;
+    await definePosition();
     return dispatch({ type: "submitPublication" });
   };
 
   return (
     <View style={styles.wrapForm}>
-      {/* <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-        style={styles.wrapProvider}
-      > */}
       <View style={styles.inputBox}>
         <TextInput
           style={styles.textInput}
@@ -48,30 +72,27 @@ export const CreateContentForm = () => {
             onChangeText={setLocation}
             editable={true}
           />
-          <View style={styles.locationIconBox}>
-            <MapPinIcon width={24} height={24} />
-          </View>
+          {/* <View style={styles.locationIconBox}> */}
+          <MapPinIcon width={24} height={24} style={styles.locationIconBox} />
+          {/* </View> */}
         </View>
       </View>
       <Pressable
-        style={[styles.button, { backgroundColor: { disable } ? "#E8E8E8" : "#FF6C00" }]}
+        style={[styles.button, { backgroundColor: disable ? "#E8E8E8" : "#FF6C00" }]}
         onPress={handleSubmit}
         disabled={disable}
       >
-        <Text style={[styles.btnText, { color: { disable } ? "#BDBDBD" : "white" }]}>
-          Опублікувати
-        </Text>
+        <Text style={[styles.btnText, { color: disable ? "#BDBDBD" : "white" }]}>Опублікувати</Text>
       </Pressable>
-      {/* </KeyboardAvoidingView> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   wrapForm: {
-    flex: 1,
     width: "100%",
     // alignItems: "center",
+    gap: 32,
     // borderWidth: 1,
     // borderColor: "red",
   },
@@ -84,7 +105,7 @@ const styles = StyleSheet.create({
   inputBox: {
     width: "100%",
     gap: 16,
-    marginBottom: 32,
+    // marginBottom: 32,
   },
   //
   textInput: {

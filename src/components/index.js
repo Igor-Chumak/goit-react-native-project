@@ -1,7 +1,5 @@
 export * from "./RegistrationForm";
 export * from "./LoginForm";
-// export * from "./Header";
-// export * from "./TabBar";
 export * from "./ToolBar";
 export * from "./ContentBox";
 export * from "./ContentScrollBox";
@@ -20,3 +18,4 @@ export * from "./GoBackIconBox";
 export * from "./GridIconBox";
 export * from "./BtnAddIconBox";
 export * from "./UserIconBox";
+export * from "./GetCamera";

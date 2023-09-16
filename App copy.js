@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-// import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ImageBackground, SafeAreaView, StyleSheet, Text } from "react-native";
 import { useFonts } from "expo-font";
 import BGImage from "./src/Img/photo_BG.png";
@@ -26,20 +26,21 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <SafeAreaView style={styles.container}>
-        {/* <StatusBar translucent={false} hidden={false} style="auto" /> */}
-        <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
-          {/* <RegistrationScreen /> */}
-          {/* <LoginScreen /> */}
-          {/* <PostsScreen /> */}
-          {/* <CreatePostsScreen /> */}
-          {/* <CommentsScreen /> */}
-          {/* <ProfileScreen /> */}
-          <HomeScreen />
-        </ImageBackground>
-      </SafeAreaView>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <SafeAreaView style={styles.container}>
+          <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
+            {/* <RegistrationScreen /> */}
+            {/* <LoginScreen /> */}
+            {/* <PostsScreen /> */}
+            {/* <CreatePostsScreen /> */}
+            {/* <CommentsScreen /> */}
+            {/* <ProfileScreen /> */}
+            <HomeScreen />
+          </ImageBackground>
+        </SafeAreaView>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
