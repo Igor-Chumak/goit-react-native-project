@@ -23,19 +23,9 @@ const CreatePostScreen = () => {
   const [onCamera, setOnCamera] = useState(false);
 
   const closeCamera = (ref) => {
-    console.log("ref :>> ", ref);
     setOnCamera(false);
     setCameraRef(ref);
   };
-
-  // useEffect(() => {
-  //   if (!photoRef) return;
-  //   setOnCamera(false);
-  // }, [onCamera, photoRef]);
-
-  // const pressedPhoto = () => {
-  //   return;
-  // };
 
   return (
     <SafeAreaView>
