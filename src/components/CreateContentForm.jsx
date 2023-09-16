@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from "react";
-import { Pressable, TouchableOpacity, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import * as Location from "expo-location";
 
 import MapPinIcon from "../Img/map-pin.svg";
 
@@ -7,10 +8,11 @@ export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [disable, setDisable] = useState(true);
-  const [state, dispatch] = useReducer(reducer, { title, location, photo: photoPost });
+  const [position, setPosition] = useState(null);
+  const [state, dispatch] = useReducer(reducer, { title, location, photo: photoPost, position });
 
   function reducer(state, action) {
-    if (action.type === "submitPublication") return { title, location, photo: photoPost };
+    if (action.type === "submitPublication") return { title, location, photo: photoPost, position };
   }
 
   useEffect(() => {
@@ -18,6 +20,7 @@ export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm
     setLocation("");
     setPhotoPost(null);
     setResForm(false);
+    setPosition(null);
     console.log("Publication :", state);
   }, [state, resForm]);
 
@@ -26,8 +29,26 @@ export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm
     setDisable(false);
   }, [title, location, photoPost]);
 
-  const handleSubmit = () => {
+  const definePosition = async () => {
+    console.log("location define");
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.log("Permission to access location was denied");
+      return;
+    }
+    console.log("location status", status);
+    let location = await Location.getCurrentPositionAsync({});
+    const coords = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    };
+    console.log("location :>> ", coords);
+    setPosition(coords);
+  };
+
+  const handleSubmit = async () => {
     if (!title || !location) return;
+    await definePosition();
     return dispatch({ type: "submitPublication" });
   };
 
