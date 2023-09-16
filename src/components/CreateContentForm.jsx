@@ -3,26 +3,28 @@ import { Pressable, TouchableOpacity, StyleSheet, Text, TextInput, View } from "
 
 import MapPinIcon from "../Img/map-pin.svg";
 
-export const CreateContentForm = () => {
+export const CreateContentForm = ({ photo, setPhoto, resForm, setResForm }) => {
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [disable, setDisable] = useState(true);
   const [state, dispatch] = useReducer(reducer, { title, location });
 
   function reducer(state, action) {
-    if (action.type === "submitPublication") return { title, location };
+    if (action.type === "submitPublication") return { title, location, photo, location };
   }
 
   useEffect(() => {
     setTitle("");
     setLocation("");
+    setPhoto(null);
+    setResForm(false);
     console.log("Publication :", state);
-  }, [state]);
+  }, [state, resForm]);
 
   useEffect(() => {
-    if (!title || !location) return setDisable(true);
+    if (!title || !location || !photo) return setDisable(true);
     setDisable(false);
-  }, [title, location]);
+  }, [title, location, photo]);
 
   const handleSubmit = () => {
     if (!title || !location) return;

@@ -2,14 +2,10 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import TrashIcon from "../Img/trash_toolbar.svg";
 
-export const ToolBar = () => {
-  const pressed = () => {
-    console.log("trash pressed :>> ");
-  };
-
+export const ToolBar = ({ resetForm }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={pressed} style={styles.pressIcon}>
+      <TouchableOpacity onPress={resetForm} style={styles.pressIcon}>
         <TrashIcon width={24} height={24} />
       </TouchableOpacity>
     </View>

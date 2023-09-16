@@ -9,14 +9,13 @@ import CameraIcon from "../Img/camera.svg";
 // fill ['#BDBDBD'] - filling svg icon camera, if 'white' - additionally change background: rgba(255, 255, 255, 0.3)
 // source [''] - path to image
 
-export const CreateContentBlock = () => {
+export const CreateContentBlock = ({ photo, setPhoto }) => {
   const [onCamera, setOnCamera] = useState(false);
-  const [photo, setPhoto] = useState(null);
+  // const [photo, setPhoto] = useState(null);
   const [title, setTitle] = useState("Завантажте фото");
   const [colorsIcon, setColorsIcon] = useState({ fill: "#BDBDBD", bgColor: "white" });
 
   useEffect(() => {
-    console.log("photoRef :>> ", !photo);
     setTitle(!photo ? "Завантажте фото" : "Редагувати фото");
     setColorsIcon(
       !photo

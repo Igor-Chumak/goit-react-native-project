@@ -1,22 +1,29 @@
-import {
-  KeyboardAvoidingView,
-  Platform,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
 const CreatePostScreen = () => {
+  const [photo, setPhoto] = useState(null);
+  const [resForm, setResForm] = useState(false);
+
+  const resetForm = () => {
+    setPhoto(null);
+    setResForm(true);
+  };
+
   return (
     <SafeAreaView>
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
           <ContentBox>
-            <CreateContentBlock />
-            <CreateContentForm />
-            <ToolBar />
+            <CreateContentBlock photo={photo} setPhoto={setPhoto} />
+            <CreateContentForm
+              photo={photo}
+              setPhoto={setPhoto}
+              resForm={resForm}
+              setResForm={setResForm}
+            />
+            <ToolBar resetForm={resetForm} />
           </ContentBox>
         </ScrollView>
       </KeyboardAvoidingView>
