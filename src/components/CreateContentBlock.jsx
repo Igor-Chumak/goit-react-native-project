@@ -7,7 +7,7 @@ import CameraIcon from "../Img/camera.svg";
 // fill ['#BDBDBD'] - filling svg icon camera, if 'white' - additionally change background: rgba(255, 255, 255, 0.3)
 // source [''] - path to image
 
-export const CreateContentBlock = ({ title = "", source = "", fill = "#BDBDBD" }) => {
+export const CreateContentBlock = ({ title = "", source = "" }) => {
   const colorIcon = !source
     ? { fill: "#BDBDBD", bgColor: "white" }
     : { fill: "white", bgColor: "rgba(255, 255, 255, 0.3)" };
