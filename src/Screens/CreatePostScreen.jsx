@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
@@ -11,9 +12,9 @@ import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../c
 // Редагувати фото
 import imgDef from "../Img/no_images_gray.png";
 
-const CreatePostScreen = (e) => {
-  const pressPhoto = () => {
-    console.log("Pressed photo :>> ", e.currentTarget);
+const CreatePostScreen = () => {
+  const pressedPhoto = (e) => {
+    console.log("Pressed photo :>> ");
   };
 
   return (
@@ -21,7 +22,9 @@ const CreatePostScreen = (e) => {
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
           <ContentBox>
-            <CreateContentBlock title={"Завантажте фото"} source={imgDef} />
+            <TouchableOpacity onPress={pressedPhoto} style={{ width: "100%" }}>
+              <CreateContentBlock title={"Завантажте фото"} source={imgDef} />
+            </TouchableOpacity>
             <CreateContentForm />
             <ToolBar />
           </ContentBox>

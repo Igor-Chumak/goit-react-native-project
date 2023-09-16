@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   contentImage: {
-    // position: "absolute",
     width: "100%",
     height: 240,
     resizeMode: "cover",
