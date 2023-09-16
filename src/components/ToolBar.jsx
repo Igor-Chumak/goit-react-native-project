@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import TrashIcon from "../Img/trash_toolbar.svg";
 
@@ -9,13 +9,9 @@ export const ToolBar = () => {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.boxToolBar}> */}
-      <TouchableOpacity onPress={pressed}>
-        <View style={styles.pressIcon}>
-          <TrashIcon width={24} height={24} />
-        </View>
+      <TouchableOpacity onPress={pressed} style={styles.pressIcon}>
+        <TrashIcon width={24} height={24} />
       </TouchableOpacity>
-      {/* </View> */}
     </View>
   );
 };
@@ -29,15 +25,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "rgba(0,0,0,0.3)",
     backgroundColor: "white",
-    // borderWidth: 1,
-    // borderColor: "blue",
-  },
-  boxToolBar: {
-    // width: "100%",
-    // flexDirection: "row",
-    // justifyContent: "space-between",
-    // alignItems: "center",
-    // gap: 31,
     // borderWidth: 1,
     // borderColor: "blue",
   },

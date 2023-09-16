@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, TouchableOpacity, StyleSheet, Text, TextInput, View } from "react-native";
 
 import MapPinIcon from "../Img/map-pin.svg";
 
