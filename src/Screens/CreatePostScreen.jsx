@@ -16,8 +16,6 @@ import {
   GetCamera,
 } from "../components";
 
-// import imgDef from "../Img/no_images_gray.png";
-
 const CreatePostScreen = () => {
   const [photoRef, setCameraRef] = useState(null);
   const [onCamera, setOnCamera] = useState(false);
