@@ -19,7 +19,7 @@ export const CreateContentBlock = ({ title = "", source = "", fill = "#BDBDBD" }
         <View style={[styles.icon_Box, { backgroundColor: colorIcon.bgColor }]}>
           <CameraIcon width={24} height={24} fill={colorIcon.fill} />
         </View>
-        {source && <Image source={source} style={styles.contentImage}></Image>}
+        {source && <Image source={{ uri: source }} style={styles.contentImage}></Image>}
       </View>
       <View style={styles.contentTitleBox}>
         <Text style={styles.contentTitle}>{title}</Text>

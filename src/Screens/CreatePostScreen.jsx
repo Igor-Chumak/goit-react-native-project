@@ -20,9 +20,10 @@ import {
 
 const CreatePostScreen = () => {
   const [photoRef, setCameraRef] = useState(null);
-  const [onCamera, setOnCamera] = useState(true);
+  const [onCamera, setOnCamera] = useState(false);
 
   const closeCamera = (ref) => {
+    console.log("ref :>> ", ref);
     setOnCamera(false);
     setCameraRef(ref);
   };
@@ -39,7 +40,7 @@ const CreatePostScreen = () => {
   return (
     <SafeAreaView>
       {onCamera ? (
-        <GetCamera />
+        <GetCamera closeCamera={closeCamera} />
       ) : (
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
           <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
@@ -61,7 +62,7 @@ const CreatePostScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  containerTest: {
+  container: {
     // flex: 1,
     // flexGrow: 1,
     // width: "100%",

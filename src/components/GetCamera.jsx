@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import { Camera, requestCameraPermissionsAsync } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 
-export const GetCamera = () => {
+export const GetCamera = ({ closeCamera }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -45,6 +45,7 @@ export const GetCamera = () => {
               if (cameraRef) {
                 const { uri } = await cameraRef.takePictureAsync();
                 await MediaLibrary.createAssetAsync(uri);
+                closeCamera(uri);
               }
             }}
           >
@@ -59,8 +60,13 @@ export const GetCamera = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  container: { flexGrow: 1 },
+  container: {
+    // flex: 1,
+    width: "100%",
+    height: "100%",
+    borderWidth: 1,
+    borderColor: "red",
+  },
   camera: { flex: 1 },
   photoView: {
     flex: 1,
