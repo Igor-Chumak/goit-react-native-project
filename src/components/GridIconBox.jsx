@@ -1,14 +1,12 @@
-import { Pressable, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import GridIcon from "../Img/grid.svg";
 
 export const GridIconBox = ({ fill }) => {
-  const navigation = useNavigation();
   return (
-    <Pressable style={styles.pressIcon} onPress={() => navigation.navigate("Posts")}>
+    <View style={styles.pressIcon}>
       <GridIcon width={24} height={24} fill={fill} />
-    </Pressable>
+    </View>
   );
 };
 

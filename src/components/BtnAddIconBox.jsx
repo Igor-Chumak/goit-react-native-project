@@ -1,14 +1,12 @@
-import { Pressable, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, View } from "react-native";
 
 import BtnAddIcon from "../Img/union_post.svg";
 
 export const BtnAddIconBox = () => {
-  const navigation = useNavigation();
   return (
-    <Pressable style={styles.button} onPress={() => navigation.navigate("CreatePost")}>
+    <View style={styles.button}>
       <BtnAddIcon width={13} height={13} />
-    </Pressable>
+    </View>
   );
 };
 

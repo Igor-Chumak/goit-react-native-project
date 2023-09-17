@@ -11,6 +11,7 @@ import CreatePostScreen from "./src/Screens/CreatePostScreen";
 import CommentsScreen from "./src/Screens/CommentsScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
+import MapScreen from "./src/Screens/MapScreen";
 
 import { GoBackIconBox, HeaderTitle } from "./src/components";
 
@@ -70,6 +71,14 @@ export default function App() {
           options={{
             headerLeft: () => <GoBackIconBox />,
             headerTitle: () => <HeaderTitle title={"Коментарі"} />,
+          }}
+        />
+        <MainStack.Screen
+          name="Map"
+          component={MapScreen}
+          options={{
+            headerLeft: () => <GoBackIconBox />,
+            headerTitle: () => <HeaderTitle title={"Мапа"} />,
           }}
         />
       </MainStack.Navigator>

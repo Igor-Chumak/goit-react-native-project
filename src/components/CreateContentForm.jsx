@@ -3,8 +3,10 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import * as Location from "expo-location";
 
 import MapPinIcon from "../Img/map-pin.svg";
+import { useNavigation } from "@react-navigation/native";
 
 export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm }) => {
+  const navigation = useNavigation();
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [disable, setDisable] = useState(true);
@@ -44,12 +46,15 @@ export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm
     };
     console.log("location :>> ", coords);
     setPosition(coords);
+    return;
   };
 
   const handleSubmit = async () => {
     if (!title || !location) return;
     await definePosition();
-    return dispatch({ type: "submitPublication" });
+    dispatch({ type: "submitPublication" });
+    navigation.navigate("Posts");
+    return;
   };
 
   return (
