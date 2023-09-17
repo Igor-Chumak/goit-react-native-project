@@ -3,14 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "./PostsScreen";
 import CreatePostScreen from "./CreatePostScreen";
 import ProfileScreen from "./ProfileScreen";
-import {
-  BtnAddIconBox,
-  GoBackIconBox,
-  GridIconBox,
-  HeaderTitle,
-  LogOutIconBox,
-  UserIconBox,
-} from "../components";
+import { GoBackIconBox, HeaderTitle, LogOutIconBox } from "../components";
 import GridIcon from "../Img/grid.svg";
 import BtnAddIcon from "../Img/union_post.svg";
 import UserIcon from "../Img/user.svg";
