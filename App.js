@@ -14,6 +14,8 @@ import HomeScreen from "./src/Screens/HomeScreen";
 import MapScreen from "./src/Screens/MapScreen";
 
 import { GoBackIconBox, HeaderTitle } from "./src/components";
+// import GoBackIcon from "./src/Img/arrow_left.svg";
+// import GoBackIcon from "./src/Img/log_out.svg";
 
 // import BGImage from "./src/Img/photo_BG.png";
 
@@ -42,6 +44,7 @@ export default function App() {
             borderBottomWidth: 1,
             borderColor: "rgba(0,0,0,0.3)",
           },
+          // headerBackImageSource: () => <GoBackIcon width={24} height={24} />,
         }}
       >
         <MainStack.Screen

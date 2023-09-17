@@ -2,6 +2,7 @@ import { Pressable, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import GoBackIcon from "../Img/arrow_left.svg";
+// import GoBackIcon from "../Img/log_out.svg";
 
 export const GoBackIconBox = () => {
   const navigation = useNavigation();
