@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import GoBackIcon from "../Img/arrow_left.svg";
@@ -7,9 +7,9 @@ import GoBackIcon from "../Img/arrow_left.svg";
 export const GoBackIconBox = () => {
   const navigation = useNavigation();
   return (
-    <Pressable style={styles.arrowLeftBox} onPress={() => navigation.goBack()}>
+    <TouchableOpacity style={styles.arrowLeftBox} onPress={() => navigation.goBack()}>
       <GoBackIcon width={24} height={24} />
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 

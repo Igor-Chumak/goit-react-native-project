@@ -1,15 +1,30 @@
 import React from "react";
-import { Image, SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet, View, Dimensions } from "react-native";
 import { ContentBox } from "../components";
+import MapView, { Marker } from "react-native-maps";
+import { useRoute } from "@react-navigation/native";
 
 const MapScreen = () => {
+  const { params } = useRoute();
+  console.log("params :>> ", params);
   return (
     <SafeAreaView>
       <ContentBox>
         <View style={styles.contentBox}>
           <View style={styles.contentImageBox}>
-            <GetCamera closeCamera={closeCamera} />
-            <Image source={{ uri: photo }} style={styles.contentImage}></Image>
+            <MapView
+              style={styles.mapStyle}
+              region={{
+                ...params,
+                // latitude: 37.78825,
+                // longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+              showsUserLocation={true}
+            >
+              {params && <Marker title="I am here" coordinate={params} description="Hello" />}
+            </MapView>
           </View>
         </View>
       </ContentBox>
@@ -63,6 +78,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 240,
     resizeMode: "cover",
+  },
+  mapStyle: {
+    width: "100%",
+    height: 240,
+    // width: Dimensions.get("window").width,
+    // height: Dimensions.get("window").height,
   },
 });
 

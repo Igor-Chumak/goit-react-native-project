@@ -81,7 +81,7 @@ export default function App() {
           component={MapScreen}
           options={{
             headerLeft: () => <GoBackIconBox />,
-            headerTitle: () => <HeaderTitle title={"Мапа"} />,
+            headerTitle: () => <HeaderTitle title={"Мапа де робилося фото"} />,
           }}
         />
       </MainStack.Navigator>
