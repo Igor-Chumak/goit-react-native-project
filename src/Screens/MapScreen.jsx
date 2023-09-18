@@ -16,8 +16,8 @@ const MapScreen = () => {
               style={styles.mapStyle}
               region={{
                 ...params,
-                // latitude: 37.78825,
-                // longitude: -122.4324,
+                // latitude: 50.5059531,
+                // longitude: 30.4912375,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
               }}
