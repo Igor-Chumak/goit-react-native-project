@@ -1,10 +1,12 @@
 import { useEffect, useReducer, useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import * as Location from "expo-location";
 
 import MapPinIcon from "../Img/map-pin.svg";
+import { useNavigation } from "@react-navigation/native";
 
 export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm }) => {
+  const navigation = useNavigation();
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
   const [disable, setDisable] = useState(true);
@@ -42,14 +44,18 @@ export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
     };
-    console.log("location :>> ", coords);
     setPosition(coords);
+    return coords;
   };
 
   const handleSubmit = async () => {
     if (!title || !location) return;
-    await definePosition();
-    return dispatch({ type: "submitPublication" });
+    const locs = await definePosition();
+    console.log("locs :>> ", locs);
+    dispatch({ type: "submitPublication" });
+    // navigation.navigate("Posts");
+    navigation.navigate("Map", { ...locs });
+    return;
   };
 
   return (
@@ -72,18 +78,21 @@ export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm
             onChangeText={setLocation}
             editable={true}
           />
-          {/* <View style={styles.locationIconBox}> */}
-          <MapPinIcon width={24} height={24} style={styles.locationIconBox} />
-          {/* </View> */}
+          <TouchableOpacity
+            style={styles.locationIconBox}
+            onPress={() => navigation.navigate("Map")}
+          >
+            <MapPinIcon width={24} height={24} />
+          </TouchableOpacity>
         </View>
       </View>
-      <Pressable
+      <TouchableOpacity
         style={[styles.button, { backgroundColor: disable ? "#E8E8E8" : "#FF6C00" }]}
         onPress={handleSubmit}
         disabled={disable}
       >
         <Text style={[styles.btnText, { color: disable ? "#BDBDBD" : "white" }]}>Опублікувати</Text>
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 };

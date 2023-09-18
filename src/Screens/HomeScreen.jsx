@@ -1,16 +1,12 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "./PostsScreen";
 import CreatePostScreen from "./CreatePostScreen";
 import ProfileScreen from "./ProfileScreen";
-import {
-  BtnAddIconBox,
-  GoBackIconBox,
-  GridIconBox,
-  HeaderTitle,
-  LogOutIconBox,
-  UserIconBox,
-} from "../components";
+import { GoBackIconBox, HeaderTitle, LogOutIconBox } from "../components";
+import GridIcon from "../Img/grid.svg";
+import BtnAddIcon from "../Img/union_post.svg";
+import UserIcon from "../Img/user.svg";
 
 const Tabs = createBottomTabNavigator();
 
@@ -33,13 +29,12 @@ const HomeScreen = () => {
           borderBottomWidth: 1,
           borderColor: "rgba(0,0,0,0.3)",
         },
-        tabBarActiveTintColor: "#0050c7",
+        tabBarActiveTintColor: "#FF6C00",
         tabBarInactiveTintColor: "white",
         // tabBarActiveBackgroundColor: "red",
         // tabBarInactiveBackgroundColor: "white",
         tabBarShowLabel: false,
         tabBarStyle: {
-          // position: "absolute",
           height: 83,
           paddingTop: 9,
           paddingLeft: 82,
@@ -49,6 +44,7 @@ const HomeScreen = () => {
           borderTopWidth: 1,
           borderColor: "rgba(0,0,0,0.3)",
         },
+        tabBarButton: (props) => <TouchableOpacity {...props} />,
       }}
     >
       <Tabs.Screen
@@ -57,7 +53,11 @@ const HomeScreen = () => {
         options={{
           headerTitle: () => <HeaderTitle title={"Публікації"} />,
           headerRight: () => <LogOutIconBox />,
-          tabBarIcon: ({ focused, color, size }) => <GridIconBox fill={color} />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <View style={styles.pressIcon}>
+              <GridIcon width={24} height={24} fill={color} />
+            </View>
+          ),
         }}
       />
       <Tabs.Screen
@@ -66,7 +66,11 @@ const HomeScreen = () => {
         options={{
           headerLeft: () => <GoBackIconBox />,
           headerTitle: () => <HeaderTitle title={"Створити публікацію"} />,
-          tabBarIcon: ({ focused, color, size }) => <BtnAddIconBox />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <View style={styles.button}>
+              <BtnAddIcon width={13} height={13} />
+            </View>
+          ),
           tabBarStyle: { display: "none" },
         }}
       />
@@ -75,7 +79,11 @@ const HomeScreen = () => {
         component={ProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => <UserIconBox fill={color} />,
+          tabBarIcon: ({ focused, color, size }) => (
+            <View style={styles.pressIcon}>
+              <UserIcon width={24} height={24} fill={color} />
+            </View>
+          ),
         }}
       />
     </Tabs.Navigator>
@@ -91,6 +99,21 @@ const styles = StyleSheet.create({
     // paddingBottom: 83-32,
     // borderWidth: 2,
     // borderColor: "blue",
+  },
+  pressIcon: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    paddingVertical: 16,
+    width: 70,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FF6C00",
+    borderRadius: 20,
   },
 });
 

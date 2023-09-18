@@ -11,8 +11,11 @@ import CreatePostScreen from "./src/Screens/CreatePostScreen";
 import CommentsScreen from "./src/Screens/CommentsScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
+import MapScreen from "./src/Screens/MapScreen";
 
 import { GoBackIconBox, HeaderTitle } from "./src/components";
+// import GoBackIcon from "./src/Img/arrow_left.svg";
+// import GoBackIcon from "./src/Img/log_out.svg";
 
 // import BGImage from "./src/Img/photo_BG.png";
 
@@ -41,6 +44,7 @@ export default function App() {
             borderBottomWidth: 1,
             borderColor: "rgba(0,0,0,0.3)",
           },
+          // headerBackImageSource: () => <GoBackIcon width={24} height={24} />,
         }}
       >
         <MainStack.Screen
@@ -70,6 +74,14 @@ export default function App() {
           options={{
             headerLeft: () => <GoBackIconBox />,
             headerTitle: () => <HeaderTitle title={"Коментарі"} />,
+          }}
+        />
+        <MainStack.Screen
+          name="Map"
+          component={MapScreen}
+          options={{
+            headerLeft: () => <GoBackIconBox />,
+            headerTitle: () => <HeaderTitle title={"Мапа де робилося фото"} />,
           }}
         />
       </MainStack.Navigator>

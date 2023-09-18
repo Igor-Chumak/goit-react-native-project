@@ -1,14 +1,12 @@
-import { Pressable, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, View } from "react-native";
 
 import UserIcon from "../Img/user.svg";
 
 export const UserIconBox = ({ fill }) => {
-  const navigation = useNavigation();
   return (
-    <Pressable style={styles.pressIcon} onPress={() => navigation.navigate("Profile")}>
+    <View style={styles.pressIcon}>
       <UserIcon width={24} height={24} fill={fill} />
-    </Pressable>
+    </View>
   );
 };
 
