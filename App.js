@@ -4,22 +4,23 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 
-// import { store, persistor } from "./src/store/store";
+import { Provider as ReduxProvider } from "react-redux";
+import { store, persistor } from "./src/store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 import RegistrationScreen from "./src/Screens/RegistrationScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
-import PostsScreen from "./src/Screens/PostsScreen";
-import CreatePostScreen from "./src/Screens/CreatePostScreen";
+// import PostsScreen from "./src/Screens/PostsScreen";
+// import CreatePostScreen from "./src/Screens/CreatePostScreen";
 import CommentsScreen from "./src/Screens/CommentsScreen";
-import ProfileScreen from "./src/Screens/ProfileScreen";
+// import ProfileScreen from "./src/Screens/ProfileScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
 import MapScreen from "./src/Screens/MapScreen";
 
-import { GoBackIconBox, HeaderTitle } from "./src/components";
 // import GoBackIcon from "./src/Img/arrow_left.svg";
 // import GoBackIcon from "./src/Img/log_out.svg";
-
 // import BGImage from "./src/Img/photo_BG.png";
+import { GoBackIconBox, HeaderTitle } from "./src/components";
 
 const MainStack = createStackNavigator();
 
@@ -34,64 +35,64 @@ export default function App() {
   }
 
   return (
-    // <ReduxProvider store={store}>
-    // <PersistGate loading={null} persistor={persistor}>
-    <NavigationContainer>
-      <MainStack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerTitleAlign: "center",
-          // headerShown: false,
-          headerStyle: {
-            height: 88,
-            backgroundColor: "white",
-            borderBottomWidth: 1,
-            borderColor: "rgba(0,0,0,0.3)",
-          },
-          // headerBackImageSource: () => <GoBackIcon width={24} height={24} />,
-        }}
-      >
-        <MainStack.Screen
-          name="Registration"
-          component={RegistrationScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <MainStack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <MainStack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <MainStack.Screen
-          name="Comments"
-          component={CommentsScreen}
-          options={{
-            headerLeft: () => <GoBackIconBox />,
-            headerTitle: () => <HeaderTitle title={"Коментарі"} />,
-          }}
-        />
-        <MainStack.Screen
-          name="Map"
-          component={MapScreen}
-          options={{
-            headerLeft: () => <GoBackIconBox />,
-            headerTitle: () => <HeaderTitle title={"Мапа де робилося фото"} />,
-          }}
-        />
-      </MainStack.Navigator>
-    </NavigationContainer>
-    // </PersistGate>
-    // </ReduxProvider>
+    <ReduxProvider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <MainStack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+              headerTitleAlign: "center",
+              // headerShown: false,
+              headerStyle: {
+                height: 88,
+                backgroundColor: "white",
+                borderBottomWidth: 1,
+                borderColor: "rgba(0,0,0,0.3)",
+              },
+              // headerBackImageSource: () => <GoBackIcon width={24} height={24} />,
+            }}
+          >
+            <MainStack.Screen
+              name="Registration"
+              component={RegistrationScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <MainStack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <MainStack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <MainStack.Screen
+              name="Comments"
+              component={CommentsScreen}
+              options={{
+                headerLeft: () => <GoBackIconBox />,
+                headerTitle: () => <HeaderTitle title={"Коментарі"} />,
+              }}
+            />
+            <MainStack.Screen
+              name="Map"
+              component={MapScreen}
+              options={{
+                headerLeft: () => <GoBackIconBox />,
+                headerTitle: () => <HeaderTitle title={"Мапа де робилося фото"} />,
+              }}
+            />
+          </MainStack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
+    </ReduxProvider>
   );
 }
 

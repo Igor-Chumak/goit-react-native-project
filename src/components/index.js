@@ -19,3 +19,4 @@ export * from "./GoBackIconBox";
 // export * from "./BtnAddIconBox";
 // export * from "./UserIconBox";
 export * from "./GetCamera";
+export * from "./Loader";
