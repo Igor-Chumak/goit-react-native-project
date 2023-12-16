@@ -10,16 +10,17 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import RegistrationScreen from "./src/Screens/RegistrationScreen";
 import LoginScreen from "./src/Screens/LoginScreen";
+// import PostsScreen from "./src/Screens/PostsScreen";
+// import CreatePostScreen from "./src/Screens/CreatePostScreen";
 import CommentsScreen from "./src/Screens/CommentsScreen";
-
+// import ProfileScreen from "./src/Screens/ProfileScreen";
 import HomeScreen from "./src/Screens/HomeScreen";
 import MapScreen from "./src/Screens/MapScreen";
 
-import { useRoute } from "./src/Screens/route";
-import { GoBackIconBox, HeaderTitle, Loader } from "./src/components";
 // import GoBackIcon from "./src/Img/arrow_left.svg";
 // import GoBackIcon from "./src/Img/log_out.svg";
 // import BGImage from "./src/Img/photo_BG.png";
+import { GoBackIconBox, HeaderTitle, Loader } from "./src/components";
 
 const MainStack = createStackNavigator();
 
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
   },
 });
 
+// import { useRoute } from "../route";
 // const Main = () => {
 //   const { stateChange } = useSelector((state) => state.auth);
 //   const routing = useRoute(true);
