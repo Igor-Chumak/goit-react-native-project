@@ -1,28 +1,12 @@
-import React from "react";
 import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet } from "react-native";
+import React from "react";
 import { useFonts } from "expo-font";
-
 import { Provider as ReduxProvider } from "react-redux";
 import { store, persistor } from "./src/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 
-import RegistrationScreen from "./src/Screens/RegistrationScreen";
-import LoginScreen from "./src/Screens/LoginScreen";
-import CommentsScreen from "./src/Screens/CommentsScreen";
-
-import HomeScreen from "./src/Screens/HomeScreen";
-import MapScreen from "./src/Screens/MapScreen";
-
-import { useRoute } from "./src/Screens/route";
-import { GoBackIconBox, HeaderTitle, Loader } from "./src/components";
-// import GoBackIcon from "./src/Img/arrow_left.svg";
-// import GoBackIcon from "./src/Img/log_out.svg";
-// import BGImage from "./src/Img/photo_BG.png";
-
-const MainStack = createStackNavigator();
+import { Loader } from "./src/components";
+import { Main } from "./src/Main";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -35,93 +19,10 @@ export default function App() {
   }
 
   return (
-    <React.StrictMode>
-      <ReduxProvider store={store}>
-        <PersistGate loading={<Loader />} persistor={persistor}>
-          <NavigationContainer>
-            <MainStack.Navigator
-              initialRouteName="Home"
-              screenOptions={{
-                headerTitleAlign: "center",
-                // headerShown: false,
-                headerStyle: {
-                  height: 88,
-                  backgroundColor: "white",
-                  borderBottomWidth: 1,
-                  borderColor: "rgba(0,0,0,0.3)",
-                },
-                // headerBackImageSource: () => <GoBackIcon width={24} height={24} />,
-              }}
-            >
-              <MainStack.Screen
-                name="Registration"
-                component={RegistrationScreen}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <MainStack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <MainStack.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{
-                  headerShown: false,
-                }}
-              />
-              <MainStack.Screen
-                name="Comments"
-                component={CommentsScreen}
-                options={{
-                  headerLeft: () => <GoBackIconBox />,
-                  headerTitle: () => <HeaderTitle title={"Коментарі"} />,
-                }}
-              />
-              <MainStack.Screen
-                name="Map"
-                component={MapScreen}
-                options={{
-                  headerLeft: () => <GoBackIconBox />,
-                  headerTitle: () => <HeaderTitle title={"Мапа де робилося фото"} />,
-                }}
-              />
-            </MainStack.Navigator>
-          </NavigationContainer>
-        </PersistGate>
-      </ReduxProvider>
-    </React.StrictMode>
+    <ReduxProvider store={store}>
+      <PersistGate loading={<Loader />} persistor={persistor}>
+        <Main></Main>
+      </PersistGate>
+    </ReduxProvider>
   );
 }
-
-{
-  /* <SafeAreaView style={styles.containerSafe}>
-  <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
-  //  
-  </ImageBackground>
-</SafeAreaView>; */
-}
-
-const styles = StyleSheet.create({
-  containerSafe: {
-    flexGrow: 1,
-    // borderWidth: 1,
-    // borderColor: "orange",
-  },
-  imagebg: {
-    height: "100%",
-    width: "100%",
-  },
-});
-
-// const Main = () => {
-//   const { stateChange } = useSelector((state) => state.auth);
-//   const routing = useRoute(true);
-//   return (
-//     <NavigationContainer >{routing}</NavigationContainer>
-//   );
-// };

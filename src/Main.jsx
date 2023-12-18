@@ -1,35 +1,21 @@
-import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
+import { useRoute } from "./Screens/routes_old";
+//
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
+import RegistrationScreen from "./Screens/RegistrationScreen";
+import LoginScreen from "./Screens/LoginScreen";
+import CommentsScreen from "./Screens/CommentsScreen";
+import HomeScreen from "./Screens/HomeScreen";
+import MapScreen from "./Screens/MapScreen";
 
-import RegistrationScreen from "./src/Screens/RegistrationScreen";
-import LoginScreen from "./src/Screens/LoginScreen";
-import PostsScreen from "./src/Screens/PostsScreen";
-import CreatePostScreen from "./src/Screens/CreatePostScreen";
-import CommentsScreen from "./src/Screens/CommentsScreen";
-import ProfileScreen from "./src/Screens/ProfileScreen";
-import HomeScreen from "./src/Screens/HomeScreen";
-import MapScreen from "./src/Screens/MapScreen";
-
-import { GoBackIconBox, HeaderTitle } from "./src/components";
-// import GoBackIcon from "./src/Img/arrow_left.svg";
-// import GoBackIcon from "./src/Img/log_out.svg";
-
-// import BGImage from "./src/Img/photo_BG.png";
+import { GoBackIconBox, HeaderTitle } from "../src/components";
 
 const MainStack = createStackNavigator();
 
-export default function App() {
-  const [fontsLoaded] = useFonts({
-    RobotoR: require("./assets/fonts/Roboto-Regular.ttf"),
-    RobotoM: require("./assets/fonts/Roboto-Medium.ttf"),
-    RobotoB: require("./assets/fonts/Roboto-Bold.ttf"),
-  });
-  if (!fontsLoaded) {
-    return null;
-  }
+export const Main = () => {
+  //   const isAuth = useSelector(selectAllStore);
+  //   console.log("isAuth :>> ", isAuth);
+  const routing = useRoute();
 
   return (
     <NavigationContainer>
@@ -87,33 +73,4 @@ export default function App() {
       </MainStack.Navigator>
     </NavigationContainer>
   );
-}
-
-{
-  /* <SafeAreaView style={styles.containerSafe}>
-  <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
-  //  
-  </ImageBackground>
-</SafeAreaView>; */
-}
-
-const styles = StyleSheet.create({
-  containerSafe: {
-    flexGrow: 1,
-    // borderWidth: 1,
-    // borderColor: "orange",
-  },
-  imagebg: {
-    height: "100%",
-    width: "100%",
-  },
-});
-
-// import { useRoute } from "../route";
-// const Main = () => {
-//   const { stateChange } = useSelector((state) => state.auth);
-//   const routing = useRoute(true);
-//   return (
-//     <NavigationContainer >{routing}</NavigationContainer>
-//   );
-// };
+};

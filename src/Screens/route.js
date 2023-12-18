@@ -1,4 +1,4 @@
-export const useRoute = (isAuth) => {
+export const usingRoute = (isAuth) => {
   if (!isAuth) {
     return (
       <AuthStack.Navigator>
