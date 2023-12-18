@@ -21,7 +21,7 @@ export default function App() {
   return (
     <ReduxProvider store={store}>
       <PersistGate loading={<Loader />} persistor={persistor}>
-        <Main></Main>
+        <Main />
       </PersistGate>
     </ReduxProvider>
   );
