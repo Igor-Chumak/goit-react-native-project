@@ -5,22 +5,22 @@ import { StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 
 import { Provider as ReduxProvider } from "react-redux";
-import { store, persistor } from "./src/store/store";
+import { store, persistor } from "../store/store";
 import { PersistGate } from "redux-persist/integration/react";
 
-import RegistrationScreen from "./src/Screens/RegistrationScreen";
-import LoginScreen from "./src/Screens/LoginScreen";
+import RegistrationScreen from "../Screens/RegistrationScreen";
+import LoginScreen from "../Screens/LoginScreen";
 // import PostsScreen from "./src/Screens/PostsScreen";
 // import CreatePostScreen from "./src/Screens/CreatePostScreen";
-import CommentsScreen from "./src/Screens/CommentsScreen";
+import CommentsScreen from "../Screens/CommentsScreen";
 // import ProfileScreen from "./src/Screens/ProfileScreen";
-import HomeScreen from "./src/Screens/HomeScreen";
-import MapScreen from "./src/Screens/MapScreen";
+import HomeScreen from "../Screens/HomeScreen";
+import MapScreen from "../Screens/MapScreen";
 
 // import GoBackIcon from "./src/Img/arrow_left.svg";
 // import GoBackIcon from "./src/Img/log_out.svg";
 // import BGImage from "./src/Img/photo_BG.png";
-import { GoBackIconBox, HeaderTitle, Loader } from "./src/components";
+import { GoBackIconBox, HeaderTitle, Loader } from "../components";
 
 const MainStack = createStackNavigator();
 
