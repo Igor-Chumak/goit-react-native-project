@@ -1,21 +1,23 @@
 import { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import Spinner from "react-native-loading-spinner-overlay";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { selectIsLoading, selectAuth, selectAllStore } from "./store/selectors";
+import { selectIsLoading, selectAuth } from "./store/selectors";
 import { useRoute } from "./routes";
 
 export const Main = () => {
+  const dispatch = useDispatch;
   const isLoading = useSelector(selectIsLoading);
-
   const isAuth = useSelector(selectAuth);
-  // const all = useSelector(selectAllStore);
+  
   useEffect(() => {
     console.log("isAuth:", isAuth);
+    console.log("isLoading :>> ", isLoading);
   }, []);
 
-  const routing = useRoute(false);
+  const routing = useRoute(isAuth);
+
   return (
     <>
       <NavigationContainer>{routing}</NavigationContainer>

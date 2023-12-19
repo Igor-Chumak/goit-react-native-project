@@ -9,7 +9,7 @@ const initialState = {
   },
 };
 
-const slice = createSlice({
+const storSlice = createSlice({
   name: "store",
   initialState,
   reducers: {
@@ -19,5 +19,5 @@ const slice = createSlice({
   },
 });
 
-export const { setMode } = slice.actions;
-export default slice.reducer;
+export const { setMode } = storSlice.actions;
+export default storSlice.reducer;
