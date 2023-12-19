@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Image,
   Keyboard,
@@ -11,41 +12,93 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useUserAuth } from "../firebase/authApi";
+import { login } from "../store/authSlice";
 
 import photoDefault from "../Img/react512.png";
 import BtnAddIcon from "../Img/union.svg";
 
+const INITIAL_STATE = {
+  name: "myName",
+  email: "email@email.com",
+  password: "password",
+  // avatarUri: null,
+};
+
 export const RegistrationForm = () => {
   const navigation = useNavigation();
-  const [login, setLogin] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { registerUser } = useUserAuth();
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState(INITIAL_STATE.name);
+  const [email, setEmail] = useState(INITIAL_STATE.email);
+  const [password, setPassword] = useState(INITIAL_STATE.password);
+  // const [state, localDispatch] = useReducer(reducer, { name, email, password });
+
   const [passwordHidden, setPasswordHidden] = useState(true);
-  const [state, dispatch] = useReducer(reducer, { login, email, password });
 
-  function reducer(state, action) {
-    if (action.type === "submitRegForm") return { login, email, password };
-  }
+  // function reducer(state, action) {
+  //   if (action.type === "submitRegForm") return { name, email, password };
+  // }
 
-  useEffect(() => {
-    setLogin("");
-    setEmail("");
-    setPassword("");
-    console.log("Registration Form:", state);
-  }, [state]);
+  // function reducer(state, { type, payload }) {
+  //   console.log("state :>> ", state);
+  //   console.log("!!!!!!!! type :>> ", type);
+  //   console.log("!!!!!!!! payload :>> ", payload);
+  //   switch (type) {
+  //     case "update":
+  //       console.log("case update");
+  //       return { ...state, ...payload };
+  //     case "clear":
+  //       return { ...state, ...INITIAL_STATE };
+  //     default:
+  //       console.log("case default");
+  //       return { ...state, ...payload };
+  //   }
+  // }
 
-  const handleSubmit = () => {
-    if (!login || !email || !password) return;
-    // console.log("login :>> ", login);
-    // console.log("email :>> ", email);
-    // console.log("password :>> ", password);
+  // useEffect(() => {
+  //   setLogin("");
+  //   setEmail("");
+  //   setPassword("");
+  //   console.log("Registration Form:", state);
+  // }, [state]);
+
+  // const handleSubmit = () => {
+  //   if (!login || !email || !password) return;
+  //   setPasswordHidden(true);
+  //   dispatch({ type: "submitRegForm" });
+  //   navigation.navigate("Home");
+  //   return;
+  // };
+
+  const handleSubmit = async () => {
+    if (!name || !email || !password) return;
+    console.log("state :>> ", { name, email, password });
     setPasswordHidden(true);
-    dispatch({ type: "submitRegForm" });
-    // setLogin("");
-    // setEmail("");
-    // setPassword("");
-    navigation.navigate("Home");
-    return;
+    try {
+      const user = await registerUser({
+        email,
+        password,
+        displayName: name,
+        // photoURL: avatarUri,
+      });
+      dispatch(
+        login({
+          email: user.email,
+          displayName: user.displayName,
+          uid: user.uid,
+          // avatarUri: user.photoURL,
+        })
+      );
+      setName("");
+      setEmail("");
+      setPassword("");
+      //   navigation.navigate("Home");
+      return;
+    } catch (error) {
+      console.log("Something went wrong: ", error.message);
+    }
   };
 
   const toggleVisiblePassword = () => {
@@ -71,8 +124,10 @@ export const RegistrationForm = () => {
               style={styles.textInput}
               placeholder="Логін"
               placeholderTextColor="#BDBDBD"
-              value={login}
-              onChangeText={setLogin}
+              value={name}
+              name="name"
+              // onChange={dispatch}
+              onChangeText={setName}
             />
             <TextInput
               style={styles.textInput}
@@ -80,6 +135,8 @@ export const RegistrationForm = () => {
               placeholder="Адреса електронної пошти"
               placeholderTextColor="#BDBDBD"
               value={email}
+              name="email"
+              // onChange={dispatch}
               onChangeText={setEmail}
             />
             <View style={styles.wrapInputDelete}>
@@ -90,6 +147,8 @@ export const RegistrationForm = () => {
                 placeholderTextColor="#BDBDBD"
                 secureTextEntry={passwordHidden}
                 value={password}
+                name="password"
+                // onChangeText={dispatch}
                 onChangeText={setPassword}
               />
               <Pressable onPress={toggleVisiblePassword}>

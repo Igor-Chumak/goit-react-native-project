@@ -3,20 +3,51 @@ import { NavigationContainer } from "@react-navigation/native";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectIsLoading, selectAuth } from "./store/selectors";
+import { selectIsLoading, selectIsLoggedIn } from "./store/selectors";
 import { useRoute } from "./routes";
+// firebase
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/config";
+import { login, logout } from "./store/authSlice";
 
 export const Main = () => {
   const dispatch = useDispatch;
   const isLoading = useSelector(selectIsLoading);
-  const isAuth = useSelector(selectAuth);
-  
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  // const isLoggedIn = "false";
+
+  // useEffect(() => {
+  //   console.log("isLoggedIn:", isLoggedIn);
+  //   console.log("isLoading :>> ", isLoading);
+  // }, []);
+
   useEffect(() => {
-    console.log("isAuth:", isAuth);
-    console.log("isLoading :>> ", isLoading);
+    const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
+    return subscriber;
   }, []);
 
-  const routing = useRoute(isAuth);
+  function handleAuthStateChanged(user) {
+    if (!user) {
+      dispatch(logout());
+      return;
+    }
+    console.log("user in Main :>> ", {
+      email: user.email,
+      displayName: user.displayName,
+      uid: user.uid,
+      avatarUri: user.photoURL,
+    });
+    dispatch(
+      login({
+        email: user.email,
+        displayName: user.displayName,
+        uid: user.uid,
+        avatarUri: user.photoURL,
+      })
+    );
+  }
+
+  const routing = useRoute(isLoggedIn);
 
   return (
     <>

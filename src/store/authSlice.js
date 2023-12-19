@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   uid: null,
-  login: null,
+  email: null,
   displayName: null,
-  auth: false,
+  isLoggedIn: false,
   avatarUri: null,
 };
 
@@ -15,7 +15,7 @@ export const authSlice = createSlice({
     login: {
       reducer: (state, action) => ({ ...state, ...action.payload }),
       prepare: (user) => ({
-        payload: { ...user, auth: true },
+        payload: { ...user, isLoggedIn: true },
       }),
     },
     logout: () => initialState,
