@@ -41,22 +41,6 @@ export const RegistrationForm = () => {
   //   if (action.type === "submitRegForm") return { name, email, password };
   // }
 
-  // function reducer(state, { type, payload }) {
-  //   console.log("state :>> ", state);
-  //   console.log("!!!!!!!! type :>> ", type);
-  //   console.log("!!!!!!!! payload :>> ", payload);
-  //   switch (type) {
-  //     case "update":
-  //       console.log("case update");
-  //       return { ...state, ...payload };
-  //     case "clear":
-  //       return { ...state, ...INITIAL_STATE };
-  //     default:
-  //       console.log("case default");
-  //       return { ...state, ...payload };
-  //   }
-  // }
-
   // useEffect(() => {
   //   setLogin("");
   //   setEmail("");
@@ -126,7 +110,6 @@ export const RegistrationForm = () => {
               placeholderTextColor="#BDBDBD"
               value={name}
               name="name"
-              // onChange={dispatch}
               onChangeText={setName}
             />
             <TextInput
@@ -136,7 +119,6 @@ export const RegistrationForm = () => {
               placeholderTextColor="#BDBDBD"
               value={email}
               name="email"
-              // onChange={dispatch}
               onChangeText={setEmail}
             />
             <View style={styles.wrapInputDelete}>
@@ -148,7 +130,6 @@ export const RegistrationForm = () => {
                 secureTextEntry={passwordHidden}
                 value={password}
                 name="password"
-                // onChangeText={dispatch}
                 onChangeText={setPassword}
               />
               <Pressable onPress={toggleVisiblePassword}>

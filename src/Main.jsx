@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import Spinner from "react-native-loading-spinner-overlay";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "react-native-loading-spinner-overlay";
 
 import { selectIsLoading, selectIsLoggedIn } from "./store/selectors";
 import { useRoute } from "./routes";
@@ -16,14 +16,18 @@ export const Main = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   // const isLoggedIn = "false";
 
-  // useEffect(() => {
-  //   console.log("isLoggedIn:", isLoggedIn);
-  //   console.log("isLoading :>> ", isLoading);
-  // }, []);
-
   useEffect(() => {
-    const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
-    return subscriber;
+    // const subscriber = () => {
+    //   onAuthStateChanged(auth, handleAuthStateChanged);
+    // };
+    const subscriber = async (handleAuthStateChanged = () => {}) => {
+      onAuthStateChanged((user) => {
+        handleAuthStateChanged(user);
+      });
+    };
+    return () => {
+      subscriber();
+    };
   }, []);
 
   function handleAuthStateChanged(user) {
@@ -45,6 +49,7 @@ export const Main = () => {
         avatarUri: user.photoURL,
       })
     );
+    return;
   }
 
   const routing = useRoute(isLoggedIn);
