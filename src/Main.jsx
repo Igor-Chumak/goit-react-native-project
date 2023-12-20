@@ -17,9 +17,7 @@ export const Main = () => {
   // const isLoggedIn = "false";
 
   useEffect(() => {
-    // const subscriber = () => {
-    //   onAuthStateChanged(auth, handleAuthStateChanged);
-    // };
+    // const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
     const subscriber = async (handleAuthStateChanged = () => {}) => {
       onAuthStateChanged((user) => {
         handleAuthStateChanged(user);
