@@ -28,7 +28,6 @@ export const LoginForm = () => {
 
   const handleSubmit = async () => {
     if (!email || !password) return;
-    console.log("state :>> ", { email, password });
     setPasswordHidden(true);
     try {
       const user = await signInUser({

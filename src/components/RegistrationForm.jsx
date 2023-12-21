@@ -37,7 +37,6 @@ export const RegistrationForm = () => {
 
   const handleSubmit = async () => {
     if (!name || !email || !password) return;
-    console.log("state :>> ", { name, email, password });
     setPasswordHidden(true);
     try {
       const user = await registerUser({
