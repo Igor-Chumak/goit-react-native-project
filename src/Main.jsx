@@ -2,11 +2,10 @@ import { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
+import { onAuthStateChanged } from "firebase/auth";
 
 import { selectIsLoading, selectIsLoggedIn } from "./store/selectors";
 import { useRoute } from "./routes";
-// firebase
-import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/config";
 import { login, logout } from "./store/authSlice";
 
@@ -14,7 +13,6 @@ export const Main = () => {
   const dispatch = useDispatch;
   const isLoading = useSelector(selectIsLoading);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  // const isLoggedIn = "false";
 
   useEffect(() => {
     // const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);

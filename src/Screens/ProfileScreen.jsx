@@ -1,20 +1,17 @@
+import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
 import {
-  ImageBackground,
-  SafeAreaView,
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { ContentBlock, LogOutIconBox } from "../components";
+  selectUserAvatarUrl,
+  selectUserDisplayName,
+  selectUserEmail,
+  selectUserUid,
+} from "../store/selectors";
 
 import BGImage from "../Img/photo_BG.png";
 import photoDefault from "../Img/react512.png";
 import BtnChangeIcon from "../Img/union_x.svg";
-import LogoutIcon from "../Img/log_out.svg";
 
 import image1 from "../Img/blank/photo_test_1.jpg";
 import image2 from "../Img/blank/photo_test_2.jpg";
@@ -22,21 +19,18 @@ import image3 from "../Img/blank/photo_test_3.jpg";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  // const uid = useSelector(selectUserUid);
+  // const email = useSelector(selectUserEmail);
+  // const displayName = useSelector(selectUserDisplayName);
+  const avatarUrl = useSelector(selectUserAvatarUrl);
+
   return (
     <SafeAreaView style={styles.containerSafe}>
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <View style={styles.container}>
           <View style={styles.wrapProfile}>
-            <View style={styles.wrapPhoto}>
-              <Image source={photoDefault} style={styles.photo} />
-              <Pressable style={styles.btnChangeBox}>
-                <BtnChangeIcon width={13} height={13} />
-              </Pressable>
-            </View>
+            <AvatarBox avatarUrl={avatarUrl} disabledChange={true} />
             <LogOutIconBox style={styles.logOutBox} />
-            {/* <Pressable style={styles.logOutBox} onPress={() => navigation.navigate("Login")}>
-              <LogoutIcon width={24} height={24} />
-            </Pressable> */}
             <View style={styles.titleBox}>
               <Text style={styles.title}>React Native</Text>
             </View>
@@ -104,40 +98,37 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
   },
-  wrapPhoto: {
-    position: "absolute",
-    width: 120,
-    height: 120,
-    top: -60,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-  photo: {
-    width: "100%",
-    height: "100%",
-  },
-  btnChangeBox: {
-    position: "absolute",
-    bottom: 14,
-    right: -12,
-    width: 25,
-    height: 25,
-    backgroundColor: "white",
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#E8E8E8",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  // wrapPhoto: {
+  //   position: "absolute",
+  //   width: 120,
+  //   height: 120,
+  //   top: -60,
+  //   backgroundColor: "#F6F6F6",
+  //   borderRadius: 16,
+  //   // borderWidth: 1,
+  //   // borderColor: "red",
+  // },
+  // photo: {
+  //   width: "100%",
+  //   height: "100%",
+  // },
+  // btnChangeBox: {
+  //   position: "absolute",
+  //   bottom: 14,
+  //   right: -12,
+  //   width: 25,
+  //   height: 25,
+  //   backgroundColor: "white",
+  //   borderRadius: 12,
+  //   borderWidth: 1,
+  //   borderColor: "#E8E8E8",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
   logOutBox: {
-    // position: "absolute",
     right: 16,
     top: 22,
     bottom: 0,
-    // width: 24,
-    // height: 24,
   },
   titleBox: {
     width: "100%",

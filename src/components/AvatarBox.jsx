@@ -4,14 +4,23 @@ import * as ImagePicker from "expo-image-picker";
 
 import BtnAddIcon from "../Img/union.svg";
 import BtnChangeIcon from "../Img/union_x.svg";
+// const avatarDefault = require("../Img/avatar_default.png");
+// const avatarNothing = require("../Img/react512.png");
 import avatarDefault from "../Img/avatar_default.png";
-import avatarNothing from "../Img/react512.png";
+// import avatarNothing from "../Img/react512.png";
+import avatarNothing from "../Img/cat.jpg";
 
 // const avatarNothingUrl = "https://asset.cloudinary.com/de7gxd2bv/ca4fe66dca7798f6e4455705a8d3cb92";
 
-export const AvatarBox = ({ avatarUrl, setAvatarUrl, ...props }) => {
+export const AvatarBox = ({ avatarUrl, setAvatarUrl = null, disabledChange = false }) => {
   const [avatarSelector, setAvatarSelector] = useState(true);
-  const [selectorColor, setSelectorColor] = useState("#FF6C00");
+  const [selectorColor, setSelectorColor] = useState(
+    disabledChange && avatarUrl ? "#E8E8E8" : "#FF6C00"
+  );
+  // if (disabledChange === true) {
+  //   console.log("avatarUrl :>> ", avatarUrl);
+  //   setSelectorColor("#E8E8E8");
+  // }
 
   const handlePressIn = () => {
     setAvatarSelector(false);
@@ -38,7 +47,7 @@ export const AvatarBox = ({ avatarUrl, setAvatarUrl, ...props }) => {
       setAvatarUrl(uri);
     } else {
       alert("Nothing selected");
-      setAvatarUrl(avatarNothing);
+      if (!avatarUrl) setAvatarUrl(avatarNothing);
     }
   };
 
@@ -48,12 +57,13 @@ export const AvatarBox = ({ avatarUrl, setAvatarUrl, ...props }) => {
 
   return (
     <View style={styles.wrapPhoto}>
-      <Image source={avatarUrl ? avatarUrl : avatarDefault} style={styles.photo} />
+      <Image source={`${avatarUrl ? avatarUrl : avatarDefault}`} style={styles.photo} />
       <Pressable
         style={[styles.btnAddBox, { borderColor: selectorColor }]}
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
         onPress={handlePress}
+        disabled={disabledChange}
       >
         {avatarSelector && !avatarUrl && <BtnAddIcon width={13} height={13} />}
         {(!avatarSelector || avatarUrl) && <BtnChangeIcon width={13} height={13} />}
@@ -70,7 +80,6 @@ const styles = StyleSheet.create({
     top: -60,
     backgroundColor: "#F6F6F6",
     borderRadius: 16,
-    //
     // borderWidth: 1,
     // borderColor: "red",
   },
