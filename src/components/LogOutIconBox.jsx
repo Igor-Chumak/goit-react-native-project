@@ -5,7 +5,7 @@ import { logout } from "../store/authSlice";
 import { useUserAuth } from "../firebase/authApi";
 import LogoutIcon from "../Img/log_out.svg";
 
-export const LogOutIconBox = () => {
+export const LogOutIconBox = ({ style }) => {
   const dispatch = useDispatch();
   const { signOutUser } = useUserAuth();
 
@@ -19,7 +19,7 @@ export const LogOutIconBox = () => {
   };
 
   return (
-    <TouchableOpacity style={styles.logOutBox} onPress={handleLogout}>
+    <TouchableOpacity style={[styles.logOutBox, style]} onPress={handleLogout}>
       <LogoutIcon width={24} height={24} />
     </TouchableOpacity>
   );

@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { ContentBlock } from "../components";
+import { ContentBlock, LogOutIconBox } from "../components";
 
 import BGImage from "../Img/photo_BG.png";
 import photoDefault from "../Img/react512.png";
@@ -33,9 +33,10 @@ const ProfileScreen = () => {
                 <BtnChangeIcon width={13} height={13} />
               </Pressable>
             </View>
-            <Pressable style={styles.logOutBox} onPress={() => navigation.navigate("Login")}>
+            <LogOutIconBox style={styles.logOutBox} />
+            {/* <Pressable style={styles.logOutBox} onPress={() => navigation.navigate("Login")}>
               <LogoutIcon width={24} height={24} />
-            </Pressable>
+            </Pressable> */}
             <View style={styles.titleBox}>
               <Text style={styles.title}>React Native</Text>
             </View>
@@ -131,11 +132,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logOutBox: {
-    position: "absolute",
+    // position: "absolute",
     right: 16,
     top: 22,
-    width: 24,
-    height: 24,
+    bottom: 0,
+    // width: 24,
+    // height: 24,
   },
   titleBox: {
     width: "100%",
