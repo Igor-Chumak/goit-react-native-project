@@ -41,21 +41,6 @@ export const RegistrationForm = () => {
   //   if (action.type === "submitRegForm") return { name, email, password };
   // }
 
-  // useEffect(() => {
-  //   setLogin("");
-  //   setEmail("");
-  //   setPassword("");
-  //   console.log("Registration Form:", state);
-  // }, [state]);
-
-  // const handleSubmit = () => {
-  //   if (!login || !email || !password) return;
-  //   setPasswordHidden(true);
-  //   dispatch({ type: "submitRegForm" });
-  //   navigation.navigate("Home");
-  //   return;
-  // };
-
   const handleSubmit = async () => {
     if (!name || !email || !password) return;
     console.log("state :>> ", { name, email, password });
