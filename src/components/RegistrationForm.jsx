@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   Image,
@@ -13,12 +13,15 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useUserAuth } from "../firebase/authApi";
+import * as ImagePicker from "expo-image-picker";
+
 import { login } from "../store/authSlice";
-
-// import avatarDefault from "../Img/react512.png";
-import avatarDefault from "../Img/avatar_default.png";
 import BtnAddIcon from "../Img/union.svg";
+import BtnChangeIcon from "../Img/union_x.svg";
+import avatarDefault from "../Img/avatar_default.png";
+import avatarNothing from "../Img/react512.png";
 
+const avatarNothingUrl = "https://asset.cloudinary.com/de7gxd2bv/ca4fe66dca7798f6e4455705a8d3cb92";
 const INITIAL_STATE = {
   name: "myName",
   email: "email@email.com",
@@ -34,7 +37,43 @@ export const RegistrationForm = () => {
   const [name, setName] = useState(INITIAL_STATE.name);
   const [email, setEmail] = useState(INITIAL_STATE.email);
   const [password, setPassword] = useState(INITIAL_STATE.password);
+  const [avatarUrl, setAvatarUrl] = useState(INITIAL_STATE.avatarUrl);
+  const [avatarSelector, setAvatarSelector] = useState(true);
+  const [selectorColor, setSelectorColor] = useState("#FF6C00");
   const [passwordHidden, setPasswordHidden] = useState(true);
+
+  const handlePressIn = () => {
+    setAvatarSelector(false);
+    setSelectorColor("#837d7d"); // ("#E8E8E8");
+  };
+
+  const handlePressOut = () => {
+    setAvatarSelector(true);
+    if (avatarUrl === true) {
+      setSelectorColor("#FF6C00");
+    } else {
+      setSelectorColor("#E8E8E8");
+    }
+  };
+
+  const handlePress = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      const { uri } = result.assets[0];
+      setAvatarUrl(uri);
+    } else {
+      alert("Nothing selected");
+      setAvatarUrl(avatarNothing);
+    }
+  };
+
+  useEffect(() => {
+    console.log("avatarUrl :>> ", avatarUrl);
+  }, [avatarUrl]);
 
   const handleSubmit = async () => {
     if (!name || !email || !password) return;
@@ -44,7 +83,7 @@ export const RegistrationForm = () => {
         email,
         password,
         displayName: name,
-        // photoURL: avatarUrl,
+        photoURL: avatarUrl,
       });
       dispatch(
         login({
@@ -54,10 +93,10 @@ export const RegistrationForm = () => {
           avatarUrl: user.photoURL,
         })
       );
-      setName("");
-      setEmail("");
-      setPassword("");
-      //   navigation.navigate("Home");
+      setName(INITIAL_STATE.name);
+      setEmail(INITIAL_STATE.email);
+      setPassword(INITIAL_STATE.password);
+      setAvatarUrl(INITIAL_STATE.avatarUrl);
       return;
     } catch (error) {
       console.log("Something went wrong: ", error.message);
@@ -72,9 +111,15 @@ export const RegistrationForm = () => {
     <Pressable onPress={Keyboard.dismiss}>
       <View style={styles.wrapForm}>
         <View style={styles.wrapPhoto}>
-          <Image source={avatarDefault} style={styles.photo} />
-          <Pressable style={styles.btnAddBox}>
-            <BtnAddIcon width={13} height={13} />
+          <Image source={avatarUrl ? avatarUrl : avatarDefault} style={styles.photo} />
+          <Pressable
+            style={[styles.btnAddBox, { borderColor: selectorColor }]}
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            onPress={handlePress}
+          >
+            {avatarSelector && !avatarUrl && <BtnAddIcon width={13} height={13} />}
+            {(!avatarSelector || avatarUrl) && <BtnChangeIcon width={13} height={13} />}
           </Pressable>
         </View>
         <Text style={styles.title}>Реєстрація</Text>
@@ -169,7 +214,7 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#FF6C00",
+    // borderColor: "#FF6C00",
     justifyContent: "center",
     alignItems: "center",
   },

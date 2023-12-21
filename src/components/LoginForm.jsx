@@ -44,7 +44,6 @@ export const LoginForm = () => {
       );
       setEmail("");
       setPassword("");
-      //   navigation.navigate("Home");
       return;
     } catch (error) {
       console.log("Something went wrong: ", error.message);
