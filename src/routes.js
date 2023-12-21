@@ -29,15 +29,15 @@ export const useRoute = (isAuth) => {
       {!isAuth ? (
         <MainStack.Group>
           <MainStack.Screen
-            name="Registration"
-            component={RegistrationScreen}
+            name="Login"
+            component={LoginScreen}
             options={{
               headerShown: false,
             }}
           />
           <MainStack.Screen
-            name="Login"
-            component={LoginScreen}
+            name="Registration"
+            component={RegistrationScreen}
             options={{
               headerShown: false,
             }}

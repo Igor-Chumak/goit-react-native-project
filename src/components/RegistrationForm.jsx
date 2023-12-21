@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   Image,
@@ -22,24 +22,18 @@ const INITIAL_STATE = {
   name: "myName",
   email: "email@email.com",
   password: "password",
-  // avatarUri: null,
+  // avatarUrl: null,
 };
 
 export const RegistrationForm = () => {
   const navigation = useNavigation();
-  const { registerUser } = useUserAuth();
   const dispatch = useDispatch();
+  const { registerUser } = useUserAuth();
 
   const [name, setName] = useState(INITIAL_STATE.name);
   const [email, setEmail] = useState(INITIAL_STATE.email);
   const [password, setPassword] = useState(INITIAL_STATE.password);
-  // const [state, localDispatch] = useReducer(reducer, { name, email, password });
-
   const [passwordHidden, setPasswordHidden] = useState(true);
-
-  // function reducer(state, action) {
-  //   if (action.type === "submitRegForm") return { name, email, password };
-  // }
 
   const handleSubmit = async () => {
     if (!name || !email || !password) return;
@@ -50,14 +44,14 @@ export const RegistrationForm = () => {
         email,
         password,
         displayName: name,
-        // photoURL: avatarUri,
+        // photoURL: avatarUrl,
       });
       dispatch(
         login({
           email: user.email,
           displayName: user.displayName,
           uid: user.uid,
-          // avatarUri: user.photoURL,
+          avatarUrl: user.photoURL,
         })
       );
       setName("");

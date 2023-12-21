@@ -5,7 +5,7 @@ const initialState = {
   email: null,
   displayName: null,
   isLoggedIn: false,
-  avatarUri: null,
+  avatarUrl: null,
 };
 
 export const authSlice = createSlice({

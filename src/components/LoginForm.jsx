@@ -1,5 +1,6 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useReducer, useState } from "react";
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -9,33 +10,46 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { useUserAuth } from "../firebase/authApi";
+import { login } from "../store/authSlice";
+
+const INITIAL_STATE = {
+  email: "email@email.com", //null,
+  password: "password", //null,
+};
 
 export const LoginForm = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { signInUser } = useUserAuth();
+  const [email, setEmail] = useState(INITIAL_STATE.email);
+  const [password, setPassword] = useState(INITIAL_STATE.password);
   const [passwordHidden, setPasswordHidden] = useState(true);
-  const [state, dispatch] = useReducer(reducer, { email, password });
 
-  function reducer(state, action) {
-    if (action.type === "submitRegForm") return { email, password };
-  }
-
-  useEffect(() => {
-    setEmail("");
-    setPassword("");
-    console.log("LogIn Form:", state);
-  }, [state]);
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!email || !password) return;
-    // console.log("email :>> ", email);
-    // console.log("password :>> ", password);
+    console.log("state :>> ", { email, password });
     setPasswordHidden(true);
-    dispatch({ type: "submitRegForm" });
-    // setEmail("");
-    // setPassword("");
-    navigation.navigate("Home");
+    try {
+      const user = await signInUser({
+        email,
+        password,
+      });
+      dispatch(
+        login({
+          email: user.email,
+          displayName: user.displayName,
+          uid: user.uid,
+          avatarUrl: user.photoURL,
+        })
+      );
+      setEmail("");
+      setPassword("");
+      //   navigation.navigate("Home");
+      return;
+    } catch (error) {
+      console.log("Something went wrong: ", error.message);
+    }
     return;
   };
 

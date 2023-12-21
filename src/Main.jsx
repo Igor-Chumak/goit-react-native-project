@@ -37,14 +37,14 @@ export const Main = () => {
       email: user.email,
       displayName: user.displayName,
       uid: user.uid,
-      avatarUri: user.photoURL,
+      avatarUrl: user.photoURL,
     });
     dispatch(
       login({
         email: user.email,
         displayName: user.displayName,
         uid: user.uid,
-        avatarUri: user.photoURL,
+        avatarUrl: user.photoURL,
       })
     );
     return;
