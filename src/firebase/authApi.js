@@ -25,7 +25,6 @@ const signOutUser = async () => {
 };
 
 const registerUser = async ({ email, password, displayName, photoURL }) => {
-  // console.log(avatar);
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
     // console.log("registerUser res.user :>> ", res.user);

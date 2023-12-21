@@ -1,4 +1,5 @@
 export * from "./RegistrationForm";
+export * from "./AvatarBox";
 export * from "./LoginForm";
 export * from "./ToolBar";
 export * from "./ContentBox";
