@@ -1,13 +1,15 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import photoDefault from "../Img/react512.png";
+import { userAuth } from "../hooks";
 
 export const User = () => {
+  const { email, displayName, avatarUrl } = userAuth();
+
   return (
     <Pressable style={styles.userBox}>
-      <Image source={photoDefault} style={styles.userPhoto}></Image>
+      <Image source={`${avatarUrl}`} style={styles.userPhoto}></Image>
       <View style={styles.userDataBox}>
-        <Text style={styles.userName}>React Native</Text>
-        <Text style={styles.userEmail}>native@react.com</Text>
+        <Text style={styles.userName}>{displayName}</Text>
+        <Text style={styles.userEmail}>{email}</Text>
       </View>
     </Pressable>
   );
@@ -22,13 +24,9 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
     backgroundColor: "white",
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   userDataBox: {
     flex: 1,
-    // borderWidth: 1,
-    // borderColor: "blue",
   },
   userName: {
     fontFamily: "RobotoB",

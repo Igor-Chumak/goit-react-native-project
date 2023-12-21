@@ -1,28 +1,21 @@
-import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
 import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
-import {
-  selectUserAvatarUrl,
-  selectUserDisplayName,
-  selectUserEmail,
-  selectUserUid,
-} from "../store/selectors";
+import { userAuth } from "../hooks";
 
 import BGImage from "../Img/photo_BG.png";
-import photoDefault from "../Img/react512.png";
-import BtnChangeIcon from "../Img/union_x.svg";
 
 import image1 from "../Img/blank/photo_test_1.jpg";
 import image2 from "../Img/blank/photo_test_2.jpg";
 import image3 from "../Img/blank/photo_test_3.jpg";
 
 const ProfileScreen = () => {
-  const navigation = useNavigation();
-  // const uid = useSelector(selectUserUid);
-  // const email = useSelector(selectUserEmail);
-  // const displayName = useSelector(selectUserDisplayName);
-  const avatarUrl = useSelector(selectUserAvatarUrl);
+  const {
+    // uid,
+    // email,
+    // displayName,
+    // isLoggedIn,
+    avatarUrl,
+  } = userAuth();
 
   return (
     <SafeAreaView style={styles.containerSafe}>

@@ -17,10 +17,6 @@ export const AvatarBox = ({ avatarUrl, setAvatarUrl = null, disabledChange = fal
   const [selectorColor, setSelectorColor] = useState(
     disabledChange && avatarUrl ? "#E8E8E8" : "#FF6C00"
   );
-  // if (disabledChange === true) {
-  //   console.log("avatarUrl :>> ", avatarUrl);
-  //   setSelectorColor("#E8E8E8");
-  // }
 
   const handlePressIn = () => {
     setAvatarSelector(false);
