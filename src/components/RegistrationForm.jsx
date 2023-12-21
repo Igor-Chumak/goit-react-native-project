@@ -15,14 +15,15 @@ import { useNavigation } from "@react-navigation/native";
 import { useUserAuth } from "../firebase/authApi";
 import { login } from "../store/authSlice";
 
-import photoDefault from "../Img/react512.png";
+// import avatarDefault from "../Img/react512.png";
+import avatarDefault from "../Img/avatar_default.png";
 import BtnAddIcon from "../Img/union.svg";
 
 const INITIAL_STATE = {
   name: "myName",
   email: "email@email.com",
   password: "password",
-  // avatarUrl: null,
+  avatarUrl: null,
 };
 
 export const RegistrationForm = () => {
@@ -71,7 +72,7 @@ export const RegistrationForm = () => {
     <Pressable onPress={Keyboard.dismiss}>
       <View style={styles.wrapForm}>
         <View style={styles.wrapPhoto}>
-          <Image source={photoDefault} style={styles.photo} />
+          <Image source={avatarDefault} style={styles.photo} />
           <Pressable style={styles.btnAddBox}>
             <BtnAddIcon width={13} height={13} />
           </Pressable>
