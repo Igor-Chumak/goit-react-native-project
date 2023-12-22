@@ -12,6 +12,7 @@ import MapPinIcon from "../images/map-pin.svg";
 // likes: [number] is rendered
 // fill ["transparent"] - filling svg icon Comment (given "#FF6C00")
 export const ContentBlock = ({
+  id,
   detailsBox = true,
   fill = "transparent",
   source,
@@ -30,7 +31,10 @@ export const ContentBlock = ({
       </View>
       {detailsBox && (
         <View style={styles.contentDetailsBox}>
-          <Pressable style={styles.icon_text_Box} onPress={() => navigation.navigate("Comments")}>
+          <Pressable
+            style={styles.icon_text_Box}
+            onPress={() => navigation.navigate("Comments", { id })}
+          >
             <CommentIcon width={24} height={24} fill={fill} />
             <Text style={styles.contentDetailsText}>{comments}</Text>
           </Pressable>

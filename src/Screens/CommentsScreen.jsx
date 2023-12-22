@@ -17,7 +17,7 @@ const CommentsScreen = (route) => {
   const [flag, setFlag] = useState(true);
   const isFocused = useIsFocused();
 
-  // const { id } = route.params;
+  const { id } = route.params;
 
   useEffect(
     (isFocused) => {
