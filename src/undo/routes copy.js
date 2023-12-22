@@ -1,10 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import RegistrationScreen from "./RegistrationScreen";
-import LoginScreen from "./LoginScreen";
-import CommentsScreen from "./CommentsScreen";
-import HomeScreen from "./HomeScreen";
-import MapScreen from "./MapScreen";
+import RegistrationScreen from "../Screens/RegistrationScreen";
+import LoginScreen from "../Screens/LoginScreen";
+import CommentsScreen from "../Screens/CommentsScreen";
+import HomeScreen from "../Screens/HomeScreen";
+import MapScreen from "../Screens/MapScreen";
 
 import { GoBackIconBox, HeaderTitle } from "../components";
 
@@ -29,15 +29,15 @@ export const useRoute = (isAuth) => {
       {!isAuth ? (
         <MainStack.Group>
           <MainStack.Screen
-            name="Registration"
-            component={RegistrationScreen}
+            name="Login"
+            component={LoginScreen}
             options={{
               headerShown: false,
             }}
           />
           <MainStack.Screen
-            name="Login"
-            component={LoginScreen}
+            name="Registration"
+            component={RegistrationScreen}
             options={{
               headerShown: false,
             }}

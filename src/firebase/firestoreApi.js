@@ -11,9 +11,6 @@ import {
 } from "firebase/firestore";
 
 import { db } from "./config";
-import { useSelector } from "react-redux";
-
-// const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
 
 const addPost = async (uid, post) => {
   try {
@@ -36,12 +33,12 @@ const getAllPosts = async () => {
 
 const getPostsByUserId = async (uid) => {
   let posts = [];
-  
+
   const q = query(collection(db, "posts"), where("uid", "==", uid));
   try {
     const res = await getDocs(q);
     res.forEach((doc) => posts.push({ id: doc.id, ...doc.data() }));
-    
+
     return posts;
   } catch (error) {
     throw new Error("DB Error");
