@@ -3,19 +3,39 @@ import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
 import { userAuth } from "../hooks";
 
 import BGImage from "../images/photo_BG.png";
-
+// test
 import image1 from "../images/blank/photo_test_1.jpg";
 import image2 from "../images/blank/photo_test_2.jpg";
 import image3 from "../images/blank/photo_test_3.jpg";
 
+//
+import { useFireStore } from "../firebase/firestoreApi";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+
 const ProfileScreen = () => {
   const {
-    // uid,
+    uid,
     // email,
     displayName,
     // isLoggedIn,
     avatarUrl,
   } = userAuth();
+  //
+  const { getPostsByUserId } = useFireStore();
+  const [posts, setPosts] = useState([]);
+  const isFocused = useIsFocused();
+
+  useEffect(
+    (isFocused) => {
+      async function fetchData() {
+        const data = await getPostsByUserId(uid);
+        setPosts(data);
+      }
+      fetchData();
+    },
+    [isFocused]
+  );
 
   return (
     <SafeAreaView style={styles.containerSafe}>
@@ -28,14 +48,9 @@ const ProfileScreen = () => {
               <Text style={styles.title}>{displayName}</Text>
             </View>
             <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
-              <ContentBlock
-                fill={"#FF6C00"}
-                source={image1}
-                title={"Ліс"}
-                comments={"8"}
-                likes={"153"}
-                location={"Ukraine"}
-              />
+              {posts.map((post) => (
+                <ContentBlock key={post.id} {...post} />
+              ))}
               <ContentBlock
                 fill={"#FF6C00"}
                 source={image2}
@@ -43,14 +58,6 @@ const ProfileScreen = () => {
                 comments={"3"}
                 likes={"200"}
                 location={"Ukraine"}
-              />
-              <ContentBlock
-                fill={"#FF6C00"}
-                source={image3}
-                title={"Старий будиночок у Венеції"}
-                comments={"50"}
-                likes={"200"}
-                location={"Italy"}
               />
             </ScrollView>
           </View>

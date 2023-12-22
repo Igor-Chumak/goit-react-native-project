@@ -1,14 +1,16 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { userAuth } from "../hooks";
 
 const AVATAR_DEFAULT = "../images/avatar_default.png";
 
 export const User = () => {
+  const navigation = useNavigation();
   const { email, displayName, avatarUrl } = userAuth();
   const imgSource = avatarUrl ? { uri: avatarUrl } : require(AVATAR_DEFAULT);
 
   return (
-    <Pressable style={styles.userBox}>
+    <Pressable style={styles.userBox} onPress={() => navigation.navigate("Profile")}>
       <Image source={imgSource} style={styles.userPhoto}></Image>
       <View style={styles.userDataBox}>
         <Text style={styles.userName}>{displayName}</Text>

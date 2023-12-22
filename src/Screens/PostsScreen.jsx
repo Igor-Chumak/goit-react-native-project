@@ -1,36 +1,47 @@
 import { ScrollView, StyleSheet, View } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ContentBlock, ContentBox, User } from "../components";
 
 import image1 from "../images/blank/photo_test_1.jpg";
 import image2 from "../images/blank/photo_test_2.jpg";
 import image3 from "../images/blank/photo_test_3.jpg";
 
-const Tabs = createBottomTabNavigator();
+//
+import { useFireStore } from "../firebase/firestoreApi";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+
+// const Tabs = createBottomTabNavigator();
 
 const PostsScreen = () => {
+  const isFocused = useIsFocused();
+  const { getAllPosts } = useFireStore();
+  const [posts, setPosts] = useState([]);
+
+  useEffect(
+    (isFocused) => {
+      async function fetchData() {
+        const data = await getAllPosts();
+        setPosts(data);
+      }
+      fetchData();
+    },
+    [isFocused]
+  );
+
   return (
     <View style={styles.container}>
       <ContentBox>
         <User />
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
+          {posts.map((post) => (
+            <ContentBlock key={post.id} {...post} />
+          ))}
           <ContentBlock
             source={image1}
             title={"Ліс"}
             comments={"8"}
             location={"Ivano-Frankivsk Region, Ukraine"}
-          />
-          <ContentBlock
-            source={image2}
-            title={"Захід на Чорному морі"}
-            comments={"3"}
-            location={"Odessa, Ukraine"}
-          />
-          <ContentBlock
-            source={image3}
-            title={"Старий будиночок у Венеції"}
-            comments={"50"}
-            location={"Venezia, Italy"}
           />
         </ScrollView>
       </ContentBox>

@@ -1,5 +1,4 @@
 import { ImageBackground, SafeAreaView, StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { LoginForm } from "../components";
 
 import BGImage from "../images/photo_BG.png";
