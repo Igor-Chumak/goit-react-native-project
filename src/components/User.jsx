@@ -1,12 +1,15 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { userAuth } from "../hooks";
 
+const AVATAR_DEFAULT = "../Img/avatar_default.png";
+
 export const User = () => {
   const { email, displayName, avatarUrl } = userAuth();
+  const imgSource = avatarUrl ? { uri: avatarUrl } : require(AVATAR_DEFAULT);
 
   return (
     <Pressable style={styles.userBox}>
-      <Image source={`${avatarUrl}`} style={styles.userPhoto}></Image>
+      <Image source={imgSource} style={styles.userPhoto}></Image>
       <View style={styles.userDataBox}>
         <Text style={styles.userName}>{displayName}</Text>
         <Text style={styles.userEmail}>{email}</Text>

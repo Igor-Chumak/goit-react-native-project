@@ -2,15 +2,10 @@ import { useEffect, useState } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
+import { avatarNothing } from "../data";
 import BtnAddIcon from "../Img/union.svg";
 import BtnChangeIcon from "../Img/union_x.svg";
-// const avatarDefault = require("../Img/avatar_default.png");
-// const avatarNothing = require("../Img/react512.png");
-import avatarDefault from "../Img/avatar_default.png";
-// import avatarNothing from "../Img/react512.png";
-import avatarNothing from "../Img/cat.jpg";
-
-// const avatarNothingUrl = "https://asset.cloudinary.com/de7gxd2bv/ca4fe66dca7798f6e4455705a8d3cb92";
+const AVATAR_DEFAULT = "../Img/avatar_default.png";
 
 export const AvatarBox = ({ avatarUrl, setAvatarUrl = null, disabledChange = false }) => {
   const [avatarSelector, setAvatarSelector] = useState(true);
@@ -51,9 +46,10 @@ export const AvatarBox = ({ avatarUrl, setAvatarUrl = null, disabledChange = fal
   //   console.log("avatarUrl :>> ", avatarUrl);
   // }, [avatarUrl]);
 
+  const imgSource = avatarUrl ? { uri: avatarUrl } : require(AVATAR_DEFAULT);
   return (
     <View style={styles.wrapPhoto}>
-      <Image source={`${avatarUrl ? avatarUrl : avatarDefault}`} style={styles.photo} />
+      <Image source={imgSource} style={styles.photo} />
       <Pressable
         style={[styles.btnAddBox, { borderColor: selectorColor }]}
         onPressIn={handlePressIn}
