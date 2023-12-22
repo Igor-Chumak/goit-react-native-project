@@ -1,7 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { userAuth } from "../hooks";
 
-const AVATAR_DEFAULT = "../Img/avatar_default.png";
+const AVATAR_DEFAULT = "../images/avatar_default.png";
 
 export const User = () => {
   const { email, displayName, avatarUrl } = userAuth();

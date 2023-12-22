@@ -1,6 +1,6 @@
 import { Image, StyleSheet, View } from "react-native";
 
-import imageDefault from "../Img/no_images.png";
+import imageDefault from "../images/no_images.png";
 
 export const ContentBlockImage = ({ source = imageDefault }) => {
   return (

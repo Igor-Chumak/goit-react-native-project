@@ -17,9 +17,9 @@ import CommentsScreen from "../Screens/CommentsScreen";
 import HomeScreen from "../Screens/HomeScreen";
 import MapScreen from "../Screens/MapScreen";
 
-// import GoBackIcon from "./src/Img/arrow_left.svg";
-// import GoBackIcon from "./src/Img/log_out.svg";
-// import BGImage from "./src/Img/photo_BG.png";
+// import GoBackIcon from "./src/images/arrow_left.svg";
+// import GoBackIcon from "./src/images/log_out.svg";
+// import BGImage from "./src/images/photo_BG.png";
 import { GoBackIconBox, HeaderTitle, Loader } from "../components";
 
 const MainStack = createStackNavigator();

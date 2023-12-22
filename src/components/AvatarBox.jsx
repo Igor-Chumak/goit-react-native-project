@@ -3,9 +3,9 @@ import { Image, Pressable, StyleSheet, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 import { avatarNothing } from "../data";
-import BtnAddIcon from "../Img/union.svg";
-import BtnChangeIcon from "../Img/union_x.svg";
-const AVATAR_DEFAULT = "../Img/avatar_default.png";
+import BtnAddIcon from "../images/union.svg";
+import BtnChangeIcon from "../images/union_x.svg";
+const AVATAR_DEFAULT = "../images/avatar_default.png";
 
 export const AvatarBox = ({ avatarUrl, setAvatarUrl = null, disabledChange = false }) => {
   const [avatarSelector, setAvatarSelector] = useState(true);

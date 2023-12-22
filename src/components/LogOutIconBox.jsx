@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { logout } from "../store/authSlice";
 import { useUserAuth } from "../firebase/authApi";
-import LogoutIcon from "../Img/log_out.svg";
+import LogoutIcon from "../images/log_out.svg";
 
 export const LogOutIconBox = ({ style }) => {
   const dispatch = useDispatch();

@@ -1,8 +1,8 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import GoBackIcon from "../Img/arrow_left.svg";
-// import GoBackIcon from "../Img/log_out.svg";
+import GoBackIcon from "../images/arrow_left.svg";
+// import GoBackIcon from "../images/log_out.svg";
 
 export const GoBackIconBox = () => {
   const navigation = useNavigation();

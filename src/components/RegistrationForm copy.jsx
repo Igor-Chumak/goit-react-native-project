@@ -16,10 +16,10 @@ import { useUserAuth } from "../firebase/authApi";
 import * as ImagePicker from "expo-image-picker";
 
 import { login } from "../store/authSlice";
-import BtnAddIcon from "../Img/union.svg";
-import BtnChangeIcon from "../Img/union_x.svg";
-import avatarDefault from "../Img/avatar_default.png";
-import avatarNothing from "../Img/react512.png";
+import BtnAddIcon from "../images/union.svg";
+import BtnChangeIcon from "../images/union_x.svg";
+import avatarDefault from "../images/avatar_default.png";
+import avatarNothing from "../images/react512.png";
 
 const avatarNothingUrl = "https://asset.cloudinary.com/de7gxd2bv/ca4fe66dca7798f6e4455705a8d3cb92";
 const INITIAL_STATE = {

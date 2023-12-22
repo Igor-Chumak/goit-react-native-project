@@ -2,9 +2,9 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ContentBlock, ContentBox, User } from "../components";
 
-import image1 from "../Img/blank/photo_test_1.jpg";
-import image2 from "../Img/blank/photo_test_2.jpg";
-import image3 from "../Img/blank/photo_test_3.jpg";
+import image1 from "../images/blank/photo_test_1.jpg";
+import image2 from "../images/blank/photo_test_2.jpg";
+import image3 from "../images/blank/photo_test_3.jpg";
 
 const Tabs = createBottomTabNavigator();
 

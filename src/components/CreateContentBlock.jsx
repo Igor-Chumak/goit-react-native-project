@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { GetCamera } from "./GetCamera";
 
-import CameraIcon from "../Img/camera.svg";
-// import imgDEf from "../Img/no_images.png";
+import CameraIcon from "../images/camera.svg";
+// import imgDEf from "../images/no_images.png";
 
 // title - text under the picture
 // fill ['#BDBDBD'] - filling svg icon camera, if 'white' - additionally change background: rgba(255, 255, 255, 0.3)

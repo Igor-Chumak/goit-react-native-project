@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
-import photoDefault from "../Img/blank/ellipse.png";
+import photoDefault from "../images/blank/ellipse.png";
 
 export const OneComment = () => {
   return (

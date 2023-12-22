@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-// import SendIcon from "../Img/send.svg";
-import SendIcon from "../Img/arrow_up.svg";
+// import SendIcon from "../images/send.svg";
+import SendIcon from "../images/arrow_up.svg";
 
 export const InputSearchBar = () => {
   return (
