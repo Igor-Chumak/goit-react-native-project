@@ -2,7 +2,7 @@ import { ImageBackground, SafeAreaView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RegistrationForm } from "../components";
 
-import BGImage from "../Img/photo_BG.png";
+import BGImage from "../images/photo_BG.png";
 
 const RegistrationScreen = () => {
   // const navigation = useNavigation();

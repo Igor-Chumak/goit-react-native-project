@@ -6,8 +6,31 @@ import {
   CommentsBlock,
   ContentScrollBox,
 } from "../components";
+//
+import { useFireStore } from "../firebase/firestoreApi";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
-const CommentsScreen = () => {
+const CommentsScreen = (route) => {
+  const { getCommentsByPostId } = useFireStore();
+  const [comments, setComments] = useState([]);
+  const [flag, setFlag] = useState(true);
+  const isFocused = useIsFocused();
+
+  const { id } = route.params;
+
+  useEffect(
+    (isFocused) => {
+      async function fetchData() {
+        const data = await getCommentsByPostId(id);
+        setComments(data);
+        // console.log(data);
+      }
+      fetchData();
+    },
+    [isFocused, flag]
+  );
+
   return (
     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
       <View style={styles.container}>

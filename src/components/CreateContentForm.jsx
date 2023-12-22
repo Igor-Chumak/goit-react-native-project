@@ -2,7 +2,7 @@ import { useEffect, useReducer, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import * as Location from "expo-location";
 
-import MapPinIcon from "../Img/map-pin.svg";
+import MapPinIcon from "../images/map-pin.svg";
 import { useNavigation } from "@react-navigation/native";
 
 export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm }) => {

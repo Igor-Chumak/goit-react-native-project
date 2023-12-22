@@ -1,53 +1,56 @@
-import { useNavigation } from "@react-navigation/native";
-import {
-  ImageBackground,
-  SafeAreaView,
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import { ContentBlock } from "../components";
+import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
+import { userAuth } from "../hooks";
 
-import BGImage from "../Img/photo_BG.png";
-import photoDefault from "../Img/react512.png";
-import BtnChangeIcon from "../Img/union_x.svg";
-import LogoutIcon from "../Img/log_out.svg";
+import BGImage from "../images/photo_BG.png";
+// test
+import image1 from "../images/blank/photo_test_1.jpg";
+import image2 from "../images/blank/photo_test_2.jpg";
+import image3 from "../images/blank/photo_test_3.jpg";
 
-import image1 from "../Img/blank/photo_test_1.jpg";
-import image2 from "../Img/blank/photo_test_2.jpg";
-import image3 from "../Img/blank/photo_test_3.jpg";
+//
+import { useFireStore } from "../firebase/firestoreApi";
+import { useIsFocused } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 const ProfileScreen = () => {
-  const navigation = useNavigation();
+  const {
+    uid,
+    // email,
+    displayName,
+    // isLoggedIn,
+    avatarUrl,
+  } = userAuth();
+  //
+  const { getPostsByUserId } = useFireStore();
+  const [posts, setPosts] = useState([]);
+  const isFocused = useIsFocused();
+
+  useEffect(
+    (isFocused) => {
+      async function fetchData() {
+        const data = await getPostsByUserId(uid);
+        setPosts(data);
+      }
+      fetchData();
+    },
+    [isFocused]
+  );
+
   return (
     <SafeAreaView style={styles.containerSafe}>
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <View style={styles.container}>
           <View style={styles.wrapProfile}>
-            <View style={styles.wrapPhoto}>
-              <Image source={photoDefault} style={styles.photo} />
-              <Pressable style={styles.btnChangeBox}>
-                <BtnChangeIcon width={13} height={13} />
-              </Pressable>
-            </View>
-            <Pressable style={styles.logOutBox} onPress={() => navigation.navigate("Login")}>
-              <LogoutIcon width={24} height={24} />
-            </Pressable>
+            <AvatarBox avatarUrl={avatarUrl} disabledChange={true} />
+            <LogOutIconBox style={styles.logOutBox} />
             <View style={styles.titleBox}>
-              <Text style={styles.title}>React Native</Text>
+              <Text style={styles.title}>{displayName}</Text>
             </View>
             <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
-              <ContentBlock
-                fill={"#FF6C00"}
-                source={image1}
-                title={"Ліс"}
-                comments={"8"}
-                likes={"153"}
-                location={"Ukraine"}
-              />
+              {posts.map((post) => (
+                <ContentBlock key={post.id} {...post} />
+              ))}
               <ContentBlock
                 fill={"#FF6C00"}
                 source={image2}
@@ -55,14 +58,6 @@ const ProfileScreen = () => {
                 comments={"3"}
                 likes={"200"}
                 location={"Ukraine"}
-              />
-              <ContentBlock
-                fill={"#FF6C00"}
-                source={image3}
-                title={"Старий будиночок у Венеції"}
-                comments={"50"}
-                likes={"200"}
-                location={"Italy"}
               />
             </ScrollView>
           </View>
@@ -103,39 +98,37 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
   },
-  wrapPhoto: {
-    position: "absolute",
-    width: 120,
-    height: 120,
-    top: -60,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-  photo: {
-    width: "100%",
-    height: "100%",
-  },
-  btnChangeBox: {
-    position: "absolute",
-    bottom: 14,
-    right: -12,
-    width: 25,
-    height: 25,
-    backgroundColor: "white",
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#E8E8E8",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  // wrapPhoto: {
+  //   position: "absolute",
+  //   width: 120,
+  //   height: 120,
+  //   top: -60,
+  //   backgroundColor: "#F6F6F6",
+  //   borderRadius: 16,
+  //   // borderWidth: 1,
+  //   // borderColor: "red",
+  // },
+  // photo: {
+  //   width: "100%",
+  //   height: "100%",
+  // },
+  // btnChangeBox: {
+  //   position: "absolute",
+  //   bottom: 14,
+  //   right: -12,
+  //   width: 25,
+  //   height: 25,
+  //   backgroundColor: "white",
+  //   borderRadius: 12,
+  //   borderWidth: 1,
+  //   borderColor: "#E8E8E8",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
   logOutBox: {
-    position: "absolute",
     right: 16,
     top: 22,
-    width: 24,
-    height: 24,
+    bottom: 0,
   },
   titleBox: {
     width: "100%",

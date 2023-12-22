@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-import TrashIcon from "../Img/trash_toolbar.svg";
+import TrashIcon from "../images/trash_toolbar.svg";
 
 export const ToolBar = ({ resetForm }) => {
   return (

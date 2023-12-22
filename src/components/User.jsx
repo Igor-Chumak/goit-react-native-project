@@ -1,13 +1,20 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import photoDefault from "../Img/react512.png";
+import { useNavigation } from "@react-navigation/native";
+import { userAuth } from "../hooks";
+
+const AVATAR_DEFAULT = "../images/avatar_default.png";
 
 export const User = () => {
+  const navigation = useNavigation();
+  const { email, displayName, avatarUrl } = userAuth();
+  const imgSource = avatarUrl ? { uri: avatarUrl } : require(AVATAR_DEFAULT);
+
   return (
-    <Pressable style={styles.userBox}>
-      <Image source={photoDefault} style={styles.userPhoto}></Image>
+    <Pressable style={styles.userBox} onPress={() => navigation.navigate("Profile")}>
+      <Image source={imgSource} style={styles.userPhoto}></Image>
       <View style={styles.userDataBox}>
-        <Text style={styles.userName}>React Native</Text>
-        <Text style={styles.userEmail}>native@react.com</Text>
+        <Text style={styles.userName}>{displayName}</Text>
+        <Text style={styles.userEmail}>{email}</Text>
       </View>
     </Pressable>
   );
@@ -22,13 +29,9 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
     backgroundColor: "white",
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   userDataBox: {
     flex: 1,
-    // borderWidth: 1,
-    // borderColor: "blue",
   },
   userName: {
     fontFamily: "RobotoB",

@@ -1,6 +1,6 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
-  Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -11,41 +11,73 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useUserAuth } from "../firebase/authApi";
+import { login } from "../store/authSlice";
+import { AvatarBox } from "./AvatarBox";
 
-import photoDefault from "../Img/react512.png";
-import BtnAddIcon from "../Img/union.svg";
+const INITIAL_STATE = {
+  name: "myName",
+  email: "email@email.com",
+  password: "password",
+  avatarUrl: null,
+};
 
 export const RegistrationForm = () => {
   const navigation = useNavigation();
-  const [login, setLogin] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { registerUser } = useUserAuth();
+
+  const [name, setName] = useState(INITIAL_STATE.name);
+  const [email, setEmail] = useState(INITIAL_STATE.email);
+  const [password, setPassword] = useState(INITIAL_STATE.password);
+  const [avatarUrl, setAvatarUrl] = useState(INITIAL_STATE.avatarUrl);
   const [passwordHidden, setPasswordHidden] = useState(true);
-  const [state, dispatch] = useReducer(reducer, { login, email, password });
 
-  function reducer(state, action) {
-    if (action.type === "submitRegForm") return { login, email, password };
-  }
+  // useEffect(() => {
+  //   console.log("avatarUrl :>> ", avatarUrl);
+  // }, [avatarUrl]);
 
-  useEffect(() => {
-    setLogin("");
-    setEmail("");
-    setPassword("");
-    console.log("Registration Form:", state);
-  }, [state]);
+  const handlePress = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
 
-  const handleSubmit = () => {
-    if (!login || !email || !password) return;
-    // console.log("login :>> ", login);
-    // console.log("email :>> ", email);
-    // console.log("password :>> ", password);
+    if (!result.canceled) {
+      const { uri } = result.assets[0];
+      setAvatarUrl(uri);
+    } else {
+      alert("Nothing selected");
+      setAvatarUrl(avatarNothing);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!name || !email || !password) return;
     setPasswordHidden(true);
-    dispatch({ type: "submitRegForm" });
-    // setLogin("");
-    // setEmail("");
-    // setPassword("");
-    navigation.navigate("Home");
-    return;
+    try {
+      const user = await registerUser({
+        email,
+        password,
+        displayName: name,
+        photoURL: avatarUrl,
+      });
+      dispatch(
+        login({
+          email: user.email,
+          displayName: user.displayName,
+          uid: user.uid,
+          avatarUrl: user.photoURL,
+        })
+      );
+      setName(INITIAL_STATE.name);
+      setEmail(INITIAL_STATE.email);
+      setPassword(INITIAL_STATE.password);
+      setAvatarUrl(INITIAL_STATE.avatarUrl);
+      return;
+    } catch (error) {
+      console.log("Something went wrong: ", error.message);
+    }
   };
 
   const toggleVisiblePassword = () => {
@@ -55,12 +87,7 @@ export const RegistrationForm = () => {
   return (
     <Pressable onPress={Keyboard.dismiss}>
       <View style={styles.wrapForm}>
-        <View style={styles.wrapPhoto}>
-          <Image source={photoDefault} style={styles.photo} />
-          <Pressable style={styles.btnAddBox}>
-            <BtnAddIcon width={13} height={13} />
-          </Pressable>
-        </View>
+        <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} />
         <Text style={styles.title}>Реєстрація</Text>
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -71,8 +98,9 @@ export const RegistrationForm = () => {
               style={styles.textInput}
               placeholder="Логін"
               placeholderTextColor="#BDBDBD"
-              value={login}
-              onChangeText={setLogin}
+              value={name}
+              name="name"
+              onChangeText={setName}
             />
             <TextInput
               style={styles.textInput}
@@ -80,6 +108,7 @@ export const RegistrationForm = () => {
               placeholder="Адреса електронної пошти"
               placeholderTextColor="#BDBDBD"
               value={email}
+              name="email"
               onChangeText={setEmail}
             />
             <View style={styles.wrapInputDelete}>
@@ -90,6 +119,7 @@ export const RegistrationForm = () => {
                 placeholderTextColor="#BDBDBD"
                 secureTextEntry={passwordHidden}
                 value={password}
+                name="password"
                 onChangeText={setPassword}
               />
               <Pressable onPress={toggleVisiblePassword}>
@@ -126,33 +156,6 @@ const styles = StyleSheet.create({
     //
     // borderWidth: 1,
     // borderColor: "red",
-  },
-  wrapPhoto: {
-    position: "absolute",
-    width: 120,
-    height: 120,
-    top: -60,
-    backgroundColor: "#F6F6F6",
-    borderRadius: 16,
-    //
-    // borderWidth: 1,
-    // borderColor: "red",
-  },
-  photo: {
-    width: "100%",
-    height: "100%",
-  },
-  btnAddBox: {
-    position: "absolute",
-    bottom: 14,
-    right: -12,
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#FF6C00",
-    justifyContent: "center",
-    alignItems: "center",
   },
   title: {
     marginBottom: 32,

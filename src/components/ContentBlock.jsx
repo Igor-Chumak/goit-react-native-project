@@ -2,16 +2,17 @@ import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ContentBlockImage } from "./ContentBlockImage";
 
-// import imageDefault from "../Img/no_images.png";
-import CommentIcon from "../Img/comment_stroke.svg";
-import ThumbsIcon from "../Img/thumbs-up.svg";
-import MapPinIcon from "../Img/map-pin.svg";
+// import imageDefault from "../images/no_images.png";
+import CommentIcon from "../images/comment_stroke.svg";
+import ThumbsIcon from "../images/thumbs-up.svg";
+import MapPinIcon from "../images/map-pin.svg";
 
 // title - text under the picture
 // detailsBox: [boolean] is rendered
 // likes: [number] is rendered
 // fill ["transparent"] - filling svg icon Comment (given "#FF6C00")
 export const ContentBlock = ({
+  id,
   detailsBox = true,
   fill = "transparent",
   source,
@@ -30,7 +31,10 @@ export const ContentBlock = ({
       </View>
       {detailsBox && (
         <View style={styles.contentDetailsBox}>
-          <Pressable style={styles.icon_text_Box} onPress={() => navigation.navigate("Comments")}>
+          <Pressable
+            style={styles.icon_text_Box}
+            onPress={() => navigation.navigate("Comments", { id })}
+          >
             <CommentIcon width={24} height={24} fill={fill} />
             <Text style={styles.contentDetailsText}>{comments}</Text>
           </Pressable>

@@ -4,9 +4,9 @@ import PostsScreen from "./PostsScreen";
 import CreatePostScreen from "./CreatePostScreen";
 import ProfileScreen from "./ProfileScreen";
 import { GoBackIconBox, HeaderTitle, LogOutIconBox } from "../components";
-import GridIcon from "../Img/grid.svg";
-import BtnAddIcon from "../Img/union_post.svg";
-import UserIcon from "../Img/user.svg";
+import GridIcon from "../images/grid.svg";
+import BtnAddIcon from "../images/union_post.svg";
+import UserIcon from "../images/user.svg";
 
 const Tabs = createBottomTabNavigator();
 

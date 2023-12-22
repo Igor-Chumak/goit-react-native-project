@@ -1,8 +1,7 @@
 import { ImageBackground, SafeAreaView, StyleSheet, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { LoginForm } from "../components";
 
-import BGImage from "../Img/photo_BG.png";
+import BGImage from "../images/photo_BG.png";
 
 const LoginScreen = () => {
   // const navigation = useNavigation();
