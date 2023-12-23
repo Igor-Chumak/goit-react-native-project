@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "goit-react-native-project",
+    "name": "GoIT-react-native-project",
     "slug": "goit-react-native-project",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
