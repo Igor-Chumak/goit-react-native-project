@@ -11,21 +11,26 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
-    // "jsEngine": "hermes",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      // "jsEngine": "jsc",
       "supportsTablet": true
     },
     "android": {
-      // "jsEngine": "jsc",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.chigorv.goitreactnativeproject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1438e306-daba-47cf-ade5-33583cba0f5c"
+      }
     }
   }
 }
