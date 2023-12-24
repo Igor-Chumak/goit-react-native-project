@@ -20,25 +20,39 @@ const INITIAL_STATE = {
   photo: null,
   title: null,
   location: null,
-  spot: { longitude: 0, latitude: 0 },
+  position: { longitude: 0, latitude: 0 },
 };
 
 const CreatePostScreen = () => {
-  const [photoPost, setPhotoPost] = useState(null);
+  const navigation = useNavigation();
+  const [photoPost, setPhotoPost] = useState(INITIAL_STATE.photo);
   const [resForm, setResForm] = useState(false);
+  //form
+  const [title, setTitle] = useState(INITIAL_STATE.title);
+  const [location, setLocation] = useState(INITIAL_STATE.location);
+  const [disable, setDisable] = useState(true);
+  const [position, setPosition] = useState(INITIAL_STATE.position);
+  const [state, dispatch] = useReducer(reducer, { title, location, photo: photoPost, position });
+
+  // u
+  useEffect(() => {
+    (async () => {
+      try {
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        await MediaLibrary.requestPermissionsAsync();
+        setHasPermission(status === "granted");
+        console.log("location status", status);
+      } catch (error) {
+        console.log(error.message);
+      }
+    })();
+  }, []);
+  //
 
   const resetForm = () => {
     setPhotoPost(null);
     setResForm(true);
   };
-
-  //form
-  const navigation = useNavigation();
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [disable, setDisable] = useState(true);
-  const [position, setPosition] = useState(null);
-  const [state, dispatch] = useReducer(reducer, { title, location, photo: photoPost, position });
 
   function reducer(state, action) {
     if (action.type === "submitPublication") return { title, location, photo: photoPost, position };
