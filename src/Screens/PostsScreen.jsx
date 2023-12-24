@@ -1,6 +1,8 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 // import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ContentBlock, ContentBox, User } from "../components";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 import image1 from "../images/blank/photo_test_1.jpg";
 import image2 from "../images/blank/photo_test_2.jpg";
@@ -18,16 +20,32 @@ const PostsScreen = () => {
   const { getAllPosts } = useFireStore();
   const [posts, setPosts] = useState([]);
 
-  useEffect(
-    (isFocused) => {
-      async function fetchData() {
-        const data = await getAllPosts();
-        setPosts(data);
-      }
-      fetchData();
-    },
-    [isFocused]
-  );
+  // useEffect(
+  //   (isFocused) => {
+  //     async function fetchData() {
+  //       const data = await getAllPosts();
+  //       setPosts(data);
+  //     }
+  //     fetchData();
+  //   },
+  //   [isFocused]
+  // );
+
+  // mentor
+  const getAllPost = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "posts"));
+
+      setPosts(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getAllPost();
+  }, []);
+  //
 
   return (
     <View style={styles.container}>
