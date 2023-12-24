@@ -16,9 +16,9 @@ import { login } from "../store/authSlice";
 import { AvatarBox } from "./AvatarBox";
 
 const INITIAL_STATE = {
-  name: "myName",
-  email: "email@email.com",
-  password: "password",
+  name: null, // "myName",
+  email: null, //"email@email.com",
+  password: null, // "password",
   avatarUrl: null,
 };
 

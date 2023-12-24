@@ -4,7 +4,6 @@ import { LoginForm } from "../components";
 import BGImage from "../images/photo_BG.png";
 
 const LoginScreen = () => {
-  // const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.containerSafe}>
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>

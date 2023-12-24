@@ -14,8 +14,8 @@ import { useUserAuth } from "../firebase/authApi";
 import { login } from "../store/authSlice";
 
 const INITIAL_STATE = {
-  email: "email@email.com", //null,
-  password: "password", //null,
+  email: null, //"email@email.com",
+  password: null, // "password",
 };
 
 export const LoginForm = () => {
