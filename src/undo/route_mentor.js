@@ -1,12 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import RegistrationScreen from "./Screens/RegistrationScreen";
-import LoginScreen from "./Screens/LoginScreen";
-import CommentsScreen from "./Screens/CommentsScreen";
-import HomeScreen from "./Screens/HomeScreen";
-import MapScreen from "./Screens/MapScreen";
+import RegistrationScreen from "../Screens/RegistrationScreen";
+import LoginScreen from "../Screens/LoginScreen";
+import CommentsScreen from "../Screens/CommentsScreen";
+import HomeScreen from "../Screens/HomeScreen";
+import MapScreen from "../Screens/MapScreen";
 
-import { GoBackIconBox, HeaderTitle } from "./components";
+import { GoBackIconBox, HeaderTitle } from "../components";
 
 const AuthStack = createStackNavigator();
 
