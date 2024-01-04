@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   Keyboard,
@@ -39,25 +39,6 @@ export const RegistrationForm = () => {
   const [password, setPassword] = useState(INITIAL_STATE.password);
   const [avatarUrl, setAvatarUrl] = useState(INITIAL_STATE.avatarUrl);
   const [passwordHidden, setPasswordHidden] = useState(true);
-
-  // useEffect(() => {
-  //   console.log("avatarUrl :>> ", avatarUrl);
-  // }, [avatarUrl]);
-
-  // const handlePress = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     allowsEditing: true,
-  //     quality: 1,
-  //   });
-
-  //   if (!result.canceled) {
-  //     const { uri } = result.assets[0];
-  //     setAvatarUrl(uri);
-  //   } else {
-  //     alert("Nothing selected");
-  //     setAvatarUrl(avatarNothing);
-  //   }
-  // };
 
   const handleSubmit = async () => {
     if (!name || !email || !password) return;

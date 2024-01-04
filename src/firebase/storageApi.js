@@ -3,10 +3,8 @@ import { storage } from "./config";
 
 export const uploadFileToStorageAsync = async ({ collection, name, fileUri }) => {
   try {
-    const ext = fileUri.split(".").reverse()[0];
+    const ext = fileUri.split(".").reverse()[0].split("?")[0];
     const storagePath = `${collection}/${name}.${ext}`;
-    // const date = new Date().getTime();
-    // const storagePath = `${collection}/${name}_${date}.${ext}`;
     const fileRef = ref(storage, storagePath);
 
     const response = await fetch(fileUri);
