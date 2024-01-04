@@ -1,7 +1,7 @@
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./config";
 
-export const uploadFileToStorageAsync = async ({ collection, name, fileUri }) => {
+export const uploadFileToStorage = async ({ collection, name, fileUri }) => {
   try {
     if (!fileUri) return;
 
@@ -15,9 +15,9 @@ export const uploadFileToStorageAsync = async ({ collection, name, fileUri }) =>
     await uploadBytes(fileRef, blob);
     blob.close();
 
-    getDownloadURL(fileRef).then((downloadURL) => {
-      console.log("File available at", downloadURL);
-    });
+    // getDownloadURL(fileRef).then((downloadURL) => {
+    //   console.log("File available at", downloadURL);
+    // });
 
     return await getDownloadURL(fileRef);
   } catch (err) {
@@ -25,4 +25,4 @@ export const uploadFileToStorageAsync = async ({ collection, name, fileUri }) =>
   }
 };
 
-export default { uploadFileToStorageAsync };
+export default { uploadFileToStorage };

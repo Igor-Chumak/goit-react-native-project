@@ -40,11 +40,18 @@ export const CreateContentForm = ({ photoPost, setPhotoPost, resForm, setResForm
     }
     console.log("location status", status);
     let location = await Location.getCurrentPositionAsync({});
+    console.log("location :>> ", location);
     const coords = {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
     };
     setPosition(coords);
+    // test geocode
+
+    let reverseGeocodeAddress = await Location.reverseGeocodeAsync(coords);
+    const { city, country, region, street } = reverseGeocodeAddress[0];
+    console.log("info :>> ", reverseGeocodeAddress[0]);
+    //
     return coords;
   };
 

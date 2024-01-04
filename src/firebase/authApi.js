@@ -5,8 +5,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "./config";
-import storageApi from "./storageApi";
-import firebaseApi from "./firebaseApi";
+import storageApiAsync from "./storageApi";
+import firebaseApiAsync from "./firebaseApi";
 
 const signInUser = async ({ email, password }) => {
   try {
@@ -32,7 +32,7 @@ const registerUser = async ({ email, password, displayName, photoURL }) => {
 
     // console.log("registerUser res.user :>> ", res.user);
 
-    const uploadUrl = await storageApi.uploadFileToStorageAsync({
+    const uploadUrl = await storageApiAsync.uploadFileToStorage({
       collection: "avatars",
       name: res.user.uid + "_avatar",
       fileUri: photoURL,
@@ -45,7 +45,7 @@ const registerUser = async ({ email, password, displayName, photoURL }) => {
 
     // console.log("auth.currentUser :>> ", auth.currentUser);
 
-    await firebaseApi.addUser({
+    await firebaseApiAsync.addUser({
       uid: res.user.uid,
       email: res.user.email,
       displayName: res.user.displayName,
