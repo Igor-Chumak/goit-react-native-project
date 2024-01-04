@@ -9,7 +9,7 @@ import image2 from "../images/blank/photo_test_2.jpg";
 import image3 from "../images/blank/photo_test_3.jpg";
 
 //
-import { useFireStore } from "../firebase/firebaseApi";
+import firebaseApi from "../firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
@@ -22,7 +22,7 @@ const ProfileScreen = () => {
     avatarUrl,
   } = userAuth();
   //
-  const { getPostsByUserId } = useFireStore();
+  const { getPostsByUserId } = firebaseApi;
   const [posts, setPosts] = useState([]);
   const isFocused = useIsFocused();
 

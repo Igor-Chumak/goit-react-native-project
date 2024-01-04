@@ -16,7 +16,17 @@ const addPost = async (uid, post) => {
   try {
     await addDoc(collection(db, "posts"), { ...post, uid });
   } catch (error) {
-    throw new Error("DB Error");
+    // throw new Error("DB Error");
+    throw new Error(error.message);
+  }
+};
+
+const addUser = async (user) => {
+  try {
+    await addDoc(collection(db, "users"), { ...user });
+  } catch (error) {
+    // throw new Error("DB Error");
+    throw new Error(error.message);
   }
 };
 
@@ -27,7 +37,8 @@ const getAllPosts = async () => {
     res.forEach((doc) => posts.push({ id: doc.id, ...doc.data() }));
     return posts;
   } catch (error) {
-    throw new Error("DB Error");
+    // throw new Error("DB Error");
+    throw new Error(error.message);
   }
 };
 // mentor
@@ -51,7 +62,8 @@ const getPostsByUserId = async (uid) => {
 
     return posts;
   } catch (error) {
-    throw new Error("DB Error");
+    // throw new Error("DB Error");
+    throw new Error(error.message);
   }
 };
 
@@ -59,7 +71,8 @@ const addComment = async (pid, text) => {
   try {
     await addDoc(collection(db, "comments"), { pid, text, createdAt: Timestamp.now() });
   } catch (error) {
-    throw new Error("DB Error");
+    // throw new Error("DB Error");
+    throw new Error(error.message);
   }
 };
 
@@ -73,16 +86,16 @@ const getCommentsByPostId = async (pid) => {
 
     return posts;
   } catch (error) {
-    throw new Error("DB Error");
+    // throw new Error("DB Error");
+    throw new Error(error.message);
   }
 };
 
-export const useFireStore = () => {
-  return {
-    addPost,
-    getAllPosts,
-    getPostsByUserId,
-    addComment,
-    getCommentsByPostId,
-  };
+export default {
+  addPost,
+  addUser,
+  getAllPosts,
+  getPostsByUserId,
+  addComment,
+  getCommentsByPostId,
 };

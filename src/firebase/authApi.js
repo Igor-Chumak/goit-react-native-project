@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 import { auth } from "./config";
 import storageApi from "./storageApi";
+import firebaseApi from "./firebaseApi";
 
 const signInUser = async ({ email, password }) => {
   try {
@@ -43,6 +44,13 @@ const registerUser = async ({ email, password, displayName, photoURL }) => {
     });
 
     // console.log("auth.currentUser :>> ", auth.currentUser);
+
+    await firebaseApi.addUser({
+      uid: res.user.uid,
+      email: res.user.email,
+      displayName: res.user.displayName,
+      photoURL: res.user.photoURL,
+    });
 
     return auth.currentUser;
   } catch (err) {

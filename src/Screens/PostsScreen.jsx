@@ -16,13 +16,13 @@ import image2 from "../images/blank/photo_test_2.jpg";
 import image3 from "../images/blank/photo_test_3.jpg";
 
 //
-import { useFireStore } from "../firebase/firebaseApi";
+import firebaseApi from "../firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
 const PostsScreen = () => {
   const isFocused = useIsFocused();
-  const { getAllPosts } = useFireStore();
+  const { getAllPosts } = firebaseApi;
   const [posts, setPosts] = useState([]);
 
   // useEffect(

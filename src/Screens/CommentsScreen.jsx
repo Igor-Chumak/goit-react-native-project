@@ -7,12 +7,12 @@ import {
   ContentScrollBox,
 } from "../components";
 //
-import { useFireStore } from "../firebase/firebaseApi";
+import { firebaseApi } from "../firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
 const CommentsScreen = (route) => {
-  const { getCommentsByPostId } = useFireStore();
+  const { getCommentsByPostId } = firebaseApi();
   const [comments, setComments] = useState([]);
   const [flag, setFlag] = useState(true);
   const isFocused = useIsFocused();
