@@ -15,10 +15,17 @@ import { useUserAuth } from "../firebase/authApi";
 import { login } from "../store/authSlice";
 import { AvatarBox } from "./AvatarBox";
 
+// const INITIAL_STATE = {
+//   name: null,
+//   email: null,
+//   password: null,
+//   avatarUrl: null,
+// };
+
 const INITIAL_STATE = {
-  name: null, // "myName",
-  email: null, //"email@email.com",
-  password: null, // "password",
+  name: "myName",
+  email: "email@email.com",
+  password: "password",
   avatarUrl: null,
 };
 
@@ -37,20 +44,20 @@ export const RegistrationForm = () => {
   //   console.log("avatarUrl :>> ", avatarUrl);
   // }, [avatarUrl]);
 
-  const handlePress = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 1,
-    });
+  // const handlePress = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     allowsEditing: true,
+  //     quality: 1,
+  //   });
 
-    if (!result.canceled) {
-      const { uri } = result.assets[0];
-      setAvatarUrl(uri);
-    } else {
-      alert("Nothing selected");
-      setAvatarUrl(avatarNothing);
-    }
-  };
+  //   if (!result.canceled) {
+  //     const { uri } = result.assets[0];
+  //     setAvatarUrl(uri);
+  //   } else {
+  //     alert("Nothing selected");
+  //     setAvatarUrl(avatarNothing);
+  //   }
+  // };
 
   const handleSubmit = async () => {
     if (!name || !email || !password) return;

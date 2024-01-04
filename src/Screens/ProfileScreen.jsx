@@ -9,7 +9,7 @@ import image2 from "../images/blank/photo_test_2.jpg";
 import image3 from "../images/blank/photo_test_3.jpg";
 
 //
-import { useFireStore } from "../firebase/firestoreApi";
+import { useFireStore } from "../firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 

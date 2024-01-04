@@ -7,7 +7,7 @@ import {
   ContentScrollBox,
 } from "../components";
 //
-import { useFireStore } from "../firebase/firestoreApi";
+import { useFireStore } from "../firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
