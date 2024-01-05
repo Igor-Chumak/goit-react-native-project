@@ -3,7 +3,6 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 import { useNavigation } from "@react-navigation/native";
 
 import MapPinIcon from "../images/map-pin.svg";
-// import { definePosition } from "../utility/googleLocation/googleLocation";
 
 export const CreateContentForm = ({ state, handleSubmit, localDispatch }) => {
   const navigation = useNavigation();
@@ -14,8 +13,6 @@ export const CreateContentForm = ({ state, handleSubmit, localDispatch }) => {
     : "";
 
   useEffect(() => {
-    console.log("title :>> ", title);
-    console.log("photoUrl :>> ", photoUrl);
     if (!title || !photoUrl) return setDisable(true);
     setDisable(false);
   }, [title, photoUrl]);
@@ -80,6 +77,7 @@ const styles = StyleSheet.create({
   //
   textInput: {
     width: "100%",
+    paddingLeft: 10,
     height: 50,
     fontSize: 16,
     lineHeight: 19,

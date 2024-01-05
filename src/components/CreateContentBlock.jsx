@@ -10,7 +10,7 @@ import CameraIcon from "../images/camera.svg";
 // fill ['#BDBDBD'] - filling svg icon camera, if 'white' - additionally change background: rgba(255, 255, 255, 0.3)
 // source [''] - path to image
 
-export const CreateContentBlock = ({ photo, setPhoto, localDispatch }) => {
+export const CreateContentBlock = ({ photo, localDispatch }) => {
   const [onCamera, setOnCamera] = useState(false);
   const [title, setTitle] = useState("Завантажте фото");
   const [colorsIcon, setColorsIcon] = useState({ fill: "#BDBDBD", bgColor: "white" });

@@ -24,18 +24,18 @@ export const definePosition = async () => {
   }
 
   const coords = { latitude, longitude };
-  console.log("coords :>> ", coords);
+  // console.log("coords :>> ", coords);
 
   const location = await reverseGeocodeAddress(coords);
-  console.log("info location:>> ", location);
+  // console.log("info location:>> ", location);
   return { coords, location };
 };
 
 export const reverseGeocodeAddress = async (coords) => {
   try {
-    let reverseGeocodeAddress = await Location.reverseGeocodeAsync(coords);
-    const { city, country, region, street } = reverseGeocodeAddress[0];
-    // console.log("info location:>> ", reverseGeocodeAddress[0]);
+    let location = await Location.reverseGeocodeAsync(coords);
+    const { city, country, region, street } = location[0];
+    // console.log("info location:>> ", location[0]);
     return { country, region, city };
   } catch (err) {
     console.log("Define address ", err.message);

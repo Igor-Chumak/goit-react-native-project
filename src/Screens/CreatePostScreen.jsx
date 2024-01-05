@@ -28,47 +28,24 @@ const CreatePostScreen = () => {
   const navigation = useNavigation();
   const { uid: userUid } = userAuth;
   const [state, localDispatch] = useReducer(localReducer, INITIAL_STATE);
-  //
-  // const [photoPostUrl, setPhotoPostUrl] = useState(null);
-  const [isActiveBtnResetForm, setActiveBtnResetForm] = useState(false);
 
   const handleSubmit = async () => {
-    // if (!state.title || !state.photoUrl) return;
-    // if (!title || !location) return;
-    // localDispatch({ type: "update", payload: { title } });
-    // navigation.navigate("Posts");
-    // resetForm();
     localDispatch({ type: "clear" });
     console.log("state :>> ", state);
-    navigation.navigate("Map", { ...state.coords });
+    navigation.navigate("Posts");
     return;
   };
-
-  // const resetForm = () => {
-  //   localDispatch({ type: "clear" });
-  //   // setPhotoPostUrl(null);
-  //   setActiveBtnResetForm(true);
-  // };
 
   return (
     <SafeAreaView>
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
           <ContentBox>
-            <CreateContentBlock
-              photo={state.photoUrl}
-              // photo={photoPostUrl}
-              // setPhoto={setPhotoPostUrl}
-              localDispatch={localDispatch}
-            />
+            <CreateContentBlock photo={state.photoUrl} localDispatch={localDispatch} />
             <CreateContentForm
               state={state}
               handleSubmit={handleSubmit}
               localDispatch={localDispatch}
-              // photoPost={photoPostUrl}
-              // setPhotoPost={setPhotoPostUrl}
-              // isActiveBtnResetForm={isActiveBtnResetForm}
-              // setActiveBtnResetForm={setActiveBtnResetForm}
             />
             <ToolBar resetForm={() => localDispatch({ type: "clear" })} />
           </ContentBox>
