@@ -6,7 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { selectIsLoading, selectIsLoggedIn } from "./store/selectors";
 import { useRoute } from "./routes";
-import { auth } from "./firebase/config";
+import { auth } from "./utility/firebase/config";
 import { login, logout } from "./store/authSlice";
 
 export const Main = () => {

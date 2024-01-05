@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useUserAuth } from "../firebase/authApi";
+import { useUserAuth } from "../utility/firebase/authApi";
 import { login } from "../store/authSlice";
 import { AvatarBox } from "./AvatarBox";
 

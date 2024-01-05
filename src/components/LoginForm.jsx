@@ -10,7 +10,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { useUserAuth } from "../firebase/authApi";
+import { useUserAuth } from "../utility/firebase/authApi";
 import { login } from "../store/authSlice";
 
 // const INITIAL_STATE = {

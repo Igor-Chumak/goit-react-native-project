@@ -7,7 +7,7 @@ import {
   ContentScrollBox,
 } from "../components";
 //
-import firebaseApiAsync from "../firebase/firebaseApi";
+import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 

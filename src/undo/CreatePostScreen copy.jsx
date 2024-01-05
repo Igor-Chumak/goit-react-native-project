@@ -10,12 +10,12 @@ const INITIAL_STATE = {
 };
 
 const CreatePostScreen = () => {
-  const [photoPost, setPhotoPost] = useState(null);
-  const [resForm, setResForm] = useState(false);
+  const [photoPostUrl, setPhotoPostUrl] = useState(null);
+  const [resFormActive, setResFormActive] = useState(false);
 
   const resetForm = () => {
-    setPhotoPost(null);
-    setResForm(true);
+    setPhotoPostUrl(null);
+    setResFormActive(true);
   };
 
   return (
@@ -23,12 +23,12 @@ const CreatePostScreen = () => {
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
           <ContentBox>
-            <CreateContentBlock photo={photoPost} setPhoto={setPhotoPost} />
+            <CreateContentBlock photo={photoPostUrl} setPhoto={setPhotoPostUrl} />
             <CreateContentForm
-              photoPost={photoPost}
-              setPhotoPost={setPhotoPost}
-              resForm={resForm}
-              setResForm={setResForm}
+              photoPost={photoPostUrl}
+              setPhotoPost={setPhotoPostUrl}
+              resFormActive={resFormActive}
+              setResFormActive={setResFormActive}
             />
             <ToolBar resetForm={resetForm} />
           </ContentBox>

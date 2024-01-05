@@ -1,36 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+import { userAuth } from "../hooks";
 import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
 const INITIAL_STATE = {
-  photo: null,
   title: null,
+  photoUrl: null,
   location: null,
-  spot: { longitude: 0, latitude: 0 },
+  coords: { longitude: 0, latitude: 0 },
+  likes: 0,
+  comments: [],
+  owner: null,
 };
 
-const CreatePostScreen = () => {
-  const [photoPost, setPhotoPost] = useState(null);
-  const [resForm, setResForm] = useState(false);
+function localReducer(state, { type, payload }) {
+  switch (type) {
+    case "update":
+      return { ...state, ...payload };
+    case "clear":
+      return { ...state, ...INITIAL_STATE };
+  }
+}
 
-  const resetForm = () => {
-    setPhotoPost(null);
-    setResForm(true);
+const CreatePostScreen = () => {
+  const navigation = useNavigation();
+  const { uid: userUid } = userAuth;
+  const [state, localDispatch] = useReducer(localReducer, INITIAL_STATE);
+  //
+  // const [photoPostUrl, setPhotoPostUrl] = useState(null);
+  const [isActiveBtnResetForm, setActiveBtnResetForm] = useState(false);
+
+  const handleSubmit = async () => {
+    // if (!state.title || !state.photoUrl) return;
+    // if (!title || !location) return;
+    // localDispatch({ type: "update", payload: { title } });
+    // navigation.navigate("Posts");
+    // resetForm();
+    localDispatch({ type: "clear" });
+    console.log("state :>> ", state);
+    navigation.navigate("Map", { ...state.coords });
+    return;
   };
+
+  // const resetForm = () => {
+  //   localDispatch({ type: "clear" });
+  //   // setPhotoPostUrl(null);
+  //   setActiveBtnResetForm(true);
+  // };
 
   return (
     <SafeAreaView>
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
           <ContentBox>
-            <CreateContentBlock photo={photoPost} setPhoto={setPhotoPost} />
-            <CreateContentForm
-              photoPost={photoPost}
-              setPhotoPost={setPhotoPost}
-              resForm={resForm}
-              setResForm={setResForm}
+            <CreateContentBlock
+              photo={state.photoUrl}
+              // photo={photoPostUrl}
+              // setPhoto={setPhotoPostUrl}
+              localDispatch={localDispatch}
             />
-            <ToolBar resetForm={resetForm} />
+            <CreateContentForm
+              state={state}
+              handleSubmit={handleSubmit}
+              localDispatch={localDispatch}
+              // photoPost={photoPostUrl}
+              // setPhotoPost={setPhotoPostUrl}
+              // isActiveBtnResetForm={isActiveBtnResetForm}
+              // setActiveBtnResetForm={setActiveBtnResetForm}
+            />
+            <ToolBar resetForm={() => localDispatch({ type: "clear" })} />
           </ContentBox>
         </ScrollView>
       </KeyboardAvoidingView>
