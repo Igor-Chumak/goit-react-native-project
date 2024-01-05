@@ -14,9 +14,8 @@ import { db } from "./config";
 
 const addPost = async (uid, post) => {
   try {
-    await addDoc(collection(db, "posts"), { ...post, uid });
+    await addDoc(collection(db, "posts"), { ...post, owner: uid });
   } catch (error) {
-    // throw new Error("DB Error");
     throw new Error(error.message);
   }
 };
@@ -25,7 +24,6 @@ const addUser = async (user) => {
   try {
     await addDoc(collection(db, "users"), { ...user });
   } catch (error) {
-    // throw new Error("DB Error");
     throw new Error(error.message);
   }
 };
@@ -37,7 +35,6 @@ const getAllPosts = async () => {
     res.forEach((doc) => posts.push({ id: doc.id, ...doc.data() }));
     return posts;
   } catch (error) {
-    // throw new Error("DB Error");
     throw new Error(error.message);
   }
 };
@@ -55,14 +52,13 @@ const getAllPosts = async () => {
 const getPostsByUserId = async (uid) => {
   let posts = [];
 
-  const q = query(collection(db, "posts"), where("uid", "==", uid));
+  const q = query(collection(db, "posts"), where("owner", "==", uid));
   try {
     const res = await getDocs(q);
     res.forEach((doc) => posts.push({ id: doc.id, ...doc.data() }));
 
     return posts;
   } catch (error) {
-    // throw new Error("DB Error");
     throw new Error(error.message);
   }
 };
@@ -71,7 +67,6 @@ const addComment = async (pid, text) => {
   try {
     await addDoc(collection(db, "comments"), { pid, text, createdAt: Timestamp.now() });
   } catch (error) {
-    // throw new Error("DB Error");
     throw new Error(error.message);
   }
 };
@@ -86,7 +81,6 @@ const getCommentsByPostId = async (pid) => {
 
     return posts;
   } catch (error) {
-    // throw new Error("DB Error");
     throw new Error(error.message);
   }
 };

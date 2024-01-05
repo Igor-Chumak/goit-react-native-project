@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet } 
 import { useNavigation } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
+import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
 const INITIAL_STATE = {
@@ -12,7 +13,6 @@ const INITIAL_STATE = {
   coords: { longitude: 0, latitude: 0 },
   likes: 0,
   comments: [],
-  owner: null,
 };
 
 function localReducer(state, { type, payload }) {
@@ -26,14 +26,19 @@ function localReducer(state, { type, payload }) {
 
 const CreatePostScreen = () => {
   const navigation = useNavigation();
-  const { uid: userUid } = userAuth;
+  const { uid } = userAuth();
   const [state, localDispatch] = useReducer(localReducer, INITIAL_STATE);
 
   const handleSubmit = async () => {
-    localDispatch({ type: "clear" });
+    // handleResetForm();
     console.log("state :>> ", state);
+    await firebaseApiAsync.addPost(uid, state);
     navigation.navigate("Posts");
     return;
+  };
+
+  const handleResetForm = () => {
+    localDispatch({ type: "clear" });
   };
 
   return (
@@ -47,7 +52,7 @@ const CreatePostScreen = () => {
               handleSubmit={handleSubmit}
               localDispatch={localDispatch}
             />
-            <ToolBar resetForm={() => localDispatch({ type: "clear" })} />
+            <ToolBar resetForm={handleResetForm} />
           </ContentBox>
         </ScrollView>
       </KeyboardAvoidingView>
