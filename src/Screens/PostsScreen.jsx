@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 const PostsScreen = () => {
   const isFocused = useIsFocused();
   const [posts, setPosts] = useState([]);
+  const [flagRerender, setFlagRerender] = useState(false);
 
   useEffect(
     (isFocused) => {
@@ -28,7 +29,7 @@ const PostsScreen = () => {
       }
       fetchData();
     },
-    [isFocused]
+    [isFocused, flagRerender]
   );
 
   // mentor
@@ -51,11 +52,13 @@ const PostsScreen = () => {
       <ContentBox>
         <User />
         <ScrollView
-          style={styles.scrollView}
-          // style={{ height: "100%"}}
-          contentContainerStyle={{ flexGrow: 1, gap: 32 }}
+          style={{ height: "100%" }}
+          contentContainerStyle={{ flexGrow: 1, gap: 32, paddingBottom: 100 }}
         >
-          {posts.length && posts.map((post) => <ContentBlock key={post.id} {...post} />)}
+          {posts.length &&
+            posts.map((post) => (
+              <ContentBlock key={post.id} {...post} setFlagRerender={setFlagRerender} />
+            ))}
           {/* <ContentBlock title={"Ліс"} comments={"8"} location={"Ivano-Frankivsk Region, Ukraine"} /> */}
         </ScrollView>
       </ContentBox>
@@ -72,7 +75,6 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: "blue",
   },
-  scrollView: { height: "100%", paddingBottom: 88 },
 });
 
 export default PostsScreen;

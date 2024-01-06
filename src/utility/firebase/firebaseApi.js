@@ -3,11 +3,13 @@ import {
   getDocs,
   setDoc,
   addDoc,
+  updateDoc,
   collection,
   query,
   where,
   doc,
   Timestamp,
+  increment,
 } from "firebase/firestore";
 import storageApiAsync from "./storageApi";
 
@@ -76,6 +78,16 @@ const getPostsByUserId = async (uid) => {
   }
 };
 
+const addLike = async (postId) => {
+  // console.log("postId :>> ", postId);
+  try {
+    postRef = doc(db, "posts", postId);
+    return await updateDoc(postRef, { likes: increment(1) });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 const addComment = async (pid, text) => {
   try {
     await addDoc(collection(db, "comments"), { pid, text, createdAt: Timestamp.now() });
@@ -103,6 +115,7 @@ export default {
   addUser,
   getAllPosts,
   getPostsByUserId,
+  addLike,
   addComment,
   getCommentsByPostId,
 };

@@ -1,13 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { createLocationValue } from "../utility/createLocationValue";
 import { ContentBlockImage } from "./ContentBlockImage";
 
-// import imageDefault from "../images/no_images.png";
 import CommentIcon from "../images/comment_stroke.svg";
 import ThumbsIcon from "../images/thumbs-up.svg";
 import MapPinIcon from "../images/map-pin.svg";
+import { useEffect } from "react";
 
 // title - text under the picture
 // detailsBox: [boolean] is rendered
@@ -15,6 +16,7 @@ import MapPinIcon from "../images/map-pin.svg";
 // fill ["transparent"] - filling svg icon Comment (given "#FF6C00")
 export const ContentBlock = ({
   id,
+  setFlagRerender,
   detailsBox = true,
   fill = "transparent",
   title = "",
@@ -26,6 +28,11 @@ export const ContentBlock = ({
 }) => {
   const navigation = useNavigation();
   const locationValue = createLocationValue(location);
+
+  const handleLikes = async () => {
+    await firebaseApiAsync.addLike(id);
+    setFlagRerender((prev) => !prev);
+  };
 
   return (
     <View style={styles.contentBox}>
@@ -43,10 +50,10 @@ export const ContentBlock = ({
             <Text style={styles.contentDetailsText}>{comments}</Text>
           </Pressable>
           {likes && (
-            <View style={[styles.icon_text_Box, styles.likes_Box]}>
+            <Pressable style={[styles.icon_text_Box, styles.likes_Box]} onPress={handleLikes}>
               <ThumbsIcon width={24} height={24} fill={"#FF6C00"} />
               <Text style={styles.contentDetailsText}>{likes} </Text>
-            </View>
+            </Pressable>
           )}
           <Pressable
             style={[styles.icon_text_Box, styles.mapBox]}
