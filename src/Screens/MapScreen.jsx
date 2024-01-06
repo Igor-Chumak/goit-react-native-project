@@ -6,7 +6,7 @@ import { useRoute } from "@react-navigation/native";
 
 const MapScreen = () => {
   const { params } = useRoute();
-  console.log("params :>> ", params);
+  // console.log("params :>> ", params);
   return (
     <SafeAreaView>
       <ContentBox>

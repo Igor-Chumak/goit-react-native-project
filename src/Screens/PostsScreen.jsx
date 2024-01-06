@@ -11,62 +11,52 @@ import { db } from "../utility/firebase/config";
 // const AdditionalStack = createStackNavigator();
 //
 
-import image1 from "../images/blank/photo_test_1.jpg";
-import image2 from "../images/blank/photo_test_2.jpg";
-import image3 from "../images/blank/photo_test_3.jpg";
-
-//
 import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
 const PostsScreen = () => {
   const isFocused = useIsFocused();
-  const { getAllPosts } = firebaseApiAsync;
   const [posts, setPosts] = useState([]);
 
-  // useEffect(
-  //   (isFocused) => {
-  //     async function fetchData() {
-  //       const data = await getAllPosts();
-  //       setPosts(data);
-  //     }
-  //     fetchData();
-  //   },
-  //   [isFocused]
-  // );
+  useEffect(
+    (isFocused) => {
+      async function fetchData() {
+        const data = await firebaseApiAsync.getAllPosts();
+        console.log("data :>> ", data);
+        setPosts(data);
+      }
+      fetchData();
+    },
+    [isFocused]
+  );
 
   // mentor
-  const getAllPost = async () => {
-    //   try {
-    //     const querySnapshot = await getDocs(collection(db, "posts"));
-    //     if (querySnapshot) {
-    //       setPosts(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    //     }
-    //   } catch (error) {
-    //     console.log(error.message);
-    //   }
-  };
+  // const getAllPosts = async () => {
+  //   try {
+  //     const querySnapshot = await getDocs(collection(db, "posts"));
 
-  useEffect(() => {
-    getAllPost();
-  }, []);
+  //     setPosts(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getAllPosts();
+  // }, []);
   //
 
   return (
     <View style={styles.container}>
       <ContentBox>
         <User />
-        <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
-          {posts.map((post) => (
-            <ContentBlock key={post.id} {...post} />
-          ))}
-          <ContentBlock
-            source={image1}
-            title={"Ліс"}
-            comments={"8"}
-            location={"Ivano-Frankivsk Region, Ukraine"}
-          />
+        <ScrollView
+          style={styles.scrollView}
+          // style={{ height: "100%"}}
+          contentContainerStyle={{ flexGrow: 1, gap: 32 }}
+        >
+          {posts.length && posts.map((post) => <ContentBlock key={post.id} {...post} />)}
+          {/* <ContentBlock title={"Ліс"} comments={"8"} location={"Ivano-Frankivsk Region, Ukraine"} /> */}
         </ScrollView>
       </ContentBox>
     </View>
@@ -82,6 +72,7 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: "blue",
   },
+  scrollView: { height: "100%", paddingBottom: 88 },
 });
 
 export default PostsScreen;

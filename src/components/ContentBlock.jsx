@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+
+import { createLocationValue } from "../utility/createLocationValue";
 import { ContentBlockImage } from "./ContentBlockImage";
 
 // import imageDefault from "../images/no_images.png";
@@ -15,17 +17,19 @@ export const ContentBlock = ({
   id,
   detailsBox = true,
   fill = "transparent",
-  source,
   title = "",
-  likes = "",
+  likes = "0",
+  location = null,
+  photoUrl,
+  coords,
   comments = "0",
-  location = "",
 }) => {
   const navigation = useNavigation();
+  const locationValue = createLocationValue(location);
 
   return (
     <View style={styles.contentBox}>
-      <ContentBlockImage source={source} />
+      <ContentBlockImage source={photoUrl} />
       <View style={styles.contentTitleBox}>
         <Text style={styles.contentTitle}>{title}</Text>
       </View>
@@ -44,10 +48,13 @@ export const ContentBlock = ({
               <Text style={styles.contentDetailsText}>{likes} </Text>
             </View>
           )}
-          <View style={[styles.icon_text_Box, styles.mapBox]}>
+          <Pressable
+            style={[styles.icon_text_Box, styles.mapBox]}
+            onPress={() => navigation.navigate("Map", { ...coords })}
+          >
             <MapPinIcon width={24} height={24} />
-            <Text style={[styles.contentDetailsText]}>{location} </Text>
-          </View>
+            <Text style={[styles.contentDetailsText]}>{locationValue} </Text>
+          </Pressable>
         </View>
       )}
     </View>
@@ -95,9 +102,11 @@ const styles = StyleSheet.create({
     color: "#212121",
   },
   likes_Box: {
-    marginLeft: 24,
+    marginLeft: 12,
+    // marginLeft: 24,
   },
   mapBox: {
-    marginLeft: "auto",
+    marginLeft: 12,
+    // marginLeft: "auto",
   },
 });

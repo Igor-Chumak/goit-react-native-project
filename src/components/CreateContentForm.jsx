@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+import { createLocationValue } from "../utility/createLocationValue";
 import MapPinIcon from "../images/map-pin.svg";
 
 export const CreateContentForm = ({ state, handleSubmit, localDispatch }) => {
   const navigation = useNavigation();
   const [disable, setDisable] = useState(true);
   const { title, photoUrl, location, coords } = state;
-  const locationValue = location
-    ? `${location?.city}, ${location?.region}, ${location?.country}`
-    : "";
+  const locationValue = createLocationValue(location);
 
   useEffect(() => {
     if (!title || !photoUrl) return setDisable(true);

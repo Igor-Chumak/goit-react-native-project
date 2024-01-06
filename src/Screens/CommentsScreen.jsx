@@ -1,4 +1,6 @@
 import { Keyboard, Pressable, StyleSheet, View } from "react-native";
+import { useRoute } from "@react-navigation/native";
+
 import {
   ContentBox,
   ContentBlockImage,
@@ -11,18 +13,19 @@ import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
-const CommentsScreen = (route) => {
-  const { getCommentsByPostId } = firebaseApiAsync;
+const CommentsScreen = () => {
+  const { params } = useRoute();
+  const { id } = params;
+  console.log("id :>> ", id);
+
   const [comments, setComments] = useState([]);
   const [flag, setFlag] = useState(true);
   const isFocused = useIsFocused();
 
-  const { id } = route.params;
-
   useEffect(
     (isFocused) => {
       async function fetchData() {
-        const data = await getCommentsByPostId(id);
+        const data = await firebaseApiAsync.getCommentsByPostId(id);
         setComments(data);
         // console.log(data);
       }

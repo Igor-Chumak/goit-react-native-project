@@ -26,16 +26,16 @@ const ProfileScreen = () => {
   const [posts, setPosts] = useState([]);
   const isFocused = useIsFocused();
 
-  useEffect(
-    (isFocused) => {
-      async function fetchData() {
-        const data = await getPostsByUserId(uid);
-        setPosts(data);
-      }
-      fetchData();
-    },
-    [isFocused]
-  );
+  // useEffect(
+  //   (isFocused) => {
+  //     async function fetchData() {
+  //       const data = await getPostsByUserId(uid);
+  //       setPosts(data);
+  //     }
+  //     fetchData();
+  //   },
+  //   [isFocused]
+  // );
 
   return (
     <SafeAreaView style={styles.containerSafe}>
@@ -48,9 +48,9 @@ const ProfileScreen = () => {
               <Text style={styles.title}>{displayName}</Text>
             </View>
             <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
-              {posts.map((post) => (
+              {/* {posts.map((post) => (
                 <ContentBlock key={post.id} {...post} />
-              ))}
+              ))} */}
               <ContentBlock
                 fill={"#FF6C00"}
                 source={image2}
