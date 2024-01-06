@@ -14,9 +14,10 @@ import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
 const CommentsScreen = () => {
-  const { params } = useRoute();
-  const { id } = params;
-  console.log("id :>> ", id);
+  const {
+    params: { id, photoUrl },
+  } = useRoute();
+  console.log("Comment Screen id :>> ", id);
 
   const [comments, setComments] = useState([]);
   const [flag, setFlag] = useState(true);
@@ -38,7 +39,7 @@ const CommentsScreen = () => {
     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
       <View style={styles.container}>
         <ContentBox>
-          <ContentBlockImage />
+          <ContentBlockImage source={photoUrl} />
           <CommentsBlock />
         </ContentBox>
         <InputSearchBar />

@@ -1,15 +1,5 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { ContentBlock, ContentBox, User } from "../components";
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "../utility/firebase/config";
-// navigate
-// import { createStackNavigator } from "@react-navigation/stack";
-// import CommentsScreen from "./CommentsScreen";
-// import MapScreen from "./MapScreen";
-// import { GoBackIconBox, HeaderTitle } from "../components";
-
-// const AdditionalStack = createStackNavigator();
-//
 
 import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
@@ -20,32 +10,14 @@ const PostsScreen = () => {
   const [posts, setPosts] = useState([]);
   const [flagRerender, setFlagRerender] = useState(false);
 
-  useEffect(
-    (isFocused) => {
-      async function fetchData() {
-        const data = await firebaseApiAsync.getAllPosts();
-        console.log("data :>> ", data);
-        setPosts(data);
-      }
-      fetchData();
-    },
-    [isFocused, flagRerender]
-  );
-
-  // mentor
-  // const getAllPosts = async () => {
-  //   try {
-  //     const querySnapshot = await getDocs(collection(db, "posts"));
-
-  //     setPosts(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getAllPosts();
-  // }, []);
-  //
+  useEffect(() => {
+    async function fetchData() {
+      const data = await firebaseApiAsync.getAllPosts();
+      // console.log("Posts data :>> ", data);
+      setPosts(data);
+    }
+    fetchData();
+  }, [isFocused, flagRerender]);
 
   return (
     <View style={styles.container}>
@@ -59,7 +31,6 @@ const PostsScreen = () => {
             posts.map((post) => (
               <ContentBlock key={post.id} {...post} setFlagRerender={setFlagRerender} />
             ))}
-          {/* <ContentBlock title={"Ліс"} comments={"8"} location={"Ivano-Frankivsk Region, Ukraine"} /> */}
         </ScrollView>
       </ContentBox>
     </View>

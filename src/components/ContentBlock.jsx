@@ -8,7 +8,6 @@ import { ContentBlockImage } from "./ContentBlockImage";
 import CommentIcon from "../images/comment_stroke.svg";
 import ThumbsIcon from "../images/thumbs-up.svg";
 import MapPinIcon from "../images/map-pin.svg";
-import { useEffect } from "react";
 
 // title - text under the picture
 // detailsBox: [boolean] is rendered
@@ -17,6 +16,7 @@ import { useEffect } from "react";
 export const ContentBlock = ({
   id,
   setFlagRerender,
+  disabledChange = false,
   detailsBox = true,
   fill = "transparent",
   title = "",
@@ -44,13 +44,17 @@ export const ContentBlock = ({
         <View style={styles.contentDetailsBox}>
           <Pressable
             style={styles.icon_text_Box}
-            onPress={() => navigation.navigate("Comments", { id })}
+            onPress={() => navigation.navigate("Comments", { id, photoUrl })}
           >
             <CommentIcon width={24} height={24} fill={fill} />
             <Text style={styles.contentDetailsText}>{comments}</Text>
           </Pressable>
           {likes && (
-            <Pressable style={[styles.icon_text_Box, styles.likes_Box]} onPress={handleLikes}>
+            <Pressable
+              style={[styles.icon_text_Box, styles.likes_Box]}
+              onPress={handleLikes}
+              disabled={disabledChange}
+            >
               <ThumbsIcon width={24} height={24} fill={"#FF6C00"} />
               <Text style={styles.contentDetailsText}>{likes} </Text>
             </Pressable>
@@ -76,6 +80,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     // borderWidth: StyleSheet.hairlineWidth,
+    // borderColor: "green",
   },
   contentTitleBox: {
     width: "100%",
