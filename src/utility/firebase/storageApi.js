@@ -2,6 +2,9 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./config";
 
 export const uploadFileToStorage = async ({ collection, name, fileUri }) => {
+  console.log("FS collection :>> ", collection);
+  console.log("FS name :>> ", name);
+  console.log("FS fileUri :>> ", fileUri);
   try {
     if (!fileUri) return;
 

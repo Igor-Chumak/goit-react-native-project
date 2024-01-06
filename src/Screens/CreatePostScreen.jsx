@@ -4,6 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
 import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import storageApiAsync from "../utility/firebase/storageApi";
+import { postNoPhoto } from "../data";
 import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
 const INITIAL_STATE = {
@@ -12,7 +14,7 @@ const INITIAL_STATE = {
   location: null,
   coords: { longitude: 0, latitude: 0 },
   likes: 0,
-  comments: [],
+  comments: 0,
 };
 
 function localReducer(state, { type, payload }) {
@@ -31,8 +33,16 @@ const CreatePostScreen = () => {
 
   const handleSubmit = async () => {
     // handleResetForm();
-    console.log("state :>> ", state);
-    await firebaseApiAsync.addPost(uid, state);
+    console.log("Post state :>> ", state);
+    // const { id } = await firebaseApiAsync.addPost(uid, { ...state, photoUrl: postNoPhoto });
+    const doc = await firebaseApiAsync.addPost(uid, state);
+    console.log("doc :>> ", doc);
+    // const uploadUrl = await storageApiAsync.uploadFileToStorage({
+    //   collection: "posts",
+    //   name: `postId_${id}.userUid_${uid}`,
+    //   fileUri: state.photoUrl,
+    // });
+    // console.log("Post uploadUrl :>> ", uploadUrl);
     navigation.navigate("Posts");
     return;
   };

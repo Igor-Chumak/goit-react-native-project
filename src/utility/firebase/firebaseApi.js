@@ -9,12 +9,24 @@ import {
   doc,
   Timestamp,
 } from "firebase/firestore";
+import storageApiAsync from "./storageApi";
 
 import { db } from "./config";
 
 const addPost = async (uid, post) => {
   try {
-    await addDoc(collection(db, "posts"), { ...post, owner: uid });
+    const postRef = doc(collection(db, "posts"));
+    const uploadUrl = await storageApiAsync.uploadFileToStorage({
+      collection: "posts",
+      name: `postId_${postRef.id}.userUid_${uid}`,
+      fileUri: post.photoUrl,
+    });
+    return await setDoc(postRef, {
+      ...post,
+      photoUrl: uploadUrl,
+      owner: uid,
+      createdAt: Timestamp.now(),
+    });
   } catch (error) {
     throw new Error(error.message);
   }
@@ -22,7 +34,8 @@ const addPost = async (uid, post) => {
 
 const addUser = async (user) => {
   try {
-    await addDoc(collection(db, "users"), { ...user });
+    return await setDoc(doc(collection(db, "users", user.uid)), { ...user });
+    // return await addDoc(collection(db, "users"), { ...user });
   } catch (error) {
     throw new Error(error.message);
   }

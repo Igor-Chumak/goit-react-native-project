@@ -38,14 +38,14 @@ const PostsScreen = () => {
 
   // mentor
   const getAllPost = async () => {
-    // try {
-    //   const querySnapshot = await getDocs(collection(db, "posts"));
-    //   if (querySnapshot) {
-    //     setPosts(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    //   try {
+    //     const querySnapshot = await getDocs(collection(db, "posts"));
+    //     if (querySnapshot) {
+    //       setPosts(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    //     }
+    //   } catch (error) {
+    //     console.log(error.message);
     //   }
-    // } catch (error) {
-    //   console.log(error.message);
-    // }
   };
 
   useEffect(() => {
