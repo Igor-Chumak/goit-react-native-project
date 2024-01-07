@@ -10,6 +10,9 @@ import {
   doc,
   Timestamp,
   increment,
+  arrayUnion,
+  arrayRemove,
+  orderBy,
 } from "firebase/firestore";
 import storageApiAsync from "./storageApi";
 
@@ -44,12 +47,10 @@ const addUser = async (user) => {
 };
 
 const getAllPosts = async () => {
-  // let posts = [];
   try {
-    const res = await getDocs(collection(db, "posts"));
-    // res.forEach((doc) => posts.push({ id: doc.id, ...doc.data() }));
+    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+    const res = await getDocs(q);
     return res.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    // return posts;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -57,7 +58,12 @@ const getAllPosts = async () => {
 
 const getPostsByUserId = async (uid) => {
   try {
-    const res = await getDocs(query(collection(db, "posts"), where("owner", "==", uid)));
+    const q = query(
+      collection(db, "posts"),
+      where("owner", "==", uid),
+      orderBy("createdAt", "desc")
+    );
+    const res = await getDocs(q);
     return res.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     throw new Error(error.message);
@@ -76,11 +82,21 @@ const getPostsByUserId = async (uid) => {
 //   }
 // };
 
-const addLike = async (postId) => {
-  // console.log("postId :>> ", postId);
+const changeDetailsPost = async ({ postId, data, type }) => {
+  // console.log("props :>> ", { postId, data, type });
   try {
     postRef = doc(db, "posts", postId);
-    return await updateDoc(postRef, { likes: increment(1) });
+    switch (type) {
+      case "addLike":
+        return await updateDoc(postRef, { likes: arrayUnion(data) });
+      case "removeLike":
+        return await updateDoc(postRef, { likes: arrayRemove(data) });
+      case "addComments":
+        return await updateDoc(postRef, { comments: arrayUnion(data) });
+      default:
+        console.log("Invalid subscription type");
+        return;
+    }
   } catch (error) {
     throw new Error(error.message);
   }
@@ -113,7 +129,7 @@ export default {
   addUser,
   getAllPosts,
   getPostsByUserId,
-  addLike,
+  changeDetailsPost,
   addComment,
   getCommentsByPostId,
 };

@@ -27,7 +27,7 @@ const PostsScreen = () => {
           style={{ height: "100%" }}
           contentContainerStyle={{ flexGrow: 1, gap: 32, paddingBottom: 100 }}
         >
-          {posts.length &&
+          {posts.length > 0 &&
             posts.map((post) => (
               <ContentBlock key={post.id} {...post} setFlagRerender={setFlagRerender} />
             ))}

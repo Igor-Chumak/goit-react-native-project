@@ -11,8 +11,8 @@ const INITIAL_STATE = {
   photoUrl: null,
   location: null,
   coords: { longitude: 0, latitude: 0 },
-  likes: 0,
-  comments: 0,
+  likes: [],
+  comments: [],
 };
 
 function localReducer(state, { type, payload }) {

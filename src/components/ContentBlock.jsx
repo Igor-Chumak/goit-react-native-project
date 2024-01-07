@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { userAuth } from "../hooks";
 import { createLocationValue } from "../utility/createLocationValue";
 import { ContentBlockImage } from "./ContentBlockImage";
 
@@ -20,18 +22,37 @@ export const ContentBlock = ({
   detailsBox = true,
   fill = "transparent",
   title = "",
-  likes = "0",
+  likes = [],
   location = null,
   photoUrl,
   coords,
-  comments = "0",
+  comments = [],
+  // createdAt,
 }) => {
   const navigation = useNavigation();
+  const {
+    uid,
+    // email,
+    // displayName,
+    // isLoggedIn,
+    // avatarUrl,
+  } = userAuth();
   const locationValue = createLocationValue(location);
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    if (likes.includes(uid)) return setIsLiked(true);
+    setIsLiked(false);
+  });
 
   const handleLikes = async () => {
-    await firebaseApiAsync.addLike(id);
+    if (isLiked) {
+      await firebaseApiAsync.changeDetailsPost({ postId: id, data: uid, type: "removeLike" });
+    } else {
+      await firebaseApiAsync.changeDetailsPost({ postId: id, data: uid, type: "addLike" });
+    }
     setFlagRerender((prev) => !prev);
+    return;
   };
 
   return (
@@ -47,7 +68,7 @@ export const ContentBlock = ({
             onPress={() => navigation.navigate("Comments", { id, photoUrl })}
           >
             <CommentIcon width={24} height={24} fill={fill} />
-            <Text style={styles.contentDetailsText}>{comments}</Text>
+            <Text style={styles.contentDetailsText}>{comments.length}</Text>
           </Pressable>
           {likes && (
             <Pressable
@@ -55,8 +76,8 @@ export const ContentBlock = ({
               onPress={handleLikes}
               disabled={disabledChange}
             >
-              <ThumbsIcon width={24} height={24} fill={"#FF6C00"} />
-              <Text style={styles.contentDetailsText}>{likes} </Text>
+              <ThumbsIcon width={24} height={24} fill={isLiked ? "#c00202" : "#FF6C00"} />
+              <Text style={styles.contentDetailsText}>{likes.length} </Text>
             </Pressable>
           )}
           <Pressable
