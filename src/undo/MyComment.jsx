@@ -2,19 +2,17 @@ import { Image, StyleSheet, Text, View } from "react-native";
 
 import photoDefault from "../images/blank/ellipse.png";
 
-export const OneComment = ({ type = "" }) => {
+export const MyComment = () => {
   return (
-    <View style={[styles.commentWrap, !type ? { paddingLeft: 44 } : { paddingRight: 44 }]}>
+    <View style={styles.commentWrap}>
       <View style={styles.commentTextBox}>
         <Text style={styles.commentText}>
           Really love your most recent photo. I’ve been trying to capture the same thing for a few
           months and would love some tips!
         </Text>
-        <Text style={[styles.commentData, !type ? { textAlign: "right" } : { textAlign: "left" }]}>
-          09 червня, 2020 | 08:40
-        </Text>
+        <Text style={styles.commentData}>09 червня, 2020 | 08:40</Text>
       </View>
-      <View style={[styles.commentPhotoBox, !type ? { left: 0 } : { right: 0 }]}>
+      <View style={styles.commentPhotoBox}>
         <Image source={photoDefault} style={styles.commentPhoto} />
       </View>
     </View>
@@ -24,9 +22,7 @@ export const OneComment = ({ type = "" }) => {
 const styles = StyleSheet.create({
   commentWrap: {
     position: "relative",
-    // paddingLeft: 44,
-    // paddingRight: 44,
-    //
+    paddingRight: 44,
     width: "100%",
     // borderWidth: StyleSheet.hairlineWidth,
     // borderColor: "red",
@@ -51,9 +47,7 @@ const styles = StyleSheet.create({
   commentData: {
     // width: "100%",
     fontFamily: "RobotoR",
-    // textAlign: "right",
-    // textAlign: "left",
-    //
+    textAlign: "left",
     fontSize: 10,
     lineHeight: 11,
     color: "#BDBDBD",
@@ -62,9 +56,7 @@ const styles = StyleSheet.create({
   commentPhotoBox: {
     position: "absolute",
     top: 0,
-    // left: 0,
-    // right: 0,
-    //
+    right: 0,
     width: 28,
     height: 28,
     backgroundColor: "#E8E8E8",

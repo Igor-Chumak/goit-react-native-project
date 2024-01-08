@@ -11,7 +11,6 @@ export * from "./ContentBlock";
 export * from "./ContentBlockImage";
 export * from "./InputSearchBar";
 export * from "./CommentsBlock";
-export * from "./MyComment";
 export * from "./OneComment";
 export * from "./HeaderTitle";
 export * from "./LogOutIconBox";

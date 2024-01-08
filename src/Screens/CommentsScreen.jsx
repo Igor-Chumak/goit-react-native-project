@@ -1,4 +1,4 @@
-import { Keyboard, Pressable, StyleSheet, View } from "react-native";
+import { Keyboard, Pressable, SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
 import {
@@ -12,6 +12,7 @@ import {
 import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
+import { KeyboardAvoidingView } from "react-native";
 
 const CommentsScreen = () => {
   const {
@@ -36,15 +37,19 @@ const CommentsScreen = () => {
   );
 
   return (
-    <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
-      <View style={styles.container}>
+    <SafeAreaView>
+      {/* <View style={styles.container}> */}
+      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
         <ContentBox>
           <ContentBlockImage source={photoUrl} />
-          <CommentsBlock />
+          <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
+            <CommentsBlock />
+          </ScrollView>
+          <InputSearchBar />
         </ContentBox>
-        <InputSearchBar />
-      </View>
-    </Pressable>
+      </KeyboardAvoidingView>
+      {/* </View> */}
+    </SafeAreaView>
   );
 };
 
