@@ -20,8 +20,25 @@ export const InputSearchBar = () => {
   );
 };
 
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.inputBox}>
+//         <TextInput
+//           style={styles.textInput}
+//           placeholder="Коментувати..."
+//           placeholderTextColor="#BDBDBD"
+//         />
+//         <Pressable style={styles.pressIcon}>
+//           <SendIcon width={10} height={14} />
+//         </Pressable>
+//       </View>
+//     </View>
+//   );
+// };
+
 const styles = StyleSheet.create({
   container: {
+    marginTop: "auto",
     // position: "absolute",
     // bottom: 0,
     width: "100%",
@@ -33,11 +50,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     // borderTopWidth: 1,
     // borderColor: "rgba(0,0,0,0.3)",
-    backgroundColor: "white",
+    // backgroundColor: "white",
     // borderWidth: 1,
-    // borderColor: "blue",
+    // borderColor: "green",
   },
   inputBox: {
+    // marginTop: "auto",
     width: "100%",
     height: 50,
     justifyContent: "center",
