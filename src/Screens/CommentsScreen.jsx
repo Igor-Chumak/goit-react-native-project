@@ -48,6 +48,19 @@ const CommentsScreen = () => {
   );
 };
 
+//   return (
+//     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
+//       <View style={styles.container}>
+//         <ContentBox>
+//           <ContentBlockImage source={photoUrl} />
+//           <CommentsBlock />
+//         </ContentBox>
+//         <InputSearchBar />
+//       </View>
+//     </Pressable>
+//   );
+// };
+
 const styles = StyleSheet.create({
   wrapProvider: {
     flexGrow: 1,

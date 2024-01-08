@@ -82,17 +82,15 @@ const getPostsByUserId = async (uid) => {
 //   }
 // };
 
-const changeDetailsPost = async ({ postId, data, type }) => {
+const changeDetailsPost = async ({ postId, data, field, type }) => {
   // console.log("props :>> ", { postId, data, type });
   try {
     postRef = doc(db, "posts", postId);
     switch (type) {
-      case "addLike":
-        return await updateDoc(postRef, { likes: arrayUnion(data) });
-      case "removeLike":
-        return await updateDoc(postRef, { likes: arrayRemove(data) });
-      case "addComments":
-        return await updateDoc(postRef, { comments: arrayUnion(data) });
+      case "add":
+        return await updateDoc(postRef, { [field]: arrayUnion(data) });
+      case "remove":
+        return await updateDoc(postRef, { [field]: arrayRemove(data) });
       default:
         console.log("Invalid subscription type");
         return;

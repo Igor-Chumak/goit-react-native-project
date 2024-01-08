@@ -47,9 +47,19 @@ export const ContentBlock = ({
 
   const handleLikes = async () => {
     if (isLiked) {
-      await firebaseApiAsync.changeDetailsPost({ postId: id, data: uid, type: "removeLike" });
+      await firebaseApiAsync.changeDetailsPost({
+        postId: id,
+        data: uid,
+        field: "likes",
+        type: "remove",
+      });
     } else {
-      await firebaseApiAsync.changeDetailsPost({ postId: id, data: uid, type: "addLike" });
+      await firebaseApiAsync.changeDetailsPost({
+        postId: id,
+        data: uid,
+        field: "likes",
+        type: "add",
+      });
     }
     setFlagRerender((prev) => !prev);
     return;
@@ -76,7 +86,7 @@ export const ContentBlock = ({
               onPress={handleLikes}
               disabled={disabledChange}
             >
-              <ThumbsIcon width={24} height={24} fill={isLiked ? "#c00202" : "#FF6C00"} />
+              <ThumbsIcon width={24} height={24} fill={isLiked ? "red" : "#FF6C00"} />
               <Text style={styles.contentDetailsText}>{likes.length} </Text>
             </Pressable>
           )}

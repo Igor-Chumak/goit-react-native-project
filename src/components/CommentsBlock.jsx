@@ -10,6 +10,8 @@ export const CommentsBlock = () => {
         <OneComment />
         <OneComment />
         <OneComment />
+        <OneComment />
+        <OneComment />
       </View>
     </ScrollView>
   );
