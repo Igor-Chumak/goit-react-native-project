@@ -75,7 +75,7 @@ export const ContentBlock = ({
         <View style={styles.contentDetailsBox}>
           <Pressable
             style={styles.icon_text_Box}
-            onPress={() => navigation.navigate("Comments", { id, photoUrl })}
+            onPress={() => navigation.navigate("Comments", { id, photoUrl, comments })}
           >
             <CommentIcon width={24} height={24} fill={fill} />
             <Text style={styles.contentDetailsText}>{comments.length}</Text>
@@ -110,8 +110,6 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
     backgroundColor: "white",
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "green",
   },
   contentTitleBox: {
     width: "100%",
@@ -127,16 +125,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "red",
   },
   icon_text_Box: {
     flexDirection: "row",
-    // justifyContent: "flex-start",
     alignItems: "center",
     gap: 6,
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "blue",
   },
   contentDetailsText: {
     fontFamily: "RobotoR",
@@ -145,11 +138,9 @@ const styles = StyleSheet.create({
     color: "#212121",
   },
   likes_Box: {
-    marginLeft: 12,
-    // marginLeft: 24,
+    marginLeft: 12, // 24,
   },
   mapBox: {
-    marginLeft: 12,
-    // marginLeft: "auto",
+    marginLeft: 12, // "auto",
   },
 });

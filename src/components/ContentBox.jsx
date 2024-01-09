@@ -15,7 +15,5 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     paddingHorizontal: 16,
     gap: 32,
-    // borderWidth: 1,
-    // borderColor: "blue",
   },
 });

@@ -66,3 +66,11 @@ export const Main = () => {
     </SafeAreaView>
   );
 };
+
+// const styles = StyleSheet.create({
+//   containerSafe: {
+// borderWidth: StyleSheet.hairlineWidth,
+// borderWidth: 1,
+// borderColor: "orange",
+//   },
+// });

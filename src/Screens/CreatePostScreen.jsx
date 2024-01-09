@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from "react";
-import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
@@ -31,8 +31,8 @@ const CreatePostScreen = () => {
 
   const handleSubmit = async () => {
     handleResetForm();
-    console.log("Post state :>> ", state);
-    const doc = await firebaseApiAsync.addPost(uid, state);
+    // console.log("Post state :>> ", state);
+    await firebaseApiAsync.addPost(uid, state);
     navigation.navigate("Posts");
     return;
   };
@@ -42,21 +42,19 @@ const CreatePostScreen = () => {
   };
 
   return (
-    <>
-      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-        <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
-          <ContentBox>
-            <CreateContentBlock photo={state.photoUrl} localDispatch={localDispatch} />
-            <CreateContentForm
-              state={state}
-              handleSubmit={handleSubmit}
-              localDispatch={localDispatch}
-            />
-            <ToolBar resetForm={handleResetForm} />
-          </ContentBox>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </>
+    <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+      <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
+        <ContentBox>
+          <CreateContentBlock photo={state.photoUrl} localDispatch={localDispatch} />
+          <CreateContentForm
+            state={state}
+            handleSubmit={handleSubmit}
+            localDispatch={localDispatch}
+          />
+          <ToolBar resetForm={handleResetForm} />
+        </ContentBox>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

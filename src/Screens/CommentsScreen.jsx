@@ -1,7 +1,6 @@
 import {
   Keyboard,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
@@ -9,64 +8,67 @@ import {
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
-import {
-  ContentBox,
-  ContentBlockImage,
-  InputSearchBar,
-  CommentsBlock,
-  ContentScrollBox,
-} from "../components";
+import { ContentBox, ContentBlockImage, InputSearchBar, OneComment } from "../components";
 //
 import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-// import { KeyboardAvoidingView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CommentsScreen = () => {
   const {
-    params: { id, photoUrl },
+    params: { id: postId, photoUrl, comments },
   } = useRoute();
   // console.log("Comment Screen id :>> ", id);
+  console.log("Comment comments:>> ", comments);
 
-  const [comments, setComments] = useState([]);
-  const [flag, setFlag] = useState(true);
-  const isFocused = useIsFocused();
+  // const isFocused = useIsFocused();
   const insets = useSafeAreaInsets();
+  // const [comments, setComments] = useState([]);
+  // const [flagRerender, setFlagRerender] = useState(false);
 
-  useEffect(
-    (isFocused) => {
-      async function fetchData() {
-        const data = await firebaseApiAsync.getCommentsByPostId(id);
-        setComments(data);
-        // console.log(data);
-      }
-      fetchData();
-    },
-    [isFocused, flag]
-  );
+  // useEffect(
+  //   (isFocused) => {
+  //     async function fetchData() {
+  //       const data = await firebaseApiAsync.getCommentsByPostId(postId);
+  //       console.log("Comments data :>> ", data);
+  //       setComments(data);
+  //     }
+  //     fetchData();
+  //   },
+  //   [isFocused, flagRerender]
+  // );
 
   return (
-    <>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={insets.top}
-        style={styles.AvoidingView}
-      >
-        <Pressable onPress={Keyboard.dismiss}>
-          {/* <View style={styles.container}> */}
-          <ContentBox>
-            <ContentBlockImage source={photoUrl} />
-            <ScrollView style={{ height: "100%" }} contentContainerStyle={styles.contentContainer}>
-              <CommentsBlock />
-            </ScrollView>
-            <InputSearchBar />
-            <View style={{ flex: 1 }} />
-          </ContentBox>
-          {/* </View> */}
-        </Pressable>
-      </KeyboardAvoidingView>
-    </>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={insets.top}
+      style={styles.AvoidingView}
+    >
+      <Pressable onPress={Keyboard.dismiss}>
+        {/* <View style={styles.container}> */}
+        <ContentBox>
+          <ContentBlockImage source={photoUrl} />
+          <ScrollView
+            style={{ height: "100%" }}
+            contentContainerStyle={styles.contentContainer}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View style={styles.contentBox} onStartShouldSetResponder={() => true}>
+              <OneComment />
+              <OneComment type="my" />
+              <OneComment />
+              <OneComment type="my" />
+              <OneComment />
+              <OneComment type="my" />
+            </View>
+          </ScrollView>
+          <InputSearchBar />
+          <View style={{ flex: 1 }} />
+        </ContentBox>
+        {/* </View> */}
+      </Pressable>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -105,7 +107,24 @@ const styles = StyleSheet.create({
     // borderColor: "blue",
   },
   contentContainer: {
-    flexGrow: 1,
+    // flexGrow: 1,
+    //
+  },
+  contentBox: {
+    // flex: 1,
+    // flexGrow: 1,
+    width: "100%",
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    borderColor: "rgba(0,0,0,0.3)",
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 32,
+    paddingBottom: 32,
+    gap: 24,
+    // borderWidth: 1,
+    // borderColor: "orange",
   },
 });
 

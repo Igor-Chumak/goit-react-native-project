@@ -1,5 +1,6 @@
-import { ScrollView, StyleSheet, View } from "react-native";
-import { OneComment } from "./OneComment";
+import { StyleSheet, View } from "react-native";
+
+import { OneComment } from "../components/OneComment";
 
 export const CommentsBlock = () => {
   return (
@@ -34,7 +35,6 @@ const styles = StyleSheet.create({
     // flexGrow: 1,
     width: "100%",
     backgroundColor: "white",
-    // alignItems: "stretch",
     alignItems: "center",
     justifyContent: "flex-start",
     borderColor: "rgba(0,0,0,0.3)",

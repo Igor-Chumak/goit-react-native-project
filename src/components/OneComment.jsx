@@ -1,8 +1,17 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
+import { userAuth } from "../hooks";
 import photoDefault from "../images/blank/ellipse.png";
 
 export const OneComment = ({ type = "" }) => {
+  const {
+    uid,
+    // email,
+    // displayName,
+    // isLoggedIn,
+    // avatarUrl,
+  } = userAuth();
+
   return (
     <View style={[styles.commentWrap, !type ? { paddingLeft: 44 } : { paddingRight: 44 }]}>
       <View style={styles.commentTextBox}>
@@ -24,12 +33,8 @@ export const OneComment = ({ type = "" }) => {
 const styles = StyleSheet.create({
   commentWrap: {
     position: "relative",
-    // paddingLeft: 44,
-    // paddingRight: 44,
-    //
+    // paddingLeft: 44, // paddingRight: 44,
     width: "100%",
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "red",
   },
   commentTextBox: {
     padding: 16,
@@ -37,7 +42,6 @@ const styles = StyleSheet.create({
     gap: 8,
     backgroundColor: "white",
     justifyContent: "flex-start",
-    // borderWidth: StyleSheet.hairlineWidth,
   },
   commentText: {
     // width: "100%",
@@ -46,25 +50,19 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 18,
     color: "#212121",
-    // borderWidth: StyleSheet.hairlineWidth,
   },
   commentData: {
     // width: "100%",
     fontFamily: "RobotoR",
-    // textAlign: "right",
-    // textAlign: "left",
-    //
+    // textAlign: "right", // textAlign: "left",
     fontSize: 10,
     lineHeight: 11,
     color: "#BDBDBD",
-    // borderWidth: StyleSheet.hairlineWidth,
   },
   commentPhotoBox: {
     position: "absolute",
     top: 0,
-    // left: 0,
-    // right: 0,
-    //
+    // left: 0, // right: 0,
     width: 28,
     height: 28,
     backgroundColor: "#E8E8E8",

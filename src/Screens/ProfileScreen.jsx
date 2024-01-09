@@ -22,7 +22,7 @@ const ProfileScreen = () => {
   useEffect(() => {
     async function fetchData() {
       const data = await firebaseApiAsync.getPostsByUserId(uid);
-      console.log("Profile data :>> ", data);
+      // console.log("Profile data :>> ", data);
       setPosts(data);
     }
     fetchData();
