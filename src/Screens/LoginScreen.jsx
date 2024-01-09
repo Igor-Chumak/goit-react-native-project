@@ -1,17 +1,18 @@
-import { ImageBackground, SafeAreaView, StyleSheet, View } from "react-native";
+import { ImageBackground, SafeAreaView, Pressable, Keyboard, StyleSheet, View } from "react-native";
 import { LoginForm } from "../components";
 
 import BGImage from "../images/photo_BG.png";
 
 const LoginScreen = () => {
   return (
-    <SafeAreaView style={styles.containerSafe}>
+    <Pressable onPress={Keyboard.dismiss}>
+      {/* <SafeAreaView style={styles.containerSafe}> */}
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <View style={styles.wrap}>
           <LoginForm />
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </Pressable>
   );
 };
 const styles = StyleSheet.create({

@@ -8,7 +8,8 @@ const MapScreen = () => {
   const { params } = useRoute();
   // console.log("params :>> ", params);
   return (
-    <SafeAreaView>
+    <>
+      {/* <SafeAreaView> */}
       <ContentBox>
         <View style={styles.contentBox}>
           <View style={styles.contentImageBox}>
@@ -28,7 +29,7 @@ const MapScreen = () => {
           </View>
         </View>
       </ContentBox>
-    </SafeAreaView>
+    </>
   );
 };
 

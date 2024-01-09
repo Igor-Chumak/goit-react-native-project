@@ -42,7 +42,7 @@ const CreatePostScreen = () => {
   };
 
   return (
-    <SafeAreaView>
+    <>
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
           <ContentBox>
@@ -56,7 +56,7 @@ const CreatePostScreen = () => {
           </ContentBox>
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </>
   );
 };
 

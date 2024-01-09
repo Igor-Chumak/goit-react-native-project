@@ -4,8 +4,8 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  TouchableWithoutFeedback,
   View,
+  KeyboardAvoidingView,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
@@ -20,7 +20,7 @@ import {
 import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { KeyboardAvoidingView } from "react-native";
+// import { KeyboardAvoidingView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CommentsScreen = () => {
@@ -47,7 +47,7 @@ const CommentsScreen = () => {
   );
 
   return (
-    <SafeAreaView>
+    <>
       <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         keyboardVerticalOffset={insets.top}
@@ -66,7 +66,7 @@ const CommentsScreen = () => {
           {/* </View> */}
         </Pressable>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </>
   );
 };
 
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     // borderColor: "blue",
   },
   contentContainer: {
-    flex: 1,
+    flexGrow: 1,
   },
 });
 

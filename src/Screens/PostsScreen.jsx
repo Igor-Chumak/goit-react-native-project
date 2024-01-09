@@ -38,7 +38,7 @@ const PostsScreen = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "white",
     justifyContent: "space-between",
     // paddingBottom: 51,

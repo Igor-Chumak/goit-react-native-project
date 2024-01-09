@@ -1,4 +1,4 @@
-import { ImageBackground, SafeAreaView, StyleSheet, View } from "react-native";
+import { ImageBackground, Pressable, Keyboard, SafeAreaView, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RegistrationForm } from "../components";
 
@@ -7,13 +7,14 @@ import BGImage from "../images/photo_BG.png";
 const RegistrationScreen = () => {
   // const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.containerSafe}>
+    <Pressable onPress={Keyboard.dismiss}>
+      {/* <SafeAreaView style={styles.containerSafe}> */}
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <View style={styles.wrap}>
           <RegistrationForm />
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </Pressable>
   );
 };
 const styles = StyleSheet.create({

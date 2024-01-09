@@ -29,7 +29,8 @@ const ProfileScreen = () => {
   }, [isFocused]);
 
   return (
-    <SafeAreaView style={styles.containerSafe}>
+    <>
+      {/* <SafeAreaView style={styles.containerSafe}> */}
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <View style={styles.container}>
           <View style={styles.wrapProfile}>
@@ -45,7 +46,7 @@ const ProfileScreen = () => {
           </View>
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </>
   );
 };
 

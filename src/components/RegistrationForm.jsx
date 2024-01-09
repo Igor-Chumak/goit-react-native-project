@@ -73,7 +73,8 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <Pressable onPress={Keyboard.dismiss}>
+    <>
+      {/* <Pressable onPress={Keyboard.dismiss}> */}
       <View style={styles.wrapForm}>
         <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} />
         <Text style={styles.title}>Реєстрація</Text>
@@ -123,7 +124,8 @@ export const RegistrationForm = () => {
           </Pressable>
         </KeyboardAvoidingView>
       </View>
-    </Pressable>
+      {/* </Pressable> */}
+    </>
   );
 };
 

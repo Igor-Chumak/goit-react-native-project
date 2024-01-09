@@ -61,7 +61,8 @@ export const LoginForm = () => {
   };
 
   return (
-    <Pressable onPress={Keyboard.dismiss}>
+    <>
+      {/* <Pressable onPress={Keyboard.dismiss}> */}
       <View style={styles.wrapForm}>
         <Text style={styles.title}>Увійти</Text>
         <KeyboardAvoidingView
@@ -100,7 +101,8 @@ export const LoginForm = () => {
           </Pressable>
         </KeyboardAvoidingView>
       </View>
-    </Pressable>
+      {/* </Pressable> */}
+    </>
   );
 };
 
