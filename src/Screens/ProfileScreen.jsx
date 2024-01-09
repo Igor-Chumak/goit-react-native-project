@@ -39,7 +39,7 @@ const ProfileScreen = () => {
               <Text style={styles.title}>{displayName}</Text>
             </View>
             <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
-              {posts.length &&
+              {posts.length > 0 &&
                 posts.map((post) => <ContentBlock key={post.id} {...post} disabledChange={true} />)}
             </ScrollView>
           </View>

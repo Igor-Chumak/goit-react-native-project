@@ -3,8 +3,7 @@ import { OneComment } from "./OneComment";
 
 export const CommentsBlock = () => {
   return (
-    <View style={styles.contentBox}>
-      {/* <View onStartShouldSetResponder={() => true}> */}
+    <View style={styles.contentBox} onStartShouldSetResponder={() => true}>
       <OneComment />
       <OneComment type="my" />
       <OneComment />

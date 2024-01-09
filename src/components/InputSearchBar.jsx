@@ -38,6 +38,7 @@ export const InputSearchBar = () => {
 
 const styles = StyleSheet.create({
   container: {
+    // flexGrow: 1, //
     marginTop: "auto",
     // position: "absolute",
     // bottom: 0,
