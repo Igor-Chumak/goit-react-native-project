@@ -15,6 +15,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 import storageApiAsync from "./storageApi";
+import uuid from "react-native-uuid";
 
 import { db } from "./config";
 
@@ -69,28 +70,16 @@ const getPostsByUserId = async (uid) => {
     throw new Error(error.message);
   }
 };
-// const getPostsByUserId = async (uid) => {
-//   let posts = [];
-//   const q = query(collection(db, "posts"), where("owner", "==", uid));
-//   try {
-//     const res = await getDocs(q);
-//     res.forEach((doc) => posts.push({ id: doc.id, ...doc.data() }));
 
-//     return posts;
-//   } catch (error) {
-//     throw new Error(error.message);
-//   }
-// };
-
-const changeDetailsPost = async ({ postId, data, field, type }) => {
+const changeLike = async ({ postId, data, type }) => {
   // console.log("props :>> ", { postId, data, type });
   try {
     postRef = doc(db, "posts", postId);
     switch (type) {
       case "add":
-        return await updateDoc(postRef, { [field]: arrayUnion(data) });
+        return await updateDoc(postRef, { likes: arrayUnion(data) });
       case "remove":
-        return await updateDoc(postRef, { [field]: arrayRemove(data) });
+        return await updateDoc(postRef, { likes: arrayRemove(data) });
       default:
         console.log("Invalid subscription type");
         return;
@@ -100,23 +89,30 @@ const changeDetailsPost = async ({ postId, data, field, type }) => {
   }
 };
 
-const addComment = async (pid, text) => {
+const addComment = async ({ postId, data, type }) => {
+  // console.log("props :>> ", { postId, data, type });
   try {
-    await addDoc(collection(db, "comments"), { pid, text, createdAt: Timestamp.now() });
+    postRef = doc(db, "posts", postId);
+    switch (type) {
+      case "add":
+        return await updateDoc(postRef, {
+          comments: arrayUnion({ ...data, id: uuid.v4(), createdAt: Timestamp.now() }),
+        });
+      default:
+        console.log("Invalid subscription type");
+        return;
+    }
   } catch (error) {
     throw new Error(error.message);
   }
 };
 
-const getCommentsByPostId = async (pid) => {
-  let posts = [];
-
-  const q = query(collection(db, "comments"), where("pid", "==", pid));
+const getCommentsByPostId = async (postId) => {
+  // console.log("props :>> ", postId);
+  postRef = doc(db, `posts/${postId}`);
   try {
-    const res = await getDocs(q);
-    res.forEach((doc) => posts.push({ id: doc.id, ...doc.data() }));
-
-    return posts;
+    const docSnap = await getDoc(postRef);
+    return docSnap.data().comments;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -127,7 +123,7 @@ export default {
   addUser,
   getAllPosts,
   getPostsByUserId,
-  changeDetailsPost,
+  changeLike,
   addComment,
   getCommentsByPostId,
 };

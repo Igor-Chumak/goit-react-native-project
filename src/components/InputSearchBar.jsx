@@ -1,9 +1,8 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-// import SendIcon from "../images/send.svg";
 import SendIcon from "../images/arrow_up.svg";
 
-export const InputSearchBar = () => {
+export const InputSearchBar = ({ newComment = "", setNewComment, handleSubmit }) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputBox}>
@@ -11,8 +10,10 @@ export const InputSearchBar = () => {
           style={styles.textInput}
           placeholder="Коментувати..."
           placeholderTextColor="#BDBDBD"
+          value={newComment}
+          onChangeText={setNewComment}
         />
-        <Pressable style={styles.pressIcon}>
+        <Pressable style={styles.pressIcon} onPress={handleSubmit}>
           <SendIcon width={10} height={14} />
         </Pressable>
       </View>
@@ -91,5 +92,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FF6C00",
     borderRadius: 17,
+    // borderWidth: 1,
+    // borderColor: "red",
   },
 });

@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 import { userAuth } from "../hooks";
-import photoDefault from "../images/blank/ellipse.png";
+import { formatCreateAtFirebase } from "../utility/formatCreateAtFirebase";
+// import photoDefault from "../images/blank/ellipse.png";
 
 export const OneComment = ({ comment }) => {
   const {
@@ -11,14 +13,20 @@ export const OneComment = ({ comment }) => {
     // isLoggedIn,
     avatarUrl,
   } = userAuth();
-
+  const [imageUrl, setImageUrl] = useState(
+    "https://firebasestorage.googleapis.com/v0/b/reactnative-goit-e3765.appspot.com/o/posts%2Favatar_test_comments.png?alt=media&token=fd148db5-4ecf-4a8f-88b4-aa6b2992bb5c"
+  );
   const isMyComment = uid === comment.authorId ? true : false;
-  
-  const imageUrl = async (authorId) => {
-    if (uid === authorId) return avatarUrl;
-  };
+  const datePost = formatCreateAtFirebase(comment.createdAt.toDate());
 
-  // const { id, text, authorId, createdAt } = comment;
+  useEffect(() => {
+    async function defineImageUrl(authorId) {
+      if (uid === authorId) return setImageUrl(avatarUrl);
+      // const url = await firebaseApiAsync.getAllPosts();
+      // console.log("Posts url :>> ", url);
+    }
+    defineImageUrl(comment.authorId);
+  }, []);
 
   return (
     <View style={[styles.commentWrap, !isMyComment ? { paddingLeft: 44 } : { paddingRight: 44 }]}>
@@ -30,11 +38,11 @@ export const OneComment = ({ comment }) => {
             !isMyComment ? { textAlign: "right" } : { textAlign: "left" },
           ]}
         >
-          09 червня, 2020 | 08:40
+          {datePost}
         </Text>
       </View>
       <View style={[styles.commentPhotoBox, !isMyComment ? { left: 0 } : { right: 0 }]}>
-        <Image source={photoDefault} style={styles.commentPhoto} />
+        <Image source={{ uri: imageUrl }} style={styles.commentPhoto} />
       </View>
     </View>
   );
@@ -43,12 +51,13 @@ export const OneComment = ({ comment }) => {
 const styles = StyleSheet.create({
   commentWrap: {
     position: "relative",
-    // paddingLeft: 44, // paddingRight: 44,
     width: "100%",
+    // paddingLeft: 44, // paddingRight: 44,
   },
   commentTextBox: {
     padding: 16,
-    width: "100%",
+    // width: "100%",
+    minWidth: "100%",
     gap: 8,
     backgroundColor: "white",
     justifyContent: "flex-start",
@@ -64,7 +73,7 @@ const styles = StyleSheet.create({
   commentData: {
     // width: "100%",
     fontFamily: "RobotoR",
-    // textAlign: "right", // textAlign: "left",
+    // textAlign: "right", // "left",
     fontSize: 10,
     lineHeight: 11,
     color: "#BDBDBD",

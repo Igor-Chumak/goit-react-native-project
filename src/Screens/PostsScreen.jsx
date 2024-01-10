@@ -23,14 +23,12 @@ const PostsScreen = () => {
     <View style={styles.container}>
       <ContentBox>
         <User />
-        <ScrollView
-          style={{ height: "100%" }}
-          contentContainerStyle={{ flexGrow: 1, gap: 32, paddingBottom: 100 }}
-        >
+        <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
           {posts.length > 0 &&
             posts.map((post) => (
               <ContentBlock key={post.id} {...post} setFlagRerender={setFlagRerender} />
             ))}
+          <View style={{ flex: 1, height: 150 }} />
         </ScrollView>
       </ContentBox>
     </View>

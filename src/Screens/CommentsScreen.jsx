@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Keyboard,
   Pressable,
@@ -6,38 +7,52 @@ import {
   View,
   KeyboardAvoidingView,
 } from "react-native";
-import { useRoute } from "@react-navigation/native";
-
-import { ContentBox, ContentBlockImage, InputSearchBar, OneComment } from "../components";
-//
-import firebaseApiAsync from "../utility/firebase/firebaseApi";
-import { useIsFocused } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useRoute, useIsFocused } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+//
+import { userAuth } from "../hooks";
+import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { ContentBox, ContentBlockImage, InputSearchBar, OneComment } from "../components";
 
 const CommentsScreen = () => {
   const {
-    params: { id: postId, photoUrl, comments },
+    params: { id: postId, photoUrl },
   } = useRoute();
-  // console.log("Comment Screen id :>> ", id);
-  console.log("Comment comments:>> ", comments);
-
-  // const isFocused = useIsFocused();
+  const isFocused = useIsFocused();
   const insets = useSafeAreaInsets();
-  // const [comments, setComments] = useState([]);
-  // const [flagRerender, setFlagRerender] = useState(false);
 
-  // useEffect(
-  //   (isFocused) => {
-  //     async function fetchData() {
-  //       const data = await firebaseApiAsync.getCommentsByPostId(postId);
-  //       console.log("Comments data :>> ", data);
-  //       setComments(data);
-  //     }
-  //     fetchData();
-  //   },
-  //   [isFocused, flagRerender]
-  // );
+  const {
+    uid,
+    // email,
+    // displayName,
+    // isLoggedIn,
+    // avatarUrl,
+  } = userAuth();
+  const [comments, setComments] = useState([]);
+  const [flagRerender, setFlagRerender] = useState(false);
+  const [newComment, setNewComment] = useState("");
+
+  useEffect(
+    (isFocused) => {
+      async function fetchData() {
+        const data = await firebaseApiAsync.getCommentsByPostId(postId);
+        // console.log("Comments data :>> ", data);
+        setComments(data);
+      }
+      fetchData();
+    },
+    [isFocused, flagRerender]
+  );
+
+  const handleSubmit = async () => {
+    if (!newComment) return;
+    const data = { text: newComment, authorId: uid };
+    await firebaseApiAsync.addComment({ postId, data, type: "add" });
+    setNewComment("");
+    Keyboard.dismiss();
+    setFlagRerender((prev) => !prev);
+    return;
+  };
 
   return (
     <KeyboardAvoidingView
@@ -56,10 +71,14 @@ const CommentsScreen = () => {
           >
             <View style={styles.contentBox} onStartShouldSetResponder={() => true}>
               {comments.length > 0 &&
-                comments.map((comment) => <OneComment key={comment.id} {...comment} />)}
+                comments.map((comment) => <OneComment key={comment.id} comment={comment} />)}
             </View>
           </ScrollView>
-          <InputSearchBar />
+          <InputSearchBar
+            handleSubmit={handleSubmit}
+            newComment={newComment}
+            setNewComment={setNewComment}
+          />
           <View style={{ flex: 1 }} />
         </ContentBox>
         {/* </View> */}
@@ -67,19 +86,6 @@ const CommentsScreen = () => {
     </KeyboardAvoidingView>
   );
 };
-
-//   return (
-//     <Pressable onPress={Keyboard.dismiss} style={styles.wrapProvider}>
-//       <View style={styles.container}>
-//         <ContentBox>
-//           <ContentBlockImage source={photoUrl} />
-//           <CommentsBlock />
-//         </ContentBox>
-//         <InputSearchBar />
-//       </View>
-//     </Pressable>
-//   );
-// };
 
 const styles = StyleSheet.create({
   wrapProvider: {
@@ -89,18 +95,13 @@ const styles = StyleSheet.create({
   },
   container: {
     // flex: 1,
-    width: "100%",
-    backgroundColor: "white",
-    justifyContent: "space-between",
-    // position: "relative",
-    // borderWidth: 1,
-    // borderColor: "blue",
+    // width: "100%",
+    // backgroundColor: "white",
+    // justifyContent: "space-between",
   },
   AvoidingView: {
     // flex: 1,
     // justifyContent: "space-between",
-    // borderWidth: 1,
-    // borderColor: "blue",
   },
   contentContainer: {
     // flexGrow: 1,
@@ -119,8 +120,6 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     paddingBottom: 32,
     gap: 24,
-    // borderWidth: 1,
-    // borderColor: "orange",
   },
 });
 

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native";
+// import { SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";

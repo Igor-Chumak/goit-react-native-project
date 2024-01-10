@@ -28,8 +28,7 @@
 //     <View style={[styles.commentWrap, !type ? { paddingLeft: 44 } : { paddingRight: 44 }]}>
 //       <View style={styles.commentTextBox}>
 //         <Text style={styles.commentText}>
-//           Really love your most recent photo. I’ve been trying to capture the same thing for a few
-//           months and would love some tips!
+//           Really love your most recent photo. I’ve been trying to capture the same thing for a few months and would love some tips!
 //         </Text>
 //         <Text style={[styles.commentData, !type ? { textAlign: "right" } : { textAlign: "left" }]}>
 //           09 червня, 2020 | 08:40

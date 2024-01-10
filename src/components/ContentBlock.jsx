@@ -46,21 +46,12 @@ export const ContentBlock = ({
   });
 
   const handleLikes = async () => {
-    if (isLiked) {
-      await firebaseApiAsync.changeDetailsPost({
-        postId: id,
-        data: uid,
-        field: "likes",
-        type: "remove",
-      });
-    } else {
-      await firebaseApiAsync.changeDetailsPost({
-        postId: id,
-        data: uid,
-        field: "likes",
-        type: "add",
-      });
-    }
+    const type = isLiked ? "remove" : "add";
+    await firebaseApiAsync.changeLike({
+      postId: id,
+      data: uid,
+      type,
+    });
     setFlagRerender((prev) => !prev);
     return;
   };
@@ -75,7 +66,7 @@ export const ContentBlock = ({
         <View style={styles.contentDetailsBox}>
           <Pressable
             style={styles.icon_text_Box}
-            onPress={() => navigation.navigate("Comments", { id, photoUrl, comments })}
+            onPress={() => navigation.navigate("Comments", { id, photoUrl })}
           >
             <CommentIcon width={24} height={24} fill={fill} />
             <Text style={styles.contentDetailsText}>{comments.length}</Text>
