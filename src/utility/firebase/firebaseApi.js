@@ -38,9 +38,9 @@ const addPost = async (uid, post) => {
   }
 };
 
-const addUser = async (user) => {
+const addUser = async ({ uid, user }) => {
   try {
-    return await setDoc(doc(collection(db, "users", user.uid)), { ...user });
+    return await setDoc(doc(db, "users", uid), { ...user }, { merge: true });
     // return await addDoc(collection(db, "users"), { ...user });
   } catch (error) {
     throw new Error(error.message);

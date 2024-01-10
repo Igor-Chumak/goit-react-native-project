@@ -1,23 +1,31 @@
 import { useEffect, useState } from "react";
-import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
 import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { useUserAuth } from "../utility/firebase/authApi";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
 import BGImage from "../images/photo_BG.png";
+import { useDispatch } from "react-redux";
+import { login } from "../store/authSlice";
 
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
   const {
     uid,
     // email,
     displayName,
     // isLoggedIn,
-    avatarUrl,
+    avatarUrl: avatarUrlCurrentUser,
   } = userAuth();
+  console.log("ProfileScreen userAuth() :>> ", userAuth());
+  const { updateAvatar } = useUserAuth();
   //
   const isFocused = useIsFocused();
   const [posts, setPosts] = useState([]);
+  const [avatarUrl, setAvatarUrl] = useState(avatarUrlCurrentUser);
+  const [isFirstRender, setIsFirstRender] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -28,13 +36,34 @@ const ProfileScreen = () => {
     fetchData();
   }, [isFocused]);
 
+  useEffect(() => {
+    if (!isFirstRender) return setIsFirstRender(true);
+    async function fetchData() {
+      // console.log("(fetch data) avatarUrl :>> ", avatarUrl);
+      const data = await updateAvatar(avatarUrl);
+      // console.log("Profile data.photoURL :>> ", data.photoURL);
+      dispatch(
+        login({
+          avatarUrl: data.photoURL,
+        })
+      );
+      // setAvatarUrl(avatarUrlCurrentUser);
+      // console.log("(fetch data) New avatarUrl :>> ", avatarUrl);
+      console.log("useEffect avatar");
+    }
+    console.log("avatarUrl 1 :>> ", avatarUrl);
+    fetchData();
+    console.log("avatarUrl 2 :>> ", avatarUrl);
+    return setIsFirstRender(false);
+  }, [avatarUrl]);
+
   return (
     <>
-      {/* <SafeAreaView style={styles.containerSafe}> */}
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <View style={styles.container}>
           <View style={styles.wrapProfile}>
-            <AvatarBox avatarUrl={avatarUrl} disabledChange={true} />
+            <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} disabledChange={false} />
+            {/* <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} disabledChange={true} /> */}
             <LogOutIconBox style={styles.logOutBox} />
             <View style={styles.titleBox}>
               <Text style={styles.title}>{displayName}</Text>

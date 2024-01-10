@@ -19,7 +19,7 @@ import { login } from "../store/authSlice";
 // };
 
 const INITIAL_STATE = {
-  email: "email@email.com",
+  email: "email8@email.com",
   password: "password",
 };
 

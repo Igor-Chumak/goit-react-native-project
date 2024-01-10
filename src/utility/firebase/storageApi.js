@@ -2,14 +2,15 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "./config";
 
 export const uploadFileToStorage = async ({ collection, name, fileUri }) => {
-  console.log("FS collection :>> ", collection);
-  console.log("FS name :>> ", name);
-  console.log("FS fileUri :>> ", fileUri);
+  // console.log("FS collection :>> ", collection);
+  // console.log("FS name :>> ", name);
+  // console.log("FS fileUri :>> ", fileUri);
   try {
     if (!fileUri) return;
 
-    const ext = fileUri.split(".").reverse()[0].split("?")[0];
+    let ext = fileUri.split(".").reverse()[0].split("?")[0];
     const storagePath = `${collection}/${name}.${ext}`;
+    // const storagePath = `${collection}/${name}.${(ext = "jpeg" ? "jpg" : ext)}`;
     const fileRef = ref(storage, storagePath);
 
     const response = await fetch(fileUri);

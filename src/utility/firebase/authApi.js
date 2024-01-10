@@ -26,6 +26,31 @@ const signOutUser = async () => {
   }
 };
 
+const updateAvatar = async (photoURL) => {
+  console.log("updateAvatar auth.currentUser :>> ", auth.currentUser);
+
+  try {
+    const uploadUrl = await storageApiAsync.uploadFileToStorage({
+      collection: "avatars",
+      name: auth.currentUser.uid + "_avatar",
+      fileUri: photoURL,
+    });
+
+    await updateProfile(auth.currentUser, {
+      photoURL: uploadUrl,
+    });
+
+    await firebaseApiAsync.addUser({
+      uid: auth.currentUser.uid,
+      user: { photoURL: auth.currentUser.photoURL },
+    });
+
+    return auth.currentUser;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 const registerUser = async ({ email, password, displayName, photoURL }) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -47,9 +72,12 @@ const registerUser = async ({ email, password, displayName, photoURL }) => {
 
     await firebaseApiAsync.addUser({
       uid: res.user.uid,
-      email: res.user.email,
-      displayName: res.user.displayName,
-      photoURL: res.user.photoURL,
+      user: {
+        uid: res.user.uid,
+        email: res.user.email,
+        displayName: res.user.displayName,
+        photoURL: res.user.photoURL,
+      },
     });
 
     return auth.currentUser;
@@ -63,6 +91,7 @@ export const useUserAuth = () => {
     signInUser,
     signOutUser,
     registerUser,
+    updateAvatar,
     auth,
   };
 };

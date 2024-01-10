@@ -61,7 +61,6 @@ const CommentsScreen = () => {
       style={styles.AvoidingView}
     >
       <Pressable onPress={Keyboard.dismiss}>
-        {/* <View style={styles.container}> */}
         <ContentBox>
           <ContentBlockImage source={photoUrl} />
           <ScrollView
@@ -81,7 +80,6 @@ const CommentsScreen = () => {
           />
           <View style={{ flex: 1 }} />
         </ContentBox>
-        {/* </View> */}
       </Pressable>
     </KeyboardAvoidingView>
   );
@@ -90,22 +88,9 @@ const CommentsScreen = () => {
 const styles = StyleSheet.create({
   wrapProvider: {
     flexGrow: 1,
-    //   width: "100%",
-    //   // alignItems: "center",
-  },
-  container: {
-    // flex: 1,
-    // width: "100%",
-    // backgroundColor: "white",
-    // justifyContent: "space-between",
-  },
-  AvoidingView: {
-    // flex: 1,
-    // justifyContent: "space-between",
   },
   contentContainer: {
     // flexGrow: 1,
-    //
   },
   contentBox: {
     // flex: 1,

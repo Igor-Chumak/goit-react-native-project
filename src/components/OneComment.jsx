@@ -14,7 +14,7 @@ export const OneComment = ({ comment }) => {
     avatarUrl,
   } = userAuth();
   const [imageUrl, setImageUrl] = useState(
-    "https://firebasestorage.googleapis.com/v0/b/reactnative-goit-e3765.appspot.com/o/posts%2Favatar_test_comments.png?alt=media&token=fd148db5-4ecf-4a8f-88b4-aa6b2992bb5c"
+    "https://firebasestorage.googleapis.com/v0/b/reactnative-goit-e3765.appspot.com/o/avatars%2Favatar_test_comments.png?alt=media&token=42f16e62-4278-4297-b4b4-e973fdcc683c"
   );
   const isMyComment = uid === comment.authorId ? true : false;
   const datePost = formatCreateAtFirebase(comment.createdAt.toDate());
@@ -22,6 +22,7 @@ export const OneComment = ({ comment }) => {
   useEffect(() => {
     async function defineImageUrl(authorId) {
       if (uid === authorId) return setImageUrl(avatarUrl);
+      // url current user
       // const url = await firebaseApiAsync.getAllPosts();
       // console.log("Posts url :>> ", url);
     }

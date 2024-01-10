@@ -23,7 +23,7 @@ const PostsScreen = () => {
     <View style={styles.container}>
       <ContentBox>
         <User />
-        <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
+        <ScrollView style={{ height: "100%" }} contentContainerStyle={{ gap: 32 }}>
           {posts.length > 0 &&
             posts.map((post) => (
               <ContentBlock key={post.id} {...post} setFlagRerender={setFlagRerender} />
@@ -41,8 +41,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // paddingBottom: 51,
     // paddingBottom: 83-32,
-    // borderWidth: 2,
-    // borderColor: "blue",
   },
 });
 

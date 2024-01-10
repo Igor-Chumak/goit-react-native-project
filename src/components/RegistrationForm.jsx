@@ -23,8 +23,8 @@ import { AvatarBox } from "./AvatarBox";
 // };
 
 const INITIAL_STATE = {
-  name: "myName",
-  email: "email@email.com",
+  name: "myName8",
+  email: "email8@email.com",
   password: "password",
   avatarUrl: null,
 };
