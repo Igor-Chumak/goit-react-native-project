@@ -55,12 +55,8 @@ const CommentsScreen = () => {
             keyboardShouldPersistTaps="handled"
           >
             <View style={styles.contentBox} onStartShouldSetResponder={() => true}>
-              <OneComment />
-              <OneComment type="my" />
-              <OneComment />
-              <OneComment type="my" />
-              <OneComment />
-              <OneComment type="my" />
+              {comments.length > 0 &&
+                comments.map((comment) => <OneComment key={comment.id} {...comment} />)}
             </View>
           </ScrollView>
           <InputSearchBar />

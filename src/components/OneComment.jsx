@@ -3,27 +3,37 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { userAuth } from "../hooks";
 import photoDefault from "../images/blank/ellipse.png";
 
-export const OneComment = ({ type = "" }) => {
+export const OneComment = ({ comment }) => {
   const {
     uid,
     // email,
     // displayName,
     // isLoggedIn,
-    // avatarUrl,
+    avatarUrl,
   } = userAuth();
 
+  const isMyComment = uid === comment.authorId ? true : false;
+  
+  const imageUrl = async (authorId) => {
+    if (uid === authorId) return avatarUrl;
+  };
+
+  // const { id, text, authorId, createdAt } = comment;
+
   return (
-    <View style={[styles.commentWrap, !type ? { paddingLeft: 44 } : { paddingRight: 44 }]}>
+    <View style={[styles.commentWrap, !isMyComment ? { paddingLeft: 44 } : { paddingRight: 44 }]}>
       <View style={styles.commentTextBox}>
-        <Text style={styles.commentText}>
-          Really love your most recent photo. I’ve been trying to capture the same thing for a few
-          months and would love some tips!
-        </Text>
-        <Text style={[styles.commentData, !type ? { textAlign: "right" } : { textAlign: "left" }]}>
+        <Text style={styles.commentText}>{comment.text}</Text>
+        <Text
+          style={[
+            styles.commentData,
+            !isMyComment ? { textAlign: "right" } : { textAlign: "left" },
+          ]}
+        >
           09 червня, 2020 | 08:40
         </Text>
       </View>
-      <View style={[styles.commentPhotoBox, !type ? { left: 0 } : { right: 0 }]}>
+      <View style={[styles.commentPhotoBox, !isMyComment ? { left: 0 } : { right: 0 }]}>
         <Image source={photoDefault} style={styles.commentPhoto} />
       </View>
     </View>
