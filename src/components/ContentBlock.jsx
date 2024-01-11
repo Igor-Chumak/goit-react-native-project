@@ -27,6 +27,7 @@ export const ContentBlock = ({
   photoUrl,
   coords,
   comments = [],
+  owner,
   // createdAt,
 }) => {
   const navigation = useNavigation();
@@ -46,6 +47,7 @@ export const ContentBlock = ({
   });
 
   const handleLikes = async () => {
+    if (uid === owner) return;
     const type = isLiked ? "remove" : "add";
     await firebaseApiAsync.changeLike({
       postId: id,

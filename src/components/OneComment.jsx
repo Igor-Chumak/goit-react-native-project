@@ -21,7 +21,6 @@ export const OneComment = ({ comment }) => {
   useEffect(() => {
     async function defineImageUrl(authorId) {
       if (uid === authorId) return setImageUrl(avatarUrl);
-      // url current user
       const urlAuthor = await firebaseApiAsync.getPhotoUrlByUserId(authorId);
       // console.log("OneComment urlAuthor :>> ", urlAuthor);
       return setImageUrl(urlAuthor);
@@ -57,14 +56,12 @@ const styles = StyleSheet.create({
   },
   commentTextBox: {
     padding: 16,
-    // width: "100%",
     minWidth: "100%",
     gap: 8,
     backgroundColor: "white",
     justifyContent: "flex-start",
   },
   commentText: {
-    // width: "100%",
     fontFamily: "RobotoR",
     textAlign: "left",
     fontSize: 13,
@@ -72,7 +69,6 @@ const styles = StyleSheet.create({
     color: "#212121",
   },
   commentData: {
-    // width: "100%",
     fontFamily: "RobotoR",
     // textAlign: "right", // "left",
     fontSize: 10,

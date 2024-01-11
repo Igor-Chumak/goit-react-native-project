@@ -9,7 +9,6 @@ import {
   where,
   doc,
   Timestamp,
-  increment,
   arrayUnion,
   arrayRemove,
   orderBy,
@@ -109,7 +108,7 @@ const addComment = async ({ postId, data, type }) => {
 
 const getCommentsByPostId = async (postId) => {
   // console.log("props :>> ", postId);
-  postRef = doc(db, `posts/${postId}`);
+  postRef = doc(db, "posts", postId);
   try {
     const docSnap = await getDoc(postRef);
     return docSnap.data().comments;
