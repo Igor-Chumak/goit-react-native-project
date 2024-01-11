@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 import { userAuth } from "../hooks";
+import { firebaseApiAsync } from "../utility/firebase/index";
 import { formatCreateAtFirebase } from "../utility/formatCreateAtFirebase";
-// import photoDefault from "../images/blank/ellipse.png";
+import { avatarNothing } from "../data";
 
 export const OneComment = ({ comment }) => {
   const {
@@ -13,9 +14,7 @@ export const OneComment = ({ comment }) => {
     // isLoggedIn,
     avatarUrl,
   } = userAuth();
-  const [imageUrl, setImageUrl] = useState(
-    "https://firebasestorage.googleapis.com/v0/b/reactnative-goit-e3765.appspot.com/o/avatars%2Favatar_test_comments.png?alt=media&token=42f16e62-4278-4297-b4b4-e973fdcc683c"
-  );
+  const [imageUrl, setImageUrl] = useState(avatarNothing);
   const isMyComment = uid === comment.authorId ? true : false;
   const datePost = formatCreateAtFirebase(comment.createdAt.toDate());
 
@@ -23,8 +22,9 @@ export const OneComment = ({ comment }) => {
     async function defineImageUrl(authorId) {
       if (uid === authorId) return setImageUrl(avatarUrl);
       // url current user
-      // const url = await firebaseApiAsync.getAllPosts();
-      // console.log("Posts url :>> ", url);
+      const urlAuthor = await firebaseApiAsync.getPhotoUrlByUserId(authorId);
+      // console.log("OneComment urlAuthor :>> ", urlAuthor);
+      return setImageUrl(urlAuthor);
     }
     defineImageUrl(comment.authorId);
   }, []);

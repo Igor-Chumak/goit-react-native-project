@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { firebaseApiAsync } from "../utility/firebase/index";
 import { userAuth } from "../hooks";
 import { createLocationValue } from "../utility/createLocationValue";
 import { ContentBlockImage } from "./ContentBlockImage";

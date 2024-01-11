@@ -11,7 +11,7 @@ import { useRoute, useIsFocused } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 //
 import { userAuth } from "../hooks";
-import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { firebaseApiAsync } from "../utility/firebase/index";
 import { ContentBox, ContentBlockImage, InputSearchBar, OneComment } from "../components";
 
 const CommentsScreen = () => {

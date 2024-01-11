@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { ContentBlock, ContentBox, User } from "../components";
 
-import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { firebaseApiAsync } from "../utility/firebase/index";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 

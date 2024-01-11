@@ -1,15 +1,9 @@
 import { Keyboard, Pressable, StyleSheet, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
-import {
-  ContentBox,
-  ContentBlockImage,
-  InputSearchBar,
-  CommentsBlock,
-  ContentScrollBox,
-} from "../components";
+import { ContentBox, ContentBlockImage, InputSearchBar, CommentsBlock } from "../components";
 //
-import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { firebaseApiAsync } from "../utility/firebase/index";
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 

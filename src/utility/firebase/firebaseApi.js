@@ -137,4 +137,5 @@ export default {
   changeLike,
   addComment,
   getCommentsByPostId,
+  getPhotoUrlByUserId,
 };

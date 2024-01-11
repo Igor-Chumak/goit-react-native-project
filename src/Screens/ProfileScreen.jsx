@@ -3,8 +3,7 @@ import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-nativ
 import { useIsFocused } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
-import firebaseApiAsync from "../utility/firebase/firebaseApi";
-import { authApiAsync } from "../utility/firebase/index";
+import { authApiAsync, firebaseApiAsync } from "../utility/firebase/index";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
 import BGImage from "../images/photo_BG.png";
 import { useDispatch } from "react-redux";
