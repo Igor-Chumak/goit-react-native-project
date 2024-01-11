@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
-import { avatarNothing } from "../data";
+import { avatarNothing, AVATAR_DEFAULT } from "../data";
 import BtnAddIcon from "../images/union.svg";
 import BtnChangeIcon from "../images/union_x.svg";
-const AVATAR_DEFAULT = "../images/avatar_default.png";
 
 export const AvatarBox = ({ avatarUrl, setAvatarUrl = null, disabledChange = false }) => {
   const [avatarSelector, setAvatarSelector] = useState(true);
-  const [selectorColor, setSelectorColor] = useState(
-    disabledChange && avatarUrl ? "#E8E8E8" : "#FF6C00"
-  );
+  const [selectorColor, setSelectorColor] = useState(avatarUrl ? "#E8E8E8" : "#FF6C00");
 
   const handlePressIn = () => {
     setAvatarSelector(false);
@@ -38,15 +35,13 @@ export const AvatarBox = ({ avatarUrl, setAvatarUrl = null, disabledChange = fal
       setAvatarUrl(uri);
     } else {
       alert("Nothing selected");
-      if (!avatarUrl) setAvatarUrl(avatarNothing);
+      // if (!avatarUrl) setAvatarUrl(avatarNothing);
+      setAvatarUrl(avatarNothing);
     }
   };
 
-  // useEffect(() => {
-  //   console.log("avatarUrl :>> ", avatarUrl);
-  // }, [avatarUrl]);
+  const imgSource = avatarUrl ? { uri: avatarUrl } : AVATAR_DEFAULT;
 
-  const imgSource = avatarUrl ? { uri: avatarUrl } : require(AVATAR_DEFAULT);
   return (
     <View style={styles.wrapPhoto}>
       <Image source={imgSource} style={styles.photo} />
@@ -72,12 +67,11 @@ const styles = StyleSheet.create({
     top: -60,
     backgroundColor: "#F6F6F6",
     borderRadius: 16,
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   photo: {
     width: "100%",
     height: "100%",
+    borderRadius: 16,
   },
   btnAddBox: {
     position: "absolute",
@@ -85,6 +79,7 @@ const styles = StyleSheet.create({
     right: -12,
     width: 24,
     height: 24,
+    backgroundColor: "#F6F6F6",
     borderRadius: 12,
     borderWidth: 1,
     // borderColor: "#FF6C00",

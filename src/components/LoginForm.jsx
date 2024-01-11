@@ -10,12 +10,17 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { useUserAuth } from "../firebase/authApi";
+import { useUserAuth } from "../utility/firebase/authApi";
 import { login } from "../store/authSlice";
 
+// const INITIAL_STATE = {
+//   email: null, //"email@email.com",
+//   password: null, // "password",
+// };
+
 const INITIAL_STATE = {
-  email: "email@email.com", //null,
-  password: "password", //null,
+  email: "email8@email.com",
+  password: "password",
 };
 
 export const LoginForm = () => {
@@ -56,7 +61,8 @@ export const LoginForm = () => {
   };
 
   return (
-    <Pressable onPress={Keyboard.dismiss}>
+    <>
+      {/* <Pressable onPress={Keyboard.dismiss}> */}
       <View style={styles.wrapForm}>
         <Text style={styles.title}>Увійти</Text>
         <KeyboardAvoidingView
@@ -95,7 +101,8 @@ export const LoginForm = () => {
           </Pressable>
         </KeyboardAvoidingView>
       </View>
-    </Pressable>
+      {/* </Pressable> */}
+    </>
   );
 };
 

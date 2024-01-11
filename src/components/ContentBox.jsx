@@ -7,7 +7,7 @@ export const ContentBox = ({ children }) => {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    flexGrow: 1,
+    // flexGrow: 1,
     width: "100%",
     justifyContent: "flex-start",
     alignItems: "center",
@@ -15,7 +15,5 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     paddingHorizontal: 16,
     gap: 32,
-    // borderWidth: 1,
-    // borderColor: "blue",
   },
 });

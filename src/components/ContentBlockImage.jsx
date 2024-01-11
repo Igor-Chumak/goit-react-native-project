@@ -1,11 +1,13 @@
 import { Image, StyleSheet, View } from "react-native";
 
-import imageDefault from "../images/no_images.png";
+import { postNoPhoto } from "../data/const";
 
-export const ContentBlockImage = ({ source = imageDefault }) => {
+export const ContentBlockImage = ({ source = null }) => {
+  const imgSource = source ? { uri: source } : postNoPhoto;
+
   return (
     <View style={styles.contentImageBox}>
-      <Image source={source} style={styles.contentImage} />
+      <Image source={imgSource} style={styles.contentImage} />
     </View>
   );
 };

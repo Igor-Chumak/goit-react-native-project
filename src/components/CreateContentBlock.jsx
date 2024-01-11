@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { GetCamera } from "./GetCamera";
 
+import { definePosition } from "../utility/googleLocation/googleLocation";
 import CameraIcon from "../images/camera.svg";
 // import imgDEf from "../images/no_images.png";
 
@@ -9,9 +10,8 @@ import CameraIcon from "../images/camera.svg";
 // fill ['#BDBDBD'] - filling svg icon camera, if 'white' - additionally change background: rgba(255, 255, 255, 0.3)
 // source [''] - path to image
 
-export const CreateContentBlock = ({ photo, setPhoto }) => {
+export const CreateContentBlock = ({ photo, localDispatch }) => {
   const [onCamera, setOnCamera] = useState(false);
-  // const [photo, setPhoto] = useState(null);
   const [title, setTitle] = useState("Завантажте фото");
   const [colorsIcon, setColorsIcon] = useState({ fill: "#BDBDBD", bgColor: "white" });
 
@@ -24,9 +24,10 @@ export const CreateContentBlock = ({ photo, setPhoto }) => {
     );
   }, [photo]);
 
-  const closeCamera = (ref) => {
+  const closeCameraAsync = async (ref) => {
     setOnCamera(false);
-    setPhoto(ref);
+    const { coords, location } = await definePosition();
+    localDispatch({ type: "update", payload: { photoUrl: ref, coords, location } });
   };
 
   return (
@@ -34,7 +35,7 @@ export const CreateContentBlock = ({ photo, setPhoto }) => {
       <View style={styles.contentBox}>
         <View style={styles.contentImageBox}>
           {onCamera ? (
-            <GetCamera closeCamera={closeCamera} />
+            <GetCamera closeCamera={closeCameraAsync} />
           ) : (
             <>
               <View style={[styles.icon_Box, { backgroundColor: colorsIcon.bgColor }]}>
@@ -60,8 +61,6 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
     backgroundColor: "white",
-    // borderWidth: 1,
-    // borderColor: "blue",
   },
   contentImageBox: {
     display: "relative",
@@ -93,7 +92,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "white",
     borderRadius: 30,
     zIndex: 10,
   },

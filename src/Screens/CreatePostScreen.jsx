@@ -1,33 +1,60 @@
-import React, { useState } from "react";
-import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import React, { useState, useReducer } from "react";
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+import { userAuth } from "../hooks";
+import firebaseApiAsync from "../utility/firebase/firebaseApi";
 import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
-const CreatePostScreen = () => {
-  const [photoPost, setPhotoPost] = useState(null);
-  const [resForm, setResForm] = useState(false);
+const INITIAL_STATE = {
+  title: null,
+  photoUrl: null,
+  location: null,
+  coords: { longitude: 0, latitude: 0 },
+  likes: [],
+  comments: [],
+};
 
-  const resetForm = () => {
-    setPhotoPost(null);
-    setResForm(true);
+function localReducer(state, { type, payload }) {
+  switch (type) {
+    case "update":
+      return { ...state, ...payload };
+    case "clear":
+      return { ...state, ...INITIAL_STATE };
+  }
+}
+
+const CreatePostScreen = () => {
+  const navigation = useNavigation();
+  const { uid } = userAuth();
+  const [state, localDispatch] = useReducer(localReducer, INITIAL_STATE);
+
+  const handleSubmit = async () => {
+    handleResetForm();
+    // console.log("Post state :>> ", state);
+    await firebaseApiAsync.addPost(uid, state);
+    navigation.navigate("Posts");
+    return;
+  };
+
+  const handleResetForm = () => {
+    localDispatch({ type: "clear" });
   };
 
   return (
-    <SafeAreaView>
-      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
-        <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
-          <ContentBox>
-            <CreateContentBlock photo={photoPost} setPhoto={setPhotoPost} />
-            <CreateContentForm
-              photoPost={photoPost}
-              setPhotoPost={setPhotoPost}
-              resForm={resForm}
-              setResForm={setResForm}
-            />
-            <ToolBar resetForm={resetForm} />
-          </ContentBox>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+    <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"}>
+      <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1 }}>
+        <ContentBox>
+          <CreateContentBlock photo={state.photoUrl} localDispatch={localDispatch} />
+          <CreateContentForm
+            state={state}
+            handleSubmit={handleSubmit}
+            localDispatch={localDispatch}
+          />
+          <ToolBar resetForm={handleResetForm} />
+        </ContentBox>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

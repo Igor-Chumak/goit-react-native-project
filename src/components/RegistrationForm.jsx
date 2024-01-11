@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   Keyboard,
@@ -11,13 +11,20 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useUserAuth } from "../firebase/authApi";
+import { useUserAuth } from "../utility/firebase/authApi";
 import { login } from "../store/authSlice";
 import { AvatarBox } from "./AvatarBox";
 
+// const INITIAL_STATE = {
+//   name: null,
+//   email: null,
+//   password: null,
+//   avatarUrl: null,
+// };
+
 const INITIAL_STATE = {
-  name: "myName",
-  email: "email@email.com",
+  name: "myName8",
+  email: "email8@email.com",
   password: "password",
   avatarUrl: null,
 };
@@ -32,25 +39,6 @@ export const RegistrationForm = () => {
   const [password, setPassword] = useState(INITIAL_STATE.password);
   const [avatarUrl, setAvatarUrl] = useState(INITIAL_STATE.avatarUrl);
   const [passwordHidden, setPasswordHidden] = useState(true);
-
-  // useEffect(() => {
-  //   console.log("avatarUrl :>> ", avatarUrl);
-  // }, [avatarUrl]);
-
-  const handlePress = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!result.canceled) {
-      const { uri } = result.assets[0];
-      setAvatarUrl(uri);
-    } else {
-      alert("Nothing selected");
-      setAvatarUrl(avatarNothing);
-    }
-  };
 
   const handleSubmit = async () => {
     if (!name || !email || !password) return;
@@ -85,7 +73,8 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <Pressable onPress={Keyboard.dismiss}>
+    <>
+      {/* <Pressable onPress={Keyboard.dismiss}> */}
       <View style={styles.wrapForm}>
         <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} />
         <Text style={styles.title}>Реєстрація</Text>
@@ -135,7 +124,8 @@ export const RegistrationForm = () => {
           </Pressable>
         </KeyboardAvoidingView>
       </View>
-    </Pressable>
+      {/* </Pressable> */}
+    </>
   );
 };
 

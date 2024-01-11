@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { SafeAreaView } from "react-native";
+// import { SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -6,7 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { selectIsLoading, selectIsLoggedIn } from "./store/selectors";
 import { useRoute } from "./routes";
-import { auth } from "./firebase/config";
+import { auth } from "./utility/firebase/config";
 import { login, logout } from "./store/authSlice";
 
 export const Main = () => {
@@ -51,7 +53,7 @@ export const Main = () => {
   const routing = useRoute(isLoggedIn);
 
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>{routing}</NavigationContainer>
       <Spinner
         visible={isLoading}
@@ -62,6 +64,14 @@ export const Main = () => {
         textStyle={{ color: "#FF6C00" }}
         overlayColor={"rgba(0, 0, 0, 0.7)"}
       />
-    </>
+    </SafeAreaView>
   );
 };
+
+// const styles = StyleSheet.create({
+//   containerSafe: {
+// borderWidth: StyleSheet.hairlineWidth,
+// borderWidth: 1,
+// borderColor: "orange",
+//   },
+// });

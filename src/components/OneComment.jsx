@@ -1,19 +1,49 @@
+import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
-import photoDefault from "../images/blank/ellipse.png";
+import { userAuth } from "../hooks";
+import { formatCreateAtFirebase } from "../utility/formatCreateAtFirebase";
+// import photoDefault from "../images/blank/ellipse.png";
 
-export const OneComment = () => {
+export const OneComment = ({ comment }) => {
+  const {
+    uid,
+    // email,
+    // displayName,
+    // isLoggedIn,
+    avatarUrl,
+  } = userAuth();
+  const [imageUrl, setImageUrl] = useState(
+    "https://firebasestorage.googleapis.com/v0/b/reactnative-goit-e3765.appspot.com/o/avatars%2Favatar_test_comments.png?alt=media&token=42f16e62-4278-4297-b4b4-e973fdcc683c"
+  );
+  const isMyComment = uid === comment.authorId ? true : false;
+  const datePost = formatCreateAtFirebase(comment.createdAt.toDate());
+
+  useEffect(() => {
+    async function defineImageUrl(authorId) {
+      if (uid === authorId) return setImageUrl(avatarUrl);
+      // url current user
+      // const url = await firebaseApiAsync.getAllPosts();
+      // console.log("Posts url :>> ", url);
+    }
+    defineImageUrl(comment.authorId);
+  }, []);
+
   return (
-    <View style={styles.commentWrap}>
+    <View style={[styles.commentWrap, !isMyComment ? { paddingLeft: 44 } : { paddingRight: 44 }]}>
       <View style={styles.commentTextBox}>
-        <Text style={styles.commentText}>
-          Really love your most recent photo. I’ve been trying to capture the same thing for a few
-          months and would love some tips!
+        <Text style={styles.commentText}>{comment.text}</Text>
+        <Text
+          style={[
+            styles.commentData,
+            !isMyComment ? { textAlign: "right" } : { textAlign: "left" },
+          ]}
+        >
+          {datePost}
         </Text>
-        <Text style={styles.commentData}>09 червня, 2020 | 08:40</Text>
       </View>
-      <View style={styles.commentPhotoBox}>
-        <Image source={photoDefault} style={styles.commentPhoto} />
+      <View style={[styles.commentPhotoBox, !isMyComment ? { left: 0 } : { right: 0 }]}>
+        <Image source={{ uri: imageUrl }} style={styles.commentPhoto} />
       </View>
     </View>
   );
@@ -22,41 +52,37 @@ export const OneComment = () => {
 const styles = StyleSheet.create({
   commentWrap: {
     position: "relative",
-    paddingLeft: 44,
     width: "100%",
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "red",
+    // paddingLeft: 44, // paddingRight: 44,
   },
   commentTextBox: {
     padding: 16,
-    width: "100%",
+    // width: "100%",
+    minWidth: "100%",
     gap: 8,
     backgroundColor: "white",
     justifyContent: "flex-start",
-    // borderWidth: StyleSheet.hairlineWidth,
   },
   commentText: {
-    width: "100%",
+    // width: "100%",
     fontFamily: "RobotoR",
     textAlign: "left",
     fontSize: 13,
     lineHeight: 18,
     color: "#212121",
-    // borderWidth: StyleSheet.hairlineWidth,
   },
   commentData: {
-    width: "100%",
+    // width: "100%",
     fontFamily: "RobotoR",
-    textAlign: "right",
+    // textAlign: "right", // "left",
     fontSize: 10,
     lineHeight: 11,
     color: "#BDBDBD",
-    // borderWidth: StyleSheet.hairlineWidth,
   },
   commentPhotoBox: {
     position: "absolute",
     top: 0,
-    left: 0,
+    // left: 0, // right: 0,
     width: 28,
     height: 28,
     backgroundColor: "#E8E8E8",

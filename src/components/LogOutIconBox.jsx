@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 
 import { logout } from "../store/authSlice";
-import { useUserAuth } from "../firebase/authApi";
+import { useUserAuth } from "../utility/firebase/authApi";
 import LogoutIcon from "../images/log_out.svg";
 
 export const LogOutIconBox = ({ style }) => {

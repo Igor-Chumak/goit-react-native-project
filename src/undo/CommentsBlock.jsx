@@ -1,27 +1,41 @@
-import { ScrollView, StyleSheet, View } from "react-native";
-import { OneComment } from "./OneComment";
-import { MyComment } from "./MyComment";
+import { StyleSheet, View } from "react-native";
+
+import { OneComment } from "../components/OneComment";
 
 export const CommentsBlock = () => {
   return (
-    <ScrollView style={styles.contentBoxScroll} contentContainerStyle={styles.child}>
-      {/* <View style={styles.contentBox}> */}
-      <View onStartShouldSetResponder={() => true}>
-        <OneComment />
-        <OneComment />
-        <OneComment />
-      </View>
-    </ScrollView>
+    <View style={styles.contentBox} onStartShouldSetResponder={() => true}>
+      <OneComment />
+      <OneComment type="my" />
+      <OneComment />
+      <OneComment type="my" />
+      <OneComment />
+      <OneComment type="my" />
+    </View>
   );
 };
+
+//   return (
+//     {/*<ScrollView style={styles.contentBoxScroll} contentContainerStyle={styles.child}>*/}
+//       <View style={styles.contentBox}>
+//         {/* <View onStartShouldSetResponder={() => true}> */}
+//         <OneComment />
+//         <OneComment />
+//         <OneComment />
+//         <OneComment />
+//         <OneComment />
+//       </View>
+//     {/* </ScrollView> */}
+//   );
+// };
 
 const styles = StyleSheet.create({
   contentBox: {
     // flex: 1,
-    flexGrow: 1,
+    // flexGrow: 1,
     width: "100%",
     backgroundColor: "white",
-    alignItems: "stretch",
+    alignItems: "center",
     justifyContent: "flex-start",
     borderColor: "rgba(0,0,0,0.3)",
     paddingLeft: 16,

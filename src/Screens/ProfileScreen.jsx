@@ -1,69 +1,81 @@
-import { ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
-import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
-import { userAuth } from "../hooks";
-
-import BGImage from "../images/photo_BG.png";
-// test
-import image1 from "../images/blank/photo_test_1.jpg";
-import image2 from "../images/blank/photo_test_2.jpg";
-import image3 from "../images/blank/photo_test_3.jpg";
-
-//
-import { useFireStore } from "../firebase/firestoreApi";
-import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
+import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+
+import { userAuth } from "../hooks";
+import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { useUserAuth } from "../utility/firebase/authApi";
+import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
+import BGImage from "../images/photo_BG.png";
+import { useDispatch } from "react-redux";
+import { login } from "../store/authSlice";
 
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
   const {
     uid,
     // email,
     displayName,
     // isLoggedIn,
-    avatarUrl,
+    avatarUrl: avatarUrlCurrentUser,
   } = userAuth();
+  console.log("ProfileScreen userAuth() :>> ", userAuth());
+  const { updateAvatar } = useUserAuth();
   //
-  const { getPostsByUserId } = useFireStore();
-  const [posts, setPosts] = useState([]);
   const isFocused = useIsFocused();
+  const [posts, setPosts] = useState([]);
+  const [avatarUrl, setAvatarUrl] = useState(avatarUrlCurrentUser);
+  const [isFirstRender, setIsFirstRender] = useState(false);
 
-  useEffect(
-    (isFocused) => {
-      async function fetchData() {
-        const data = await getPostsByUserId(uid);
-        setPosts(data);
-      }
-      fetchData();
-    },
-    [isFocused]
-  );
+  useEffect(() => {
+    async function fetchData() {
+      const data = await firebaseApiAsync.getPostsByUserId(uid);
+      // console.log("Profile data :>> ", data);
+      setPosts(data);
+    }
+    fetchData();
+  }, [isFocused]);
+
+  useEffect(() => {
+    if (!isFirstRender) return setIsFirstRender(true);
+    async function fetchData() {
+      // console.log("(fetch data) avatarUrl :>> ", avatarUrl);
+      const data = await updateAvatar(avatarUrl);
+      // console.log("Profile data.photoURL :>> ", data.photoURL);
+      dispatch(
+        login({
+          avatarUrl: data.photoURL,
+        })
+      );
+      // setAvatarUrl(avatarUrlCurrentUser);
+      // console.log("(fetch data) New avatarUrl :>> ", avatarUrl);
+      console.log("useEffect avatar");
+    }
+    console.log("avatarUrl 1 :>> ", avatarUrl);
+    fetchData();
+    console.log("avatarUrl 2 :>> ", avatarUrl);
+    return setIsFirstRender(false);
+  }, [avatarUrl]);
 
   return (
-    <SafeAreaView style={styles.containerSafe}>
+    <>
       <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
         <View style={styles.container}>
           <View style={styles.wrapProfile}>
-            <AvatarBox avatarUrl={avatarUrl} disabledChange={true} />
+            <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} disabledChange={false} />
+            {/* <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} disabledChange={true} /> */}
             <LogOutIconBox style={styles.logOutBox} />
             <View style={styles.titleBox}>
               <Text style={styles.title}>{displayName}</Text>
             </View>
             <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
-              {posts.map((post) => (
-                <ContentBlock key={post.id} {...post} />
-              ))}
-              <ContentBlock
-                fill={"#FF6C00"}
-                source={image2}
-                title={"Захід на Чорному морі"}
-                comments={"3"}
-                likes={"200"}
-                location={"Ukraine"}
-              />
+              {posts.length > 0 &&
+                posts.map((post) => <ContentBlock key={post.id} {...post} disabledChange={true} />)}
             </ScrollView>
           </View>
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </>
   );
 };
 
@@ -98,33 +110,6 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: "red",
   },
-  // wrapPhoto: {
-  //   position: "absolute",
-  //   width: 120,
-  //   height: 120,
-  //   top: -60,
-  //   backgroundColor: "#F6F6F6",
-  //   borderRadius: 16,
-  //   // borderWidth: 1,
-  //   // borderColor: "red",
-  // },
-  // photo: {
-  //   width: "100%",
-  //   height: "100%",
-  // },
-  // btnChangeBox: {
-  //   position: "absolute",
-  //   bottom: 14,
-  //   right: -12,
-  //   width: 25,
-  //   height: 25,
-  //   backgroundColor: "white",
-  //   borderRadius: 12,
-  //   borderWidth: 1,
-  //   borderColor: "#E8E8E8",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // },
   logOutBox: {
     right: 16,
     top: 22,

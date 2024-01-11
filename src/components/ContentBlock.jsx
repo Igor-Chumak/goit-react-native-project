@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+
+import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { userAuth } from "../hooks";
+import { createLocationValue } from "../utility/createLocationValue";
 import { ContentBlockImage } from "./ContentBlockImage";
 
-// import imageDefault from "../images/no_images.png";
 import CommentIcon from "../images/comment_stroke.svg";
 import ThumbsIcon from "../images/thumbs-up.svg";
 import MapPinIcon from "../images/map-pin.svg";
@@ -13,19 +17,48 @@ import MapPinIcon from "../images/map-pin.svg";
 // fill ["transparent"] - filling svg icon Comment (given "#FF6C00")
 export const ContentBlock = ({
   id,
+  setFlagRerender,
+  disabledChange = false,
   detailsBox = true,
   fill = "transparent",
-  source,
   title = "",
-  likes = "",
-  comments = "0",
-  location = "",
+  likes = [],
+  location = null,
+  photoUrl,
+  coords,
+  comments = [],
+  // createdAt,
 }) => {
   const navigation = useNavigation();
+  const {
+    uid,
+    // email,
+    // displayName,
+    // isLoggedIn,
+    // avatarUrl,
+  } = userAuth();
+  const locationValue = createLocationValue(location);
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    if (likes.includes(uid)) return setIsLiked(true);
+    setIsLiked(false);
+  });
+
+  const handleLikes = async () => {
+    const type = isLiked ? "remove" : "add";
+    await firebaseApiAsync.changeLike({
+      postId: id,
+      data: uid,
+      type,
+    });
+    setFlagRerender((prev) => !prev);
+    return;
+  };
 
   return (
     <View style={styles.contentBox}>
-      <ContentBlockImage source={source} />
+      <ContentBlockImage source={photoUrl} />
       <View style={styles.contentTitleBox}>
         <Text style={styles.contentTitle}>{title}</Text>
       </View>
@@ -33,21 +66,28 @@ export const ContentBlock = ({
         <View style={styles.contentDetailsBox}>
           <Pressable
             style={styles.icon_text_Box}
-            onPress={() => navigation.navigate("Comments", { id })}
+            onPress={() => navigation.navigate("Comments", { id, photoUrl })}
           >
             <CommentIcon width={24} height={24} fill={fill} />
-            <Text style={styles.contentDetailsText}>{comments}</Text>
+            <Text style={styles.contentDetailsText}>{comments.length}</Text>
           </Pressable>
           {likes && (
-            <View style={[styles.icon_text_Box, styles.likes_Box]}>
-              <ThumbsIcon width={24} height={24} fill={"#FF6C00"} />
-              <Text style={styles.contentDetailsText}>{likes} </Text>
-            </View>
+            <Pressable
+              style={[styles.icon_text_Box, styles.likes_Box]}
+              onPress={handleLikes}
+              disabled={disabledChange}
+            >
+              <ThumbsIcon width={24} height={24} fill={isLiked ? "red" : "#FF6C00"} />
+              <Text style={styles.contentDetailsText}>{likes.length} </Text>
+            </Pressable>
           )}
-          <View style={[styles.icon_text_Box, styles.mapBox]}>
+          <Pressable
+            style={[styles.icon_text_Box, styles.mapBox]}
+            onPress={() => navigation.navigate("Map", { ...coords })}
+          >
             <MapPinIcon width={24} height={24} />
-            <Text style={[styles.contentDetailsText]}>{location} </Text>
-          </View>
+            <Text style={[styles.contentDetailsText]}>{locationValue} </Text>
+          </Pressable>
         </View>
       )}
     </View>
@@ -61,7 +101,6 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
     backgroundColor: "white",
-    // borderWidth: StyleSheet.hairlineWidth,
   },
   contentTitleBox: {
     width: "100%",
@@ -77,16 +116,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "red",
   },
   icon_text_Box: {
     flexDirection: "row",
-    // justifyContent: "flex-start",
     alignItems: "center",
     gap: 6,
-    // borderWidth: StyleSheet.hairlineWidth,
-    // borderColor: "blue",
   },
   contentDetailsText: {
     fontFamily: "RobotoR",
@@ -95,9 +129,9 @@ const styles = StyleSheet.create({
     color: "#212121",
   },
   likes_Box: {
-    marginLeft: 24,
+    marginLeft: 12, // 24,
   },
   mapBox: {
-    marginLeft: "auto",
+    marginLeft: 12, // "auto",
   },
 });
