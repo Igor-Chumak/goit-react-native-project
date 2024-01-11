@@ -86,12 +86,10 @@ const registerUser = async ({ email, password, displayName, photoURL }) => {
   }
 };
 
-export const useUserAuth = () => {
-  return {
-    signInUser,
-    signOutUser,
-    registerUser,
-    updateAvatar,
-    auth,
-  };
+export default {
+  signInUser,
+  signOutUser,
+  registerUser,
+  updateAvatar,
+  auth,
 };

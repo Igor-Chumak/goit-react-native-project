@@ -4,7 +4,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
 import firebaseApiAsync from "../utility/firebase/firebaseApi";
-import { useUserAuth } from "../utility/firebase/authApi";
+import { authApiAsync } from "../utility/firebase/index";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
 import BGImage from "../images/photo_BG.png";
 import { useDispatch } from "react-redux";
@@ -20,8 +20,7 @@ const ProfileScreen = () => {
     avatarUrl: avatarUrlCurrentUser,
   } = userAuth();
   console.log("ProfileScreen userAuth() :>> ", userAuth());
-  const { updateAvatar } = useUserAuth();
-  //
+
   const isFocused = useIsFocused();
   const [posts, setPosts] = useState([]);
   const [avatarUrl, setAvatarUrl] = useState(avatarUrlCurrentUser);
@@ -40,7 +39,7 @@ const ProfileScreen = () => {
     if (!isFirstRender) return setIsFirstRender(true);
     async function fetchData() {
       // console.log("(fetch data) avatarUrl :>> ", avatarUrl);
-      const data = await updateAvatar(avatarUrl);
+      const data = await authApiAsync.updateAvatar(avatarUrl);
       // console.log("Profile data.photoURL :>> ", data.photoURL);
       dispatch(
         login({

@@ -1,2 +1,3 @@
-// export * as storageApiAsync from "./storageApi";
-// export * as firebaseApiAsync from "./firebaseApi";
+export { default as authApiAsync } from "./authApi";
+export { default as storageApiAsync } from "./storageApi";
+export { default as firebaseApiAsync } from "./firebaseApi";

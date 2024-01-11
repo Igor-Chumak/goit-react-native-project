@@ -118,6 +118,17 @@ const getCommentsByPostId = async (postId) => {
   }
 };
 
+const getPhotoUrlByUserId = async (userId) => {
+  // console.log("props :>> ", v);
+  userRef = doc(db, "users", userId);
+  try {
+    const docSnap = await getDoc(userRef);
+    return docSnap.data().photoURL;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 export default {
   addPost,
   addUser,

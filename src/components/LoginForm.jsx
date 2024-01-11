@@ -10,7 +10,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { useUserAuth } from "../utility/firebase/authApi";
+import { authApiAsync } from "../utility/firebase/index";
 import { login } from "../store/authSlice";
 
 // const INITIAL_STATE = {
@@ -26,7 +26,6 @@ const INITIAL_STATE = {
 export const LoginForm = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { signInUser } = useUserAuth();
   const [email, setEmail] = useState(INITIAL_STATE.email);
   const [password, setPassword] = useState(INITIAL_STATE.password);
   const [passwordHidden, setPasswordHidden] = useState(true);
@@ -35,7 +34,7 @@ export const LoginForm = () => {
     if (!email || !password) return;
     setPasswordHidden(true);
     try {
-      const user = await signInUser({
+      const user = await authApiAsync.signInUser({
         email,
         password,
       });
