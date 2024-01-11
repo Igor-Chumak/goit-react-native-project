@@ -18,7 +18,7 @@ const ProfileScreen = () => {
     // isLoggedIn,
     avatarUrl: avatarUrlCurrentUser,
   } = userAuth();
-  console.log("ProfileScreen userAuth() :>> ", userAuth());
+  // console.log("ProfileScreen userAuth() :>> ", userAuth());
 
   const isFocused = useIsFocused();
   const [posts, setPosts] = useState([]);
@@ -37,21 +37,15 @@ const ProfileScreen = () => {
   useEffect(() => {
     if (!isFirstRender) return setIsFirstRender(true);
     async function fetchData() {
-      // console.log("(fetch data) avatarUrl :>> ", avatarUrl);
       const data = await authApiAsync.updateAvatar(avatarUrl);
-      // console.log("Profile data.photoURL :>> ", data.photoURL);
       dispatch(
         login({
           avatarUrl: data.photoURL,
         })
       );
-      // setAvatarUrl(avatarUrlCurrentUser);
-      // console.log("(fetch data) New avatarUrl :>> ", avatarUrl);
-      console.log("useEffect avatar");
+      // console.log("useEffect avatar");
     }
-    console.log("avatarUrl 1 :>> ", avatarUrl);
     fetchData();
-    console.log("avatarUrl 2 :>> ", avatarUrl);
     return setIsFirstRender(false);
   }, [avatarUrl]);
 
@@ -61,7 +55,6 @@ const ProfileScreen = () => {
         <View style={styles.container}>
           <View style={styles.wrapProfile}>
             <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} disabledChange={false} />
-            {/* <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} disabledChange={true} /> */}
             <LogOutIconBox style={styles.logOutBox} />
             <View style={styles.titleBox}>
               <Text style={styles.title}>{displayName}</Text>

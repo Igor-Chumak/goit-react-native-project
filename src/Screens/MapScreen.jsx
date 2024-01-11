@@ -1,35 +1,41 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, View, Dimensions } from "react-native";
-import { ContentBox } from "../components";
-import MapView, { Marker } from "react-native-maps";
+import { StyleSheet, View, Dimensions } from "react-native";
 import { useRoute } from "@react-navigation/native";
+import MapView, { Marker } from "react-native-maps";
+
+import { ContentBox } from "../components";
+
+const REGION_DELTA = {
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421,
+};
 
 const MapScreen = () => {
-  const { params } = useRoute();
-  // console.log("params :>> ", params);
+  const {
+    params: { coords, title, location },
+  } = useRoute();
+  // console.log("params :>> ", coords, title, location);
   return (
-    <>
-      {/* <SafeAreaView> */}
-      <ContentBox>
-        <View style={styles.contentBox}>
-          <View style={styles.contentImageBox}>
-            <MapView
-              style={styles.mapStyle}
-              region={{
-                ...params,
-                // latitude: 50.5059531,
-                // longitude: 30.4912375,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}
-              showsUserLocation={true}
-            >
-              {params && <Marker title="I am here" coordinate={params} description="Hello" />}
-            </MapView>
-          </View>
+    <ContentBox>
+      <View style={styles.contentBox}>
+        <View style={styles.contentImageBox}>
+          <MapView
+            style={styles.mapStyle}
+            region={{
+              ...coords,
+              // latitude: 50.5059531,
+              // longitude: 30.4912375,
+              ...REGION_DELTA,
+            }}
+            // mapType="standard"
+            // minZoomLevel={15}
+            showsUserLocation={true}
+          >
+            {coords && <Marker title={title} coordinate={{ ...coords }} description={location} />}
+          </MapView>
         </View>
-      </ContentBox>
-    </>
+      </View>
+    </ContentBox>
   );
 };
 

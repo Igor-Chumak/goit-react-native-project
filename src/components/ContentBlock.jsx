@@ -85,7 +85,9 @@ export const ContentBlock = ({
           )}
           <Pressable
             style={[styles.icon_text_Box, styles.mapBox]}
-            onPress={() => navigation.navigate("Map", { ...coords })}
+            onPress={() =>
+              navigation.navigate("Map", { coords: { ...coords }, title, location: locationValue })
+            }
           >
             <MapPinIcon width={24} height={24} />
             <Text style={[styles.contentDetailsText]}>{locationValue} </Text>
