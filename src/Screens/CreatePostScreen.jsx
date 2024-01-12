@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from "react-na
 import { useNavigation } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
-import {firebaseApiAsync} from "../utility/firebase/index";
+import { firebaseApiAsync } from "../utility/firebase/index";
 import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
 const INITIAL_STATE = {
@@ -33,7 +33,7 @@ const CreatePostScreen = () => {
     handleResetForm();
     // console.log("Post state :>> ", state);
     await firebaseApiAsync.addPost(uid, state);
-    navigation.navigate("Posts");
+    navigation.navigate("Profile");
     return;
   };
 

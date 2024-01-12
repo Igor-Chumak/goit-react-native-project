@@ -1,28 +1,55 @@
-import { ScrollView, StyleSheet, View } from "react-native";
-import { ContentBlock, ContentBox, User } from "../components";
-
-import { firebaseApiAsync } from "../utility/firebase/index";
-import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
+
+import { userAuth } from "../hooks";
+import { firebaseApiAsync } from "../utility/firebase/index";
+import { ContentBlock, ContentBox, User } from "../components";
 
 const PostsScreen = () => {
   const isFocused = useIsFocused();
+  const { uid, email, displayName, avatarUrl } = userAuth();
   const [posts, setPosts] = useState([]);
   const [flagRerender, setFlagRerender] = useState(false);
+  const [userSelectedId, setUserSelectedId] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
+    async function fetchAllData() {
       const data = await firebaseApiAsync.getAllPosts();
       // console.log("Posts data :>> ", data);
       setPosts(data);
     }
-    fetchData();
-  }, [isFocused, flagRerender]);
+    async function fetchIdData() {
+      const data = await firebaseApiAsync.getPostsByUserId(uid);
+      // console.log("Posts data :>> ", data);
+      setPosts(data);
+    }
+    if (!userSelectedId) {
+      fetchAllData();
+      // console.log("all");
+    } else {
+      fetchIdData();
+      // console.log("id");
+    }
+  }, [isFocused, userSelectedId, flagRerender]);
 
   return (
     <View style={styles.container}>
       <ContentBox>
-        <User />
+        <View style={styles.userBoxWrap}>
+          <Pressable style={styles.userBox} onPress={() => setUserSelectedId(null)}>
+            <Text style={styles.btnText}>All</Text>
+            <Text style={styles.btnText}>Posts</Text>
+          </Pressable>
+          <User
+            key={uid}
+            userId={uid}
+            userEmail={email}
+            userDisplayName={displayName}
+            userAvatarUrl={avatarUrl}
+            setUserSelectedId={setUserSelectedId}
+          />
+        </View>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ gap: 32 }}>
           {posts.length > 0 &&
             posts.map((post) => (
@@ -41,6 +68,30 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     // paddingBottom: 51,
     // paddingBottom: 83-32,
+  },
+  userBoxWrap: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    gap: 8,
+    alignItems: "center",
+    backgroundColor: "white",
+    // borderWidth: 2,
+    // borderColor: "blue",
+  },
+  userBox: {
+    width: 60,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FF6C00",
+    borderRadius: 16,
+  },
+  btnText: {
+    fontFamily: "RobotoR",
+    fontSize: 16,
+    lineHeight: 19,
+    color: "white",
   },
 });
 

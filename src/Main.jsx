@@ -52,7 +52,8 @@ export const Main = () => {
   const routing = useRoute(isLoggedIn);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <>
+      {/* <SafeAreaView style={{ flex: 1 }}> */}
       <NavigationContainer>{routing}</NavigationContainer>
       <Spinner
         visible={isLoading}
@@ -63,7 +64,8 @@ export const Main = () => {
         textStyle={{ color: "#FF6C00" }}
         overlayColor={"rgba(0, 0, 0, 0.7)"}
       />
-    </SafeAreaView>
+      {/* </SafeAreaView> */}
+    </>
   );
 };
 

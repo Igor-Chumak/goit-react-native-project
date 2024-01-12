@@ -27,7 +27,7 @@ const signOutUser = async () => {
 };
 
 const updateAvatar = async (photoURL) => {
-  console.log("updateAvatar auth.currentUser :>> ", auth.currentUser);
+  // console.log("updateAvatar auth.currentUser :>> ", auth.currentUser);
 
   try {
     const uploadUrl = await storageApiAsync.uploadFileToStorage({

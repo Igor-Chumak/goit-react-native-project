@@ -27,11 +27,13 @@ const MapScreen = () => {
               // longitude: 30.4912375,
               ...REGION_DELTA,
             }}
-            // mapType="standard"
-            // minZoomLevel={15}
-            showsUserLocation={true}
+            mapType="standard"
+            minZoomLevel={5}
+            // showsUserLocation={true}
+            // onMapReady={() => console.log("Map is ready")}
+            // onRegionChange={() => console.log("Region change")}
           >
-            {coords && <Marker title={title} coordinate={{ ...coords }} description={location} />}
+            {coords && <Marker title={title} coordinate={coords} description={location} />}
           </MapView>
         </View>
       </View>

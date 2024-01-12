@@ -16,13 +16,13 @@ const ProfileScreen = () => {
     // email,
     displayName,
     // isLoggedIn,
-    avatarUrl: avatarUrlCurrentUser,
+    avatarUrl: currentAvatarUrlUser,
   } = userAuth();
   // console.log("ProfileScreen userAuth() :>> ", userAuth());
 
   const isFocused = useIsFocused();
   const [posts, setPosts] = useState([]);
-  const [avatarUrl, setAvatarUrl] = useState(avatarUrlCurrentUser);
+  const [avatarUrl, setAvatarUrl] = useState(currentAvatarUrlUser);
   const [isFirstRender, setIsFirstRender] = useState(false);
 
   useEffect(() => {
