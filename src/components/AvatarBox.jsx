@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-
+//
 import { avatarNothing, AVATAR_DEFAULT } from "../data";
 import BtnAddIcon from "../images/union.svg";
 import BtnChangeIcon from "../images/union_x.svg";
 
-export const AvatarBox = ({ avatarUrl, setAvatarUrl = null, disabledChange = false }) => {
+export const AvatarBox = ({
+  avatarUrl,
+  localDispatch = null,
+  disabledChange = false,
+  setIsFirstRender = () => {},
+}) => {
   const [avatarSelector, setAvatarSelector] = useState(true);
   const [selectorColor, setSelectorColor] = useState(avatarUrl ? "#E8E8E8" : "#FF6C00");
 
@@ -32,12 +37,12 @@ export const AvatarBox = ({ avatarUrl, setAvatarUrl = null, disabledChange = fal
 
     if (!result.canceled) {
       const { uri } = result.assets[0];
-      setAvatarUrl(uri);
+      localDispatch({ type: "update", payload: { avatarUrl: uri } });
     } else {
+      localDispatch({ type: "update", payload: { avatarUrl: avatarNothing } });
       alert("Nothing selected");
-      // if (!avatarUrl) setAvatarUrl(avatarNothing);
-      setAvatarUrl(avatarNothing);
     }
+    return setIsFirstRender(true);
   };
 
   const imgSource = avatarUrl ? { uri: avatarUrl } : AVATAR_DEFAULT;

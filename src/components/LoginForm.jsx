@@ -1,34 +1,40 @@
-import { useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import { authApiAsync } from "../utility/firebase/index";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+//
 import { login } from "../store/authSlice";
+import { authApiAsync } from "../utility/firebase/index";
 
-// const INITIAL_STATE = {
-//   email: null, //"email@email.com",
-//   password: null, // "password",
-// };
+function localReducer(state, { type, payload }) {
+  switch (type) {
+    case "update":
+      return { ...state, ...payload };
+    case "clear":
+      return { ...state, ...INITIAL_STATE };
+    default:
+      return console.log("Invalid reducer action type");
+  }
+}
 
 const INITIAL_STATE = {
-  email: "email8@email.com",
-  password: "password",
+  email: "email8@email.com", // null,
+  password: "password", // null,
 };
 
 export const LoginForm = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState(INITIAL_STATE.email);
-  const [password, setPassword] = useState(INITIAL_STATE.password);
+  const { params } = useRoute();
+  const [{ email, password }, localDispatch] = useReducer(localReducer, {
+    ...INITIAL_STATE,
+  });
   const [passwordHidden, setPasswordHidden] = useState(true);
+
+  useEffect(() => {
+    if (!params) return;
+    localDispatch({ type: "update", payload: { ...params } });
+  }, [params]);
 
   const handleSubmit = async () => {
     if (!email || !password) return;
@@ -46,11 +52,11 @@ export const LoginForm = () => {
           avatarUrl: user.photoURL,
         })
       );
-      setEmail("");
-      setPassword("");
+      localDispatch({ type: "clear" });
       return;
     } catch (error) {
       console.log("Something went wrong: ", error.message);
+      alert(error.message);
     }
     return;
   };
@@ -60,48 +66,46 @@ export const LoginForm = () => {
   };
 
   return (
-    <>
-      {/* <Pressable onPress={Keyboard.dismiss}> */}
-      <View style={styles.wrapForm}>
-        <Text style={styles.title}>Увійти</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-          style={styles.wrapProvider}
-        >
-          <View style={styles.inputBox}>
+    <View style={styles.wrapForm}>
+      <Text style={styles.title}>Увійти</Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={styles.wrapProvider}
+      >
+        <View style={styles.inputBox}>
+          <TextInput
+            style={styles.textInput}
+            autoComplete="email"
+            placeholder="Адреса електронної пошти"
+            placeholderTextColor="#BDBDBD"
+            value={email}
+            onChangeText={(text) => localDispatch({ type: "update", payload: { email: text } })}
+          />
+          <View style={styles.wrapInputDelete}>
             <TextInput
-              style={styles.textInput}
-              autoComplete="email"
-              placeholder="Адреса електронної пошти"
+              style={[styles.inputDelete, styles.textInput]}
+              autoComplete="password"
+              placeholder="Пароль"
               placeholderTextColor="#BDBDBD"
-              value={email}
-              onChangeText={setEmail}
+              secureTextEntry={passwordHidden}
+              value={password}
+              onChangeText={(text) =>
+                localDispatch({ type: "update", payload: { password: text } })
+              }
             />
-            <View style={styles.wrapInputDelete}>
-              <TextInput
-                style={[styles.inputDelete, styles.textInput]}
-                autoComplete="password"
-                placeholder="Пароль"
-                placeholderTextColor="#BDBDBD"
-                secureTextEntry={passwordHidden}
-                value={password}
-                onChangeText={setPassword}
-              />
-              <Pressable onPress={toggleVisiblePassword}>
-                <Text style={styles.btnShow}>Показати</Text>
-              </Pressable>
-            </View>
+            <Pressable onPress={toggleVisiblePassword}>
+              <Text style={styles.btnShow}>Показати</Text>
+            </Pressable>
           </View>
-          <Pressable style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.btnText}>Увійти</Text>
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate("Registration")}>
-            <Text style={styles.btnLogIn}>Немає акаунту? Зареєструватися</Text>
-          </Pressable>
-        </KeyboardAvoidingView>
-      </View>
-      {/* </Pressable> */}
-    </>
+        </View>
+        <Pressable style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.btnText}>Увійти</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate("Registration", { email, password })}>
+          <Text style={styles.btnLogIn}>Немає акаунту? Зареєструватися</Text>
+        </Pressable>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 
@@ -118,9 +122,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    //
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   title: {
     marginBottom: 32,
@@ -144,8 +145,6 @@ const styles = StyleSheet.create({
   textInput: {
     width: "100%",
     height: 50,
-    // marginBottom: 16,
-    // borderWidth: 1,
     paddingLeft: 16,
     fontSize: 16,
     lineHeight: 19,
@@ -154,8 +153,6 @@ const styles = StyleSheet.create({
   },
   wrapInputDelete: {
     position: "relative",
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   inputDelete: {
     paddingRight: 90,
@@ -170,8 +167,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "#1B4371",
-    // borderWidth: 1,
-    // borderColor: "#1B4371",
   },
   button: {
     width: "100%",

@@ -1,16 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-
+import { useDispatch } from "react-redux";
+//
 import { userAuth } from "../hooks";
 import { authApiAsync, firebaseApiAsync } from "../utility/firebase/index";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
-import BGImage from "../images/photo_BG.png";
-import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice";
+import BGImage from "../images/photo_BG.png";
+
+function localReducer(state, { type, payload }) {
+  switch (type) {
+    case "update":
+      return { ...state, ...payload };
+    default:
+      return console.log("Invalid reducer action type");
+  }
+}
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const {
     uid,
     // email,
@@ -19,10 +29,10 @@ const ProfileScreen = () => {
     avatarUrl: currentAvatarUrlUser,
   } = userAuth();
   // console.log("ProfileScreen userAuth() :>> ", userAuth());
-
-  const isFocused = useIsFocused();
   const [posts, setPosts] = useState([]);
-  const [avatarUrl, setAvatarUrl] = useState(currentAvatarUrlUser);
+  const [{ avatarUrl }, localDispatch] = useReducer(localReducer, {
+    avatarUrl: currentAvatarUrlUser,
+  });
   const [isFirstRender, setIsFirstRender] = useState(false);
 
   useEffect(() => {
@@ -35,7 +45,7 @@ const ProfileScreen = () => {
   }, [isFocused]);
 
   useEffect(() => {
-    if (!isFirstRender) return setIsFirstRender(true);
+    if (!isFirstRender) return;
     async function fetchData() {
       const data = await authApiAsync.updateAvatar(avatarUrl);
       dispatch(
@@ -43,38 +53,38 @@ const ProfileScreen = () => {
           avatarUrl: data.photoURL,
         })
       );
-      // console.log("useEffect avatar");
     }
     fetchData();
     return setIsFirstRender(false);
-  }, [avatarUrl]);
+  }, [avatarUrl, isFirstRender]);
 
   return (
-    <>
-      <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
-        <View style={styles.container}>
-          <View style={styles.wrapProfile}>
-            <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} disabledChange={false} />
-            <LogOutIconBox style={styles.logOutBox} />
-            <View style={styles.titleBox}>
-              <Text style={styles.title}>{displayName}</Text>
-            </View>
-            <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
-              {posts.length > 0 &&
-                posts.map((post) => <ContentBlock key={post.id} {...post} disabledChange={true} />)}
-            </ScrollView>
+    <ImageBackground source={BGImage} resizeMode="cover" style={styles.imagebg}>
+      <View style={styles.container}>
+        <View style={styles.wrapProfile}>
+          <AvatarBox
+            avatarUrl={avatarUrl}
+            localDispatch={localDispatch}
+            disabledChange={false}
+            setIsFirstRender={setIsFirstRender}
+          />
+          <LogOutIconBox style={styles.logOutBox} />
+          <View style={styles.titleBox}>
+            <Text style={styles.title}>{displayName}</Text>
           </View>
+          <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
+            {posts.length > 0 &&
+              posts.map((post) => <ContentBlock key={post.id} {...post} disabledChange={true} />)}
+          </ScrollView>
         </View>
-      </ImageBackground>
-    </>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   containerSafe: {
     flexGrow: 1,
-    // borderWidth: 1,
-    // borderColor: "orange",
   },
   imagebg: {
     height: "100%",
@@ -83,8 +93,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "flex-end",
-    // borderWidth: 2,
-    // borderColor: "blue",
   },
   wrapProfile: {
     position: "relative",
@@ -98,8 +106,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    // borderWidth: 1,
-    // borderColor: "red",
   },
   logOutBox: {
     right: 16,

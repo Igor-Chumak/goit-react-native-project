@@ -6,6 +6,17 @@ import { userAuth } from "../hooks";
 import { firebaseApiAsync } from "../utility/firebase/index";
 import { ContentBox, ToolBar, CreateContentBlock, CreateContentForm } from "../components";
 
+function localReducer(state, { type, payload }) {
+  switch (type) {
+    case "update":
+      return { ...state, ...payload };
+    case "clear":
+      return { ...state, ...INITIAL_STATE };
+    default:
+      return console.log("Invalid reducer action type");
+  }
+}
+
 const INITIAL_STATE = {
   title: null,
   photoUrl: null,
@@ -14,15 +25,6 @@ const INITIAL_STATE = {
   likes: [],
   comments: [],
 };
-
-function localReducer(state, { type, payload }) {
-  switch (type) {
-    case "update":
-      return { ...state, ...payload };
-    case "clear":
-      return { ...state, ...INITIAL_STATE };
-  }
-}
 
 const CreatePostScreen = () => {
   const navigation = useNavigation();

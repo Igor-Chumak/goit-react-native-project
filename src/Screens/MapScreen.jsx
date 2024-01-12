@@ -14,7 +14,6 @@ const MapScreen = () => {
   const {
     params: { coords, title, location },
   } = useRoute();
-  // console.log("params :>> ", coords, title, location);
   return (
     <ContentBox>
       <View style={styles.contentBox}>
