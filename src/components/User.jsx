@@ -3,13 +3,23 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 const AVATAR_DEFAULT = "../images/avatar_default.png";
 
-export const User = ({ userId, userEmail, userDisplayName, userAvatarUrl, setUserSelectedId }) => {
+export const User = ({
+  userId,
+  userEmail,
+  userDisplayName,
+  userAvatarUrl,
+  setUserSelectedId,
+  isSelected = false,
+}) => {
   // const navigation = useNavigation();
   const imgSource = userAvatarUrl ? { uri: userAvatarUrl } : require(AVATAR_DEFAULT);
 
   return (
     <Pressable style={styles.userBox} onPress={() => setUserSelectedId(userId)}>
-      <Image source={imgSource} style={styles.userPhoto}></Image>
+      <Image
+        source={imgSource}
+        style={[styles.userPhoto, isSelected ? styles.isSelected : {}]}
+      ></Image>
       <View style={styles.userDataBox}>
         <Text style={styles.userName}>{userDisplayName}</Text>
         <Text style={styles.userEmail}>{userEmail}</Text>
@@ -47,5 +57,9 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 16,
+  },
+  isSelected: {
+    borderWidth: 2,
+    borderColor: "#FF6C00",
   },
 });

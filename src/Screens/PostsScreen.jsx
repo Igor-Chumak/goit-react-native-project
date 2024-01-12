@@ -37,9 +37,20 @@ const PostsScreen = () => {
     <View style={styles.container}>
       <ContentBox>
         <View style={styles.userBoxWrap}>
-          <Pressable style={styles.userBox} onPress={() => setUserSelectedId(null)}>
-            <Text style={styles.btnText}>All</Text>
-            <Text style={styles.btnText}>Posts</Text>
+          <Pressable
+            style={[styles.userBox, userSelectedId ? styles.userBoxNoSelected : {}]}
+            onPress={() => setUserSelectedId(null)}
+          >
+            <Text
+              style={[styles.btnText, userSelectedId ? { color: "#212121" } : { color: "white" }]}
+            >
+              All
+            </Text>
+            <Text
+              style={[styles.btnText, userSelectedId ? { color: "#212121" } : { color: "white" }]}
+            >
+              Posts
+            </Text>
           </Pressable>
           <User
             key={uid}
@@ -48,6 +59,7 @@ const PostsScreen = () => {
             userDisplayName={displayName}
             userAvatarUrl={avatarUrl}
             setUserSelectedId={setUserSelectedId}
+            isSelected={userSelectedId}
           />
         </View>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ gap: 32 }}>
@@ -87,11 +99,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF6C00",
     borderRadius: 16,
   },
+  userBoxNoSelected: {
+    backgroundColor: "white",
+    borderWidth: 1,
+    borderColor: "#212121",
+  },
   btnText: {
     fontFamily: "RobotoR",
     fontSize: 16,
     lineHeight: 19,
-    color: "white",
   },
 });
 
