@@ -9,7 +9,6 @@ import {
   where,
   doc,
   Timestamp,
-  increment,
   arrayUnion,
   arrayRemove,
   orderBy,
@@ -109,10 +108,21 @@ const addComment = async ({ postId, data, type }) => {
 
 const getCommentsByPostId = async (postId) => {
   // console.log("props :>> ", postId);
-  postRef = doc(db, `posts/${postId}`);
+  postRef = doc(db, "posts", postId);
   try {
     const docSnap = await getDoc(postRef);
     return docSnap.data().comments;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const getPhotoUrlByUserId = async (userId) => {
+  // console.log("props :>> ", v);
+  userRef = doc(db, "users", userId);
+  try {
+    const docSnap = await getDoc(userRef);
+    return docSnap.data().photoURL;
   } catch (error) {
     throw new Error(error.message);
   }
@@ -126,4 +136,5 @@ export default {
   changeLike,
   addComment,
   getCommentsByPostId,
+  getPhotoUrlByUserId,
 };

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import firebaseApiAsync from "../utility/firebase/firebaseApi";
+import { firebaseApiAsync } from "../utility/firebase/index";
 import { userAuth } from "../hooks";
 import { createLocationValue } from "../utility/createLocationValue";
 import { ContentBlockImage } from "./ContentBlockImage";
@@ -27,6 +27,7 @@ export const ContentBlock = ({
   photoUrl,
   coords,
   comments = [],
+  owner,
   // createdAt,
 }) => {
   const navigation = useNavigation();
@@ -46,6 +47,7 @@ export const ContentBlock = ({
   });
 
   const handleLikes = async () => {
+    if (uid === owner) return;
     const type = isLiked ? "remove" : "add";
     await firebaseApiAsync.changeLike({
       postId: id,
@@ -83,7 +85,9 @@ export const ContentBlock = ({
           )}
           <Pressable
             style={[styles.icon_text_Box, styles.mapBox]}
-            onPress={() => navigation.navigate("Map", { ...coords })}
+            onPress={() =>
+              navigation.navigate("Map", { coords: { ...coords }, title, location: locationValue })
+            }
           >
             <MapPinIcon width={24} height={24} />
             <Text style={[styles.contentDetailsText]}>{locationValue} </Text>

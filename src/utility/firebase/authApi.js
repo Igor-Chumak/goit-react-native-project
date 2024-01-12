@@ -27,7 +27,7 @@ const signOutUser = async () => {
 };
 
 const updateAvatar = async (photoURL) => {
-  console.log("updateAvatar auth.currentUser :>> ", auth.currentUser);
+  // console.log("updateAvatar auth.currentUser :>> ", auth.currentUser);
 
   try {
     const uploadUrl = await storageApiAsync.uploadFileToStorage({
@@ -86,12 +86,10 @@ const registerUser = async ({ email, password, displayName, photoURL }) => {
   }
 };
 
-export const useUserAuth = () => {
-  return {
-    signInUser,
-    signOutUser,
-    registerUser,
-    updateAvatar,
-    auth,
-  };
+export default {
+  signInUser,
+  signOutUser,
+  registerUser,
+  updateAvatar,
+  auth,
 };

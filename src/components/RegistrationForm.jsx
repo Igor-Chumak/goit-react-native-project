@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useUserAuth } from "../utility/firebase/authApi";
+import { authApiAsync } from "../utility/firebase/index";
 import { login } from "../store/authSlice";
 import { AvatarBox } from "./AvatarBox";
 
@@ -32,7 +32,6 @@ const INITIAL_STATE = {
 export const RegistrationForm = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const { registerUser } = useUserAuth();
 
   const [name, setName] = useState(INITIAL_STATE.name);
   const [email, setEmail] = useState(INITIAL_STATE.email);
@@ -44,7 +43,7 @@ export const RegistrationForm = () => {
     if (!name || !email || !password) return;
     setPasswordHidden(true);
     try {
-      const user = await registerUser({
+      const user = await authApiAsync.registerUser({
         email,
         password,
         displayName: name,

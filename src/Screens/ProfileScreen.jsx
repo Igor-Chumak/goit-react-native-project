@@ -3,8 +3,7 @@ import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-nativ
 import { useIsFocused } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
-import firebaseApiAsync from "../utility/firebase/firebaseApi";
-import { useUserAuth } from "../utility/firebase/authApi";
+import { authApiAsync, firebaseApiAsync } from "../utility/firebase/index";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
 import BGImage from "../images/photo_BG.png";
 import { useDispatch } from "react-redux";
@@ -17,14 +16,13 @@ const ProfileScreen = () => {
     // email,
     displayName,
     // isLoggedIn,
-    avatarUrl: avatarUrlCurrentUser,
+    avatarUrl: currentAvatarUrlUser,
   } = userAuth();
-  console.log("ProfileScreen userAuth() :>> ", userAuth());
-  const { updateAvatar } = useUserAuth();
-  //
+  // console.log("ProfileScreen userAuth() :>> ", userAuth());
+
   const isFocused = useIsFocused();
   const [posts, setPosts] = useState([]);
-  const [avatarUrl, setAvatarUrl] = useState(avatarUrlCurrentUser);
+  const [avatarUrl, setAvatarUrl] = useState(currentAvatarUrlUser);
   const [isFirstRender, setIsFirstRender] = useState(false);
 
   useEffect(() => {
@@ -39,21 +37,15 @@ const ProfileScreen = () => {
   useEffect(() => {
     if (!isFirstRender) return setIsFirstRender(true);
     async function fetchData() {
-      // console.log("(fetch data) avatarUrl :>> ", avatarUrl);
-      const data = await updateAvatar(avatarUrl);
-      // console.log("Profile data.photoURL :>> ", data.photoURL);
+      const data = await authApiAsync.updateAvatar(avatarUrl);
       dispatch(
         login({
           avatarUrl: data.photoURL,
         })
       );
-      // setAvatarUrl(avatarUrlCurrentUser);
-      // console.log("(fetch data) New avatarUrl :>> ", avatarUrl);
-      console.log("useEffect avatar");
+      // console.log("useEffect avatar");
     }
-    console.log("avatarUrl 1 :>> ", avatarUrl);
     fetchData();
-    console.log("avatarUrl 2 :>> ", avatarUrl);
     return setIsFirstRender(false);
   }, [avatarUrl]);
 
@@ -63,7 +55,6 @@ const ProfileScreen = () => {
         <View style={styles.container}>
           <View style={styles.wrapProfile}>
             <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} disabledChange={false} />
-            {/* <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} disabledChange={true} /> */}
             <LogOutIconBox style={styles.logOutBox} />
             <View style={styles.titleBox}>
               <Text style={styles.title}>{displayName}</Text>

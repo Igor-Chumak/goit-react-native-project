@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native";
-// import { SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -53,7 +52,8 @@ export const Main = () => {
   const routing = useRoute(isLoggedIn);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <>
+      {/* <SafeAreaView style={{ flex: 1 }}> */}
       <NavigationContainer>{routing}</NavigationContainer>
       <Spinner
         visible={isLoading}
@@ -64,7 +64,8 @@ export const Main = () => {
         textStyle={{ color: "#FF6C00" }}
         overlayColor={"rgba(0, 0, 0, 0.7)"}
       />
-    </SafeAreaView>
+      {/* </SafeAreaView> */}
+    </>
   );
 };
 

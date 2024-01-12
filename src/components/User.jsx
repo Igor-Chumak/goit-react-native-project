@@ -1,20 +1,28 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { userAuth } from "../hooks";
+// import { useNavigation } from "@react-navigation/native";
 
 const AVATAR_DEFAULT = "../images/avatar_default.png";
 
-export const User = () => {
-  const navigation = useNavigation();
-  const { email, displayName, avatarUrl } = userAuth();
-  const imgSource = avatarUrl ? { uri: avatarUrl } : require(AVATAR_DEFAULT);
+export const User = ({
+  userId,
+  userEmail,
+  userDisplayName,
+  userAvatarUrl,
+  setUserSelectedId,
+  isSelected = false,
+}) => {
+  // const navigation = useNavigation();
+  const imgSource = userAvatarUrl ? { uri: userAvatarUrl } : require(AVATAR_DEFAULT);
 
   return (
-    <Pressable style={styles.userBox} onPress={() => navigation.navigate("Profile")}>
-      <Image source={imgSource} style={styles.userPhoto}></Image>
+    <Pressable style={styles.userBox} onPress={() => setUserSelectedId(userId)}>
+      <Image
+        source={imgSource}
+        style={[styles.userPhoto, isSelected ? styles.isSelected : {}]}
+      ></Image>
       <View style={styles.userDataBox}>
-        <Text style={styles.userName}>{displayName}</Text>
-        <Text style={styles.userEmail}>{email}</Text>
+        <Text style={styles.userName}>{userDisplayName}</Text>
+        <Text style={styles.userEmail}>{userEmail}</Text>
       </View>
     </Pressable>
   );
@@ -49,5 +57,9 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 16,
+  },
+  isSelected: {
+    borderWidth: 2,
+    borderColor: "#FF6C00",
   },
 });
