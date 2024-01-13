@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -10,34 +9,43 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { authApiAsync } from "../utility/firebase/index";
+import { useNavigation, useRoute } from "@react-navigation/native";
+//
 import { login } from "../store/authSlice";
+import { authApiAsync } from "../utility/firebase/index";
 import { AvatarBox } from "./AvatarBox";
 
-// const INITIAL_STATE = {
-//   name: null,
-//   email: null,
-//   password: null,
-//   avatarUrl: null,
-// };
+function localReducer(state, { type, payload }) {
+  switch (type) {
+    case "update":
+      return { ...state, ...payload };
+    case "clear":
+      return { ...state, ...INITIAL_STATE };
+    default:
+      return console.log("Invalid reducer action type");
+  }
+}
 
 const INITIAL_STATE = {
-  name: "myName8",
-  email: "email8@email.com",
-  password: "password",
+  name: "myName8", //null,
+  email: "email8@email.com", // null,
+  password: "password", // null,
   avatarUrl: null,
 };
 
 export const RegistrationForm = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
-  const [name, setName] = useState(INITIAL_STATE.name);
-  const [email, setEmail] = useState(INITIAL_STATE.email);
-  const [password, setPassword] = useState(INITIAL_STATE.password);
-  const [avatarUrl, setAvatarUrl] = useState(INITIAL_STATE.avatarUrl);
+  const { params } = useRoute();
+  const [{ name, email, password, avatarUrl }, localDispatch] = useReducer(localReducer, {
+    ...INITIAL_STATE,
+  });
   const [passwordHidden, setPasswordHidden] = useState(true);
+
+  useEffect(() => {
+    if (!params) return;
+    localDispatch({ type: "update", payload: { ...params } });
+  }, [params]);
 
   const handleSubmit = async () => {
     if (!name || !email || !password) return;
@@ -57,74 +65,73 @@ export const RegistrationForm = () => {
           avatarUrl: user.photoURL,
         })
       );
-      setName(INITIAL_STATE.name);
-      setEmail(INITIAL_STATE.email);
-      setPassword(INITIAL_STATE.password);
-      setAvatarUrl(INITIAL_STATE.avatarUrl);
+      localDispatch({ type: "clear" });
       return;
     } catch (error) {
       console.log("Something went wrong: ", error.message);
+      if (error.message === "Firebase: Error (auth/email-already-in-use).")
+        return handleErrIsUserExist();
     }
   };
+
+  function handleErrIsUserExist() {
+    alert(`User with e-mail ${email} exist. You will be redirected to a page for LogIn`);
+    return navigation.navigate("Login", { email, password });
+  }
 
   const toggleVisiblePassword = () => {
     setPasswordHidden(!passwordHidden);
   };
 
   return (
-    <>
-      {/* <Pressable onPress={Keyboard.dismiss}> */}
-      <View style={styles.wrapForm}>
-        <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} />
-        <Text style={styles.title}>Реєстрація</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-          style={styles.wrapProvider}
-        >
-          <View style={styles.inputBox}>
+    <View style={styles.wrapForm}>
+      <AvatarBox avatarUrl={avatarUrl} localDispatch={localDispatch} />
+      <Text style={styles.title}>Реєстрація</Text>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={styles.wrapProvider}
+      >
+        <View style={styles.inputBox}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Логін"
+            placeholderTextColor="#BDBDBD"
+            value={name}
+            onChangeText={(text) => localDispatch({ type: "update", payload: { name: text } })}
+          />
+          <TextInput
+            style={styles.textInput}
+            autoComplete="email"
+            placeholder="Адреса електронної пошти"
+            placeholderTextColor="#BDBDBD"
+            value={email}
+            onChangeText={(text) => localDispatch({ type: "update", payload: { email: text } })}
+          />
+          <View style={styles.wrapInputDelete}>
             <TextInput
-              style={styles.textInput}
-              placeholder="Логін"
+              style={[styles.inputDelete, styles.textInput]}
+              autoComplete="password"
+              placeholder="Пароль"
               placeholderTextColor="#BDBDBD"
-              value={name}
-              name="name"
-              onChangeText={setName}
+              secureTextEntry={passwordHidden}
+              value={password}
+              onChangeText={(text) =>
+                localDispatch({ type: "update", payload: { password: text } })
+              }
             />
-            <TextInput
-              style={styles.textInput}
-              autoComplete="email"
-              placeholder="Адреса електронної пошти"
-              placeholderTextColor="#BDBDBD"
-              value={email}
-              name="email"
-              onChangeText={setEmail}
-            />
-            <View style={styles.wrapInputDelete}>
-              <TextInput
-                style={[styles.inputDelete, styles.textInput]}
-                autoComplete="password"
-                placeholder="Пароль"
-                placeholderTextColor="#BDBDBD"
-                secureTextEntry={passwordHidden}
-                value={password}
-                name="password"
-                onChangeText={setPassword}
-              />
-              <Pressable onPress={toggleVisiblePassword}>
-                <Text style={styles.btnShow}>Показати</Text>
-              </Pressable>
-            </View>
+            <Pressable onPress={toggleVisiblePassword}>
+              <Text style={styles.btnShow}>Показати</Text>
+            </Pressable>
           </View>
-          <Pressable style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.btnText}>Зареєструватися</Text>
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
-          </Pressable>
-        </KeyboardAvoidingView>
-      </View>
-      {/* </Pressable> */}
-    </>
+        </View>
+        <Pressable style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.btnText}>Зареєструватися</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate("Login", { email, password })}>
+          <Text style={styles.btnLogIn}>Вже є акаунт? Увійти</Text>
+        </Pressable>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 
