@@ -18,15 +18,18 @@ const persistConfig = {
   storage: AsyncStorage,
 };
 
-const rootReducer = combineReducers({
-  auth: authReducer,
-  store: storReducer,
-});
+// const rootReducer = combineReducers({
+//   auth: authReducer,
+//   store: storReducer,
+// });
 
-const reducer = persistReducer(persistConfig, rootReducer);
+// const reducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer,
+  reducer: {
+    auth: persistReducer(persistConfig, authReducer),
+    store: storReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

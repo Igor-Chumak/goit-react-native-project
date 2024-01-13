@@ -21,8 +21,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "rgba(0,0,0,0.3)",
     backgroundColor: "white",
-    // borderWidth: 1,
-    // borderColor: "blue",
   },
   pressIcon: {
     width: 70,
