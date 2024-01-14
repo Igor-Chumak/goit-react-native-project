@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
+import {
+  // useDispatch,
+  useSelector,
+} from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
 // import { onAuthStateChanged } from "firebase/auth";
 
@@ -11,7 +14,7 @@ import { useRoute } from "./routes";
 // import { login, logout } from "./store/authSlice";
 
 export const Main = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   // ***
@@ -21,20 +24,17 @@ export const Main = () => {
   });
   // ***
 
-  // const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
-
   // useEffect(() => {
-  //   return () => {
-  //     subscriber();
-  //   };
-  // });
+  //   const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
+  //   return subscriber;
+  // }, []);
 
   // function handleAuthStateChanged(user) {
   //   if (!user) {
   //     dispatch(logout());
-  //     console.log("LOG OUT");
   //     return;
   //   }
+  //   console.log(user);
   //   dispatch(
   //     login({
   //       email: user.email,

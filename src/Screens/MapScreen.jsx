@@ -13,10 +13,10 @@ const REGION_DELTA = {
 };
 
 const MapScreen = () => {
+  const dispatch = useDispatch();
   const {
     params: { coords, title, location },
   } = useRoute();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setMode({ isLoading: true }));
@@ -37,7 +37,6 @@ const MapScreen = () => {
             mapType="standard"
             minZoomLevel={5}
             // showsUserLocation={true}
-            // onMapReady={() => console.log("Map is ready")}
             onMapReady={() => dispatch(setMode({ isLoading: false }))}
             // onRegionChange={() => console.log("Region change")}
           >
