@@ -14,6 +14,12 @@ export const Main = () => {
   const dispatch = useDispatch;
   const isLoading = useSelector(selectIsLoading);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  //
+  console.log("isLoggedIn 1:>> ", isLoggedIn);
+  useEffect(() => {
+    console.log("isLoggedIn 2:>> ", isLoggedIn);
+  });
+  //
 
   useEffect(() => {
     // const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
@@ -52,8 +58,7 @@ export const Main = () => {
   const routing = useRoute(isLoggedIn);
 
   return (
-    <>
-      {/* <SafeAreaView style={{ flex: 1 }}> */}
+    <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>{routing}</NavigationContainer>
       <Spinner
         visible={isLoading}
@@ -64,8 +69,7 @@ export const Main = () => {
         textStyle={{ color: "#FF6C00" }}
         overlayColor={"rgba(0, 0, 0, 0.7)"}
       />
-      {/* </SafeAreaView> */}
-    </>
+    </SafeAreaView>
   );
 };
 

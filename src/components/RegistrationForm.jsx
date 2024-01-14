@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -11,8 +11,9 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 //
-import { login } from "../store/authSlice";
-import { authApiAsync } from "../utility/firebase/index";
+import { authThunk } from "../store/index";
+import { selectError } from "../store/selectors";
+import { setMode } from "../store/storSlice";
 import { AvatarBox } from "./AvatarBox";
 
 function localReducer(state, { type, payload }) {
@@ -41,43 +42,36 @@ export const RegistrationForm = () => {
     ...INITIAL_STATE,
   });
   const [passwordHidden, setPasswordHidden] = useState(true);
+  const errorAPI = useSelector(selectError);
 
   useEffect(() => {
     if (!params) return;
     localDispatch({ type: "update", payload: { ...params } });
   }, [params]);
 
+  useEffect(() => {
+    if (errorAPI === "Firebase: Error (auth/email-already-in-use).") {
+      alert(`User with ${email} exist. You will be redirected to a page for LogIn`);
+      dispatch(setMode({ error: "" }));
+      return navigation.navigate("Login", { email, password });
+    }
+  }, [errorAPI]);
+
   const handleSubmit = async () => {
     if (!name || !email || !password) return;
     setPasswordHidden(true);
-    try {
-      const user = await authApiAsync.registerUser({
+    dispatch(
+      authThunk.register({
         email,
         password,
         displayName: name,
         photoURL: avatarUrl,
-      });
-      dispatch(
-        login({
-          email: user.email,
-          displayName: user.displayName,
-          uid: user.uid,
-          avatarUrl: user.photoURL,
-        })
-      );
-      localDispatch({ type: "clear" });
-      return;
-    } catch (error) {
-      console.log("Something went wrong: ", error.message);
-      if (error.message === "Firebase: Error (auth/email-already-in-use).")
-        return handleErrIsUserExist();
-    }
+      })
+    );
+    //
+    localDispatch({ type: "clear" });
+    return;
   };
-
-  function handleErrIsUserExist() {
-    alert(`User with e-mail ${email} exist. You will be redirected to a page for LogIn`);
-    return navigation.navigate("Login", { email, password });
-  }
 
   const toggleVisiblePassword = () => {
     setPasswordHidden(!passwordHidden);

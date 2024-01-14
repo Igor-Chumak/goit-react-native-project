@@ -1,6 +1,7 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
-
+//
+import { authThunk } from "../store/index";
 import { logout } from "../store/authSlice";
 import { authApiAsync } from "../utility/firebase/index";
 import LogoutIcon from "../images/log_out.svg";
@@ -11,7 +12,8 @@ export const LogOutIconBox = ({ style }) => {
   const handleLogout = async () => {
     try {
       await authApiAsync.signOutUser();
-      dispatch(logout());
+      // dispatch(logout());
+      dispatch(authThunk.logOut());
     } catch (error) {
       console.log("Something went wrong ", error.message);
     }
