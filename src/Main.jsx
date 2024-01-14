@@ -3,12 +3,12 @@ import { SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "react-native-loading-spinner-overlay";
-import { onAuthStateChanged } from "firebase/auth";
+// import { onAuthStateChanged } from "firebase/auth";
 
 import { selectIsLoading, selectIsLoggedIn } from "./store/selectors";
 import { useRoute } from "./routes";
-import { auth } from "./utility/firebase/config";
-import { login, logout } from "./store/authSlice";
+// import { auth } from "./utility/firebase/config";
+// import { login, logout } from "./store/authSlice";
 
 export const Main = () => {
   const dispatch = useDispatch();
@@ -21,29 +21,20 @@ export const Main = () => {
   });
   // ***
 
+  // const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
+
   // useEffect(() => {
-  //   // const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
-  //   const subscriber = async (handleAuthStateChanged = () => {}) => {
-  //     onAuthStateChanged(auth, (user) => {
-  //       handleAuthStateChanged(user);
-  //     });
-  //   };
   //   return () => {
   //     subscriber();
   //   };
-  // }, []);
+  // });
 
   // function handleAuthStateChanged(user) {
   //   if (!user) {
   //     dispatch(logout());
+  //     console.log("LOG OUT");
   //     return;
   //   }
-  //   console.log("user in Main :>> ", {
-  //     email: user.email,
-  //     displayName: user.displayName,
-  //     uid: user.uid,
-  //     avatarUrl: user.photoURL,
-  //   });
   //   dispatch(
   //     login({
   //       email: user.email,
