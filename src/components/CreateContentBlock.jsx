@@ -4,7 +4,6 @@ import { GetCamera } from "./GetCamera";
 
 import { definePosition } from "../utility/googleLocation/googleLocation";
 import CameraIcon from "../images/camera.svg";
-// import imgDEf from "../images/no_images.png";
 
 // title - text under the picture
 // fill ['#BDBDBD'] - filling svg icon camera, if 'white' - additionally change background: rgba(255, 255, 255, 0.3)

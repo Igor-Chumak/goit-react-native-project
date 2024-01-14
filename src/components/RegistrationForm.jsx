@@ -28,8 +28,8 @@ function localReducer(state, { type, payload }) {
 }
 
 const INITIAL_STATE = {
-  name: "myName8", //null,
-  email: "email8@email.com", // null,
+  name: "myName7", //null,
+  email: "email7@email.com", // null,
   password: "password", // null,
   avatarUrl: null,
 };

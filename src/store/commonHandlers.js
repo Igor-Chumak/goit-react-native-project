@@ -24,12 +24,9 @@ const rejected = (state, action) => {
       console.log("auth/updateAvatar :>> ", action.payload);
       state.error = action.payload;
       break;
-    case "contacts/fetch.get/rejected":
-      console.log("contacts/fetch.get :>> ", action.payload.status);
-      state.error = {
-        ...action.payload,
-        ...{ message: API_ERROR.getContacts[action.payload.status] },
-      };
+    case "store/getPostsByUserId/rejected":
+      console.log("store/getPostsByUserId :>> ", action.payload.status);
+      state.error = action.payload;
       break;
     //
     default:

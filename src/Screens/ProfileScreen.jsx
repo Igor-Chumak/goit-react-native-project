@@ -1,11 +1,11 @@
 import { useEffect, useReducer, useState } from "react";
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 //
 import { userAuth } from "../hooks";
-import { authThunk } from "../store";
-import { firebaseApiAsync } from "../utility/firebase/index";
+import { authThunk, storeThunk } from "../store";
+import { selectPosts } from "../store/selectors";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
 import BGImage from "../images/photo_BG.png";
 
@@ -25,31 +25,21 @@ const ProfileScreen = () => {
     uid,
     // email,
     displayName,
-    // isLoggedIn,
     avatarUrl: currentAvatarUrlUser,
   } = userAuth();
-  // console.log("ProfileScreen userAuth() :>> ", userAuth());
-  const [posts, setPosts] = useState([]);
+  const posts = useSelector(selectPosts);
   const [{ avatarUrl }, localDispatch] = useReducer(localReducer, {
     avatarUrl: currentAvatarUrlUser,
   });
   const [isFirstRender, setIsFirstRender] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
-      const data = await firebaseApiAsync.getPostsByUserId(uid);
-      // console.log("Profile data :>> ", data);
-      setPosts(data);
-    }
-    fetchData();
+    dispatch(storeThunk.getPostsByUserId(uid));
   }, [isFocused]);
 
   useEffect(() => {
     if (!isFirstRender) return;
-    async function fetchData() {
-      dispatch(authThunk.updateAvatar({ avatarUrl }));
-    }
-    fetchData();
+    dispatch(authThunk.updateAvatar({ avatarUrl }));
     return setIsFirstRender(false);
   }, [avatarUrl, isFirstRender]);
 

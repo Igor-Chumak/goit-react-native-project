@@ -8,6 +8,7 @@ export const selectUserAvatarUrl = (state) => state.auth.avatarUrl;
 export const selectSelectedUser = (state) => state.store.selectedUser;
 export const selectUsersList = (state) => state.store.usersList;
 export const selectIsLoading = (state) => state.store.isLoading;
+export const selectPosts = (state) => state.store.posts;
 export const selectError = (state) => state.store.error;
 
 // const uid = useSelector(selectUserUid);

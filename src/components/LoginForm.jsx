@@ -19,7 +19,7 @@ function localReducer(state, { type, payload }) {
 }
 
 const INITIAL_STATE = {
-  email: "email8@email.com", // null,
+  email: "email@email.com", // null,
   password: "password", // null,
 };
 

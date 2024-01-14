@@ -35,8 +35,6 @@ export const register = createAsyncThunk("auth/register", async (credentials, th
         photoURL: res.user.photoURL,
       },
     });
-    // console.log("auth.currentUser :>> ", auth.currentUser);
-
     return {
       uid: res.user.uid,
       email: res.user.email,
