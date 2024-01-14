@@ -11,7 +11,7 @@ import { auth } from "./utility/firebase/config";
 import { login, logout } from "./store/authSlice";
 
 export const Main = () => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   // ***
@@ -21,39 +21,39 @@ export const Main = () => {
   });
   // ***
 
-  useEffect(() => {
-    // const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
-    const subscriber = async (handleAuthStateChanged = () => {}) => {
-      onAuthStateChanged(auth, (user) => {
-        handleAuthStateChanged(user);
-      });
-    };
-    return () => {
-      subscriber();
-    };
-  }, []);
+  // useEffect(() => {
+  //   // const subscriber = onAuthStateChanged(auth, handleAuthStateChanged);
+  //   const subscriber = async (handleAuthStateChanged = () => {}) => {
+  //     onAuthStateChanged(auth, (user) => {
+  //       handleAuthStateChanged(user);
+  //     });
+  //   };
+  //   return () => {
+  //     subscriber();
+  //   };
+  // }, []);
 
-  function handleAuthStateChanged(user) {
-    if (!user) {
-      dispatch(logout());
-      return;
-    }
-    console.log("user in Main :>> ", {
-      email: user.email,
-      displayName: user.displayName,
-      uid: user.uid,
-      avatarUrl: user.photoURL,
-    });
-    dispatch(
-      login({
-        email: user.email,
-        displayName: user.displayName,
-        uid: user.uid,
-        avatarUrl: user.photoURL,
-      })
-    );
-    return;
-  }
+  // function handleAuthStateChanged(user) {
+  //   if (!user) {
+  //     dispatch(logout());
+  //     return;
+  //   }
+  //   console.log("user in Main :>> ", {
+  //     email: user.email,
+  //     displayName: user.displayName,
+  //     uid: user.uid,
+  //     avatarUrl: user.photoURL,
+  //   });
+  //   dispatch(
+  //     login({
+  //       email: user.email,
+  //       displayName: user.displayName,
+  //       uid: user.uid,
+  //       avatarUrl: user.photoURL,
+  //     })
+  //   );
+  //   return;
+  // }
 
   const routing = useRoute(isLoggedIn);
 

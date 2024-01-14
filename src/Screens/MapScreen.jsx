@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import MapView, { Marker } from "react-native-maps";
-
+//
+import { setMode } from "../store/storSlice";
 import { ContentBox } from "../components";
 
 const REGION_DELTA = {
@@ -14,6 +16,12 @@ const MapScreen = () => {
   const {
     params: { coords, title, location },
   } = useRoute();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setMode({ isLoading: true }));
+  });
+
   return (
     <ContentBox>
       <View style={styles.contentBox}>
@@ -30,6 +38,7 @@ const MapScreen = () => {
             minZoomLevel={5}
             // showsUserLocation={true}
             // onMapReady={() => console.log("Map is ready")}
+            onMapReady={() => dispatch(setMode({ isLoading: false }))}
             // onRegionChange={() => console.log("Region change")}
           >
             {coords && <Marker title={title} coordinate={coords} description={location} />}

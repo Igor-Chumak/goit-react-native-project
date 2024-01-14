@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { store } from "./storeHandlers";
+import { storeHandle } from "./storeHandlers";
 import { commonHandle } from "./commonHandlers";
 
 const initialState = {
