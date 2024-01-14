@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logIn, logOut, register } from "./authOperations";
+import { logIn, logOut, register, updateAvatar } from "./authOperations";
 
 const initialState = {
   uid: null,
@@ -24,7 +24,11 @@ export const authSlice = createSlice({
         ...action.payload,
         isLoggedIn: true,
       }))
-      .addCase(logOut.fulfilled, () => ({ ...initialState }));
+      .addCase(logOut.fulfilled, () => ({ ...initialState }))
+      .addCase(updateAvatar.fulfilled, (state, action) => ({
+        ...state,
+        ...action.payload,
+      }));
   },
   reducers: {
     login: {

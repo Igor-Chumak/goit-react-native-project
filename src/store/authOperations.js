@@ -73,8 +73,24 @@ export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 });
 
 export const updateAvatar = createAsyncThunk("auth/updateAvatar", async (credentials, thunkAPI) => {
+  const { avatarUrl } = credentials;
   try {
-    //
+    const uploadUrl = await storageApiAsync.uploadFileToStorage({
+      collection: "avatars",
+      name: auth.currentUser.uid + "_avatar",
+      fileUri: avatarUrl,
+    });
+
+    await updateProfile(auth.currentUser, {
+      photoURL: uploadUrl,
+    });
+
+    await firebaseApiAsync.addUser({
+      uid: auth.currentUser.uid,
+      user: { photoURL: auth.currentUser.photoURL },
+    });
+
+    return { avatarUrl: auth.currentUser.photoURL };
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }

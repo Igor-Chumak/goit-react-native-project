@@ -20,6 +20,10 @@ const rejected = (state, action) => {
       console.log("auth/logout :>> ", action.payload);
       state.error = action.payload;
       break;
+    case "auth/updateAvatar/rejected":
+      console.log("auth/updateAvatar :>> ", action.payload);
+      state.error = action.payload;
+      break;
     case "contacts/fetch.get/rejected":
       console.log("contacts/fetch.get :>> ", action.payload.status);
       state.error = {

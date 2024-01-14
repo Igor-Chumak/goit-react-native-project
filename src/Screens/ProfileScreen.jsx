@@ -4,9 +4,9 @@ import { useIsFocused } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 //
 import { userAuth } from "../hooks";
-import { authApiAsync, firebaseApiAsync } from "../utility/firebase/index";
+import { authThunk } from "../store";
+import { firebaseApiAsync } from "../utility/firebase/index";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
-import { login } from "../store/authSlice";
 import BGImage from "../images/photo_BG.png";
 
 function localReducer(state, { type, payload }) {
@@ -47,12 +47,7 @@ const ProfileScreen = () => {
   useEffect(() => {
     if (!isFirstRender) return;
     async function fetchData() {
-      const data = await authApiAsync.updateAvatar(avatarUrl);
-      dispatch(
-        login({
-          avatarUrl: data.photoURL,
-        })
-      );
+      dispatch(authThunk.updateAvatar({ avatarUrl }));
     }
     fetchData();
     return setIsFirstRender(false);

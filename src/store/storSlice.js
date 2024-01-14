@@ -3,7 +3,7 @@ import { store } from "./storeHandlers";
 import { commonHandle } from "./commonHandlers";
 
 const initialState = {
-  currentUser: null,
+  selectedUser: null,
   usersList: [],
   isLoading: false,
   error: "",

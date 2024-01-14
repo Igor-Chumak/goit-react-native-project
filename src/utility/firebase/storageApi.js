@@ -10,7 +10,6 @@ export const uploadFileToStorage = async ({ collection, name, fileUri }) => {
 
     let ext = fileUri.split(".").reverse()[0].split("?")[0];
     const storagePath = `${collection}/${name}.${ext}`;
-    // const storagePath = `${collection}/${name}.${(ext = "jpeg" ? "jpg" : ext)}`;
     const fileRef = ref(storage, storagePath);
 
     const response = await fetch(fileUri);
@@ -18,10 +17,6 @@ export const uploadFileToStorage = async ({ collection, name, fileUri }) => {
 
     await uploadBytes(fileRef, blob);
     blob.close();
-
-    // getDownloadURL(fileRef).then((downloadURL) => {
-    //   console.log("File available at", downloadURL);
-    // });
 
     return await getDownloadURL(fileRef);
   } catch (err) {
