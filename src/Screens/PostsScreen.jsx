@@ -6,7 +6,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { userAuth } from "../hooks";
 import { storeThunk } from "../store";
 import { setMode } from "../store/storSlice";
-import { selectPosts, selectUserSelectedId } from "../store/selectors";
+import { selectPosts, selectUserSelectedId, selectUsersList } from "../store/selectors";
 import { ContentBlock, ContentBox, User } from "../components";
 
 const PostsScreen = () => {
@@ -14,6 +14,7 @@ const PostsScreen = () => {
   const { uid, email, displayName, avatarUrl } = userAuth();
   const posts = useSelector(selectPosts);
   const [flagRerender, setFlagRerender] = useState(false);
+  const usersList = useSelector(selectUsersList);
   const userSelectedId = useSelector(selectUserSelectedId);
   const [isBlocked, setIsBlocked] = useState(false);
 
@@ -33,7 +34,7 @@ const PostsScreen = () => {
       } else {
         // console.log("call getPostsByUserId");
         // dispatch(setMode({ posts: [] }));
-        dispatch(storeThunk.getPostsByUserId(uid));
+        dispatch(storeThunk.getPostsByUserId(userSelectedId));
       }
       setIsBlocked(true);
       return () => {
@@ -62,15 +63,19 @@ const PostsScreen = () => {
               Posts
             </Text>
           </Pressable>
-          <User
-            key={uid}
-            userId={uid}
-            userEmail={email}
-            userDisplayName={displayName}
-            userAvatarUrl={avatarUrl}
-            dispatch={dispatch}
-            isSelected={userSelectedId}
-          />
+          {isBlocked &&
+            usersList.length > 0 &&
+            usersList.map((user) => (
+              <User
+                key={user.id}
+                userId={user.id}
+                userEmail={user.email}
+                userDisplayName={user.displayName}
+                userAvatarUrl={user.photoURL}
+                dispatch={dispatch}
+                isSelected={userSelectedId === user.id ? true : false}
+              />
+            ))}
         </View>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ gap: 32 }}>
           {isBlocked &&

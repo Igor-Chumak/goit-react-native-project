@@ -28,8 +28,8 @@ const addUser = async ({ uid, user }) => {
 
 const getAllUser = async () => {
   try {
-    const userRef = collection(db, "users");
-    const res = await getDocs(userRef);
+    const q = query(collection(db, "users"), orderBy("displayName", "asc"));
+    const res = await getDocs(q);
     return res.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     throw new Error(error.message);
