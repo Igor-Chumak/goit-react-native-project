@@ -19,6 +19,14 @@ import uuid from "react-native-uuid";
 import { db } from "../utility/firebase/config";
 import { firebaseApiAsync } from "../utility/firebase/index";
 
+export const getAllPosts = createAsyncThunk("store/getAllPosts", async (_, thunkAPI) => {
+  try {
+    return await firebaseApiAsync.getAllPosts();
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
 export const getPostsByUserId = createAsyncThunk(
   "store/getPostsByUserId",
   async (uid, thunkAPI) => {

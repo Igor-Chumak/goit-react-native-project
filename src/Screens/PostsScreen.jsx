@@ -1,37 +1,63 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
-import { firebaseApiAsync } from "../utility/firebase/index";
+import { storeThunk } from "../store";
+import { setMode } from "../store/storSlice";
+import { selectPosts } from "../store/selectors";
 import { ContentBlock, ContentBox, User } from "../components";
 
 const PostsScreen = () => {
-  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  // const isFocused = useIsFocused();
   const { uid, email, displayName, avatarUrl } = userAuth();
-  const [posts, setPosts] = useState([]);
+  const posts = useSelector(selectPosts);
   const [flagRerender, setFlagRerender] = useState(false);
   const [userSelectedId, setUserSelectedId] = useState(null);
+  const [isBlocked, setIsBlocked] = useState(false);
 
-  useEffect(() => {
-    async function fetchAllData() {
-      const data = await firebaseApiAsync.getAllPosts();
-      // console.log("Posts data :>> ", data);
-      setPosts(data);
-    }
-    async function fetchIdData() {
-      const data = await firebaseApiAsync.getPostsByUserId(uid);
-      // console.log("Posts data :>> ", data);
-      setPosts(data);
-    }
-    if (!userSelectedId) {
-      fetchAllData();
-      // console.log("all");
-    } else {
-      fetchIdData();
-      // console.log("id");
-    }
-  }, [isFocused, userSelectedId, flagRerender]);
+  // useEffect(() => {
+  //   console.log("First render Posts");
+  //   dispatch(setMode({ posts: [] }));
+  // }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      // if (isBlocked) return;
+      if (!userSelectedId) {
+        // console.log("call getAllPosts");
+        // dispatch(setMode({ posts: [] }));
+        dispatch(storeThunk.getAllPosts());
+      } else {
+        // console.log("call getPostsByUserId");
+        // dispatch(setMode({ posts: [] }));
+        dispatch(storeThunk.getPostsByUserId(uid));
+      }
+      setIsBlocked(true);
+      return () => {
+        // console.log("un mount Posts");
+        setIsBlocked(false);
+      };
+    }, [userSelectedId, flagRerender])
+  );
+
+  // useEffect(() => {
+  //   // if (isBlocked) return;
+  //   if (!userSelectedId) {
+  //     console.log("call getAllPosts");
+  //     dispatch(setMode({ posts: [] }));
+  //     dispatch(storeThunk.getAllPosts());
+  //   } else {
+  //     console.log("call getPostsByUserId");
+  //     dispatch(setMode({ posts: [] }));
+  //     dispatch(storeThunk.getPostsByUserId(uid));
+  //   }
+  //   return () => {
+  //     console.log("un mount Posts");
+  //   };
+  // }, [isFocused, userSelectedId, flagRerender]);
 
   return (
     <View style={styles.container}>
@@ -63,7 +89,8 @@ const PostsScreen = () => {
           />
         </View>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ gap: 32 }}>
-          {posts.length > 0 &&
+          {isBlocked &&
+            posts.length > 0 &&
             posts.map((post) => (
               <ContentBlock key={post.id} {...post} setFlagRerender={setFlagRerender} />
             ))}

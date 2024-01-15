@@ -5,10 +5,11 @@ export const selectUserDisplayName = (state) => state.auth.displayName;
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 export const selectUserAvatarUrl = (state) => state.auth.avatarUrl;
 // store
-export const selectSelectedUser = (state) => state.store.selectedUser;
+export const selectUserSelectedId = (state) => state.store.userSelectedId;
 export const selectUsersList = (state) => state.store.usersList;
 export const selectIsLoading = (state) => state.store.isLoading;
 export const selectPosts = (state) => state.store.posts;
 export const selectError = (state) => state.store.error;
 
 // const uid = useSelector(selectUserUid);
+// const isLoading = useSelector(selectIsLoading);

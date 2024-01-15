@@ -15,6 +15,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import storReducer from "./storSlice";
 import authReducer from "./authSlice";
+import { storeThunk } from "./storeOperations";
 
 const persistConfig = {
   key: "root",
@@ -35,6 +36,9 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
+      thunk: {
+        extraArgument: storeThunk,
+      },
       serializableCheck: {
         ignoredActions: [
           FLUSH,
@@ -44,9 +48,11 @@ export const store = configureStore({
           PURGE,
           REGISTER,
           "store/getPostsByUserId/fulfilled",
+          "store/getAllPosts/fulfilled",
         ],
         ignoredPaths: ["store.posts"],
       },
+      immutableCheck: false,
     }),
 });
 
