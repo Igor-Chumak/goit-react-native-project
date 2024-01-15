@@ -11,5 +11,6 @@ export const selectIsLoading = (state) => state.store.isLoading;
 export const selectPosts = (state) => state.store.posts;
 export const selectError = (state) => state.store.error;
 
-// const uid = useSelector(selectUserUid);
+// const usersList = useSelector(selectUsersList);
 // const isLoading = useSelector(selectIsLoading);
+// const userSelectedId = useSelector(selectUserSelectedId);

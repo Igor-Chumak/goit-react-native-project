@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 //
 import { userAuth } from "../hooks";
 import { authThunk, storeThunk } from "../store";
-import { setMode } from "../store/storSlice";
 import { selectPosts } from "../store/selectors";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
 import BGImage from "../images/photo_BG.png";
@@ -21,7 +20,6 @@ function localReducer(state, { type, payload }) {
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
-  // const isFocused = useIsFocused();
   const {
     uid,
     // email,
@@ -35,36 +33,15 @@ const ProfileScreen = () => {
   const [isFirstRender, setIsFirstRender] = useState(false);
   const [isBlocked, setIsBlocked] = useState(false);
 
-  // useEffect(() => {
-  //   console.log("First render Profile");
-  //   dispatch(setMode({ posts: [] }));
-  // }, []);
-
   useFocusEffect(
     useCallback(() => {
-      // if (isBlocked) return;
-      // console.log("call getPostsByUserId Profile");
-      // dispatch(setMode({ posts: [] }));
       dispatch(storeThunk.getPostsByUserId(uid));
       setIsBlocked(true);
       return () => {
-        // console.log("un mount Profile");
         setIsBlocked(false);
       };
     }, [])
   );
-
-  // useEffect(() => {
-  //   // if (isBlocked) return;
-  //   // if (isBlocked) return setIsBlocked(false);
-  //   console.log("call getPostsByUserId Profile");
-  //   dispatch(setMode({ posts: [] }));
-  //   dispatch(storeThunk.getPostsByUserId(uid));
-  //   return () => {
-  //     // setIsBlocked(true);
-  //     console.log("un mount Profile");
-  //   };
-  // }, [isFocused]);
 
   useEffect(() => {
     if (!isFirstRender) return;

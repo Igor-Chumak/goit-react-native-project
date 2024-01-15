@@ -18,6 +18,24 @@ import uuid from "react-native-uuid";
 import { db } from "./config";
 import storageApiAsync from "./storageApi";
 
+const addUser = async ({ uid, user }) => {
+  try {
+    return await setDoc(doc(db, "users", uid), { ...user }, { merge: true });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const getAllUser = async () => {
+  try {
+    const userRef = collection(db, "users");
+    const res = await getDocs(userRef);
+    return res.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 const addPost = async (uid, post) => {
   try {
     const postRef = doc(collection(db, "posts"));
@@ -32,15 +50,6 @@ const addPost = async (uid, post) => {
       owner: uid,
       createdAt: Timestamp.now(),
     });
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-const addUser = async ({ uid, user }) => {
-  try {
-    return await setDoc(doc(db, "users", uid), { ...user }, { merge: true });
-    // return await addDoc(collection(db, "users"), { ...user });
   } catch (error) {
     throw new Error(error.message);
   }
@@ -129,8 +138,9 @@ const getPhotoUrlByUserId = async (userId) => {
 };
 
 export default {
-  addPost,
   addUser,
+  getAllUser,
+  addPost,
   getAllPosts,
   getPostsByUserId,
   changeLike,

@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
 import { storeThunk } from "../store";
 import { setMode } from "../store/storSlice";
-import { selectPosts } from "../store/selectors";
+import { selectPosts, selectUserSelectedId } from "../store/selectors";
 import { ContentBlock, ContentBox, User } from "../components";
 
 const PostsScreen = () => {
@@ -15,13 +15,16 @@ const PostsScreen = () => {
   const { uid, email, displayName, avatarUrl } = userAuth();
   const posts = useSelector(selectPosts);
   const [flagRerender, setFlagRerender] = useState(false);
-  const [userSelectedId, setUserSelectedId] = useState(null);
+  // const [userSelectedId, setUserSelectedId] = useState(null);
+  const userSelectedId = useSelector(selectUserSelectedId);
   const [isBlocked, setIsBlocked] = useState(false);
 
-  // useEffect(() => {
-  //   console.log("First render Posts");
-  //   dispatch(setMode({ posts: [] }));
-  // }, []);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(storeThunk.getAllUser());
+      return () => {};
+    }, [])
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -43,29 +46,13 @@ const PostsScreen = () => {
     }, [userSelectedId, flagRerender])
   );
 
-  // useEffect(() => {
-  //   // if (isBlocked) return;
-  //   if (!userSelectedId) {
-  //     console.log("call getAllPosts");
-  //     dispatch(setMode({ posts: [] }));
-  //     dispatch(storeThunk.getAllPosts());
-  //   } else {
-  //     console.log("call getPostsByUserId");
-  //     dispatch(setMode({ posts: [] }));
-  //     dispatch(storeThunk.getPostsByUserId(uid));
-  //   }
-  //   return () => {
-  //     console.log("un mount Posts");
-  //   };
-  // }, [isFocused, userSelectedId, flagRerender]);
-
   return (
     <View style={styles.container}>
       <ContentBox>
         <View style={styles.userBoxWrap}>
           <Pressable
             style={[styles.userBox, userSelectedId ? styles.userBoxNoSelected : {}]}
-            onPress={() => setUserSelectedId(null)}
+            onPress={() => dispatch(setMode({ userSelectedId: null }))}
           >
             <Text
               style={[styles.btnText, userSelectedId ? { color: "#212121" } : { color: "white" }]}
@@ -84,7 +71,7 @@ const PostsScreen = () => {
             userEmail={email}
             userDisplayName={displayName}
             userAvatarUrl={avatarUrl}
-            setUserSelectedId={setUserSelectedId}
+            dispatch={dispatch}
             isSelected={userSelectedId}
           />
         </View>

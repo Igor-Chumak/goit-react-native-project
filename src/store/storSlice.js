@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllPosts, getPostsByUserId } from "./storeOperations";
-import { storeHandle } from "./storeHandlers";
+import { getAllPosts, getAllUser, getPostsByUserId } from "./storeOperations";
 import { commonHandle } from "./commonHandlers";
 
 const initialState = {
@@ -16,6 +15,13 @@ const storSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
+      .addCase(getAllUser.pending, (state, action) => {
+        state.usersList = [];
+      })
+      .addCase(getAllUser.fulfilled, (state, action) => {
+        // console.log("action.payload :>> ", action.payload);
+        state.usersList = action.payload;
+      })
       .addCase(getPostsByUserId.pending, (state, action) => {
         state.posts = [];
       })
