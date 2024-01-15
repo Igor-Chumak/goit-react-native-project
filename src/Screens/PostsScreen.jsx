@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
@@ -39,6 +39,8 @@ const PostsScreen = () => {
     }, [userSelectedId, flagRerender])
   );
 
+  const initialScrollIndex = usersList.findIndex((user) => user.id === userSelectedId);
+
   return (
     <View style={styles.container}>
       <ContentBox>
@@ -58,19 +60,25 @@ const PostsScreen = () => {
               Posts
             </Text>
           </Pressable>
-          {isBlocked &&
-            usersList.length > 0 &&
-            usersList.map((user) => (
-              <User
-                key={user.id}
-                userId={user.id}
-                userEmail={user.email}
-                userDisplayName={user.displayName}
-                userAvatarUrl={user.photoURL}
-                dispatch={dispatch}
-                isSelected={userSelectedId === user.id ? true : false}
-              />
-            ))}
+          {isBlocked && usersList.length > 0 && (
+            <FlatList
+              horizontal
+              data={usersList}
+              renderItem={({ item }) => (
+                <User
+                  key={item.id}
+                  userId={item.id}
+                  userEmail={item.email}
+                  userDisplayName={item.displayName}
+                  userAvatarUrl={item.photoURL}
+                  dispatch={dispatch}
+                  isSelected={userSelectedId === item.id ? true : false}
+                />
+              )}
+              initialScrollIndex={initialScrollIndex < 0 ? 0 : initialScrollIndex}
+              showsHorizontalScrollIndicator={false}
+            />
+          )}
         </View>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ gap: 32 }}>
           {isBlocked &&

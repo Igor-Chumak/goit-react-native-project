@@ -12,12 +12,6 @@ export const User = ({
   dispatch,
   isSelected = false,
 }) => {
-  // console.log("props :>> ", {
-  //   userId,
-  //   userEmail,
-  //   userDisplayName,
-  //   userAvatarUrl,
-  // });
   const imgSource = userAvatarUrl ? { uri: userAvatarUrl } : require(AVATAR_DEFAULT);
 
   return (
