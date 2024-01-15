@@ -80,7 +80,6 @@ const getPostsByUserId = async (uid) => {
 };
 
 const changeLike = async ({ postId, data, type }) => {
-  // console.log("props :>> ", { postId, data, type });
   try {
     postRef = doc(db, "posts", postId);
     switch (type) {
@@ -98,7 +97,6 @@ const changeLike = async ({ postId, data, type }) => {
 };
 
 const addComment = async ({ postId, data, type }) => {
-  // console.log("props :>> ", { postId, data, type });
   try {
     postRef = doc(db, "posts", postId);
     switch (type) {
@@ -116,7 +114,6 @@ const addComment = async ({ postId, data, type }) => {
 };
 
 const getCommentsByPostId = async (postId) => {
-  // console.log("props :>> ", postId);
   postRef = doc(db, "posts", postId);
   try {
     const docSnap = await getDoc(postRef);
@@ -127,7 +124,6 @@ const getCommentsByPostId = async (postId) => {
 };
 
 const getPhotoUrlByUserId = async (userId) => {
-  // console.log("props :>> ", v);
   userRef = doc(db, "users", userId);
   try {
     const docSnap = await getDoc(userRef);

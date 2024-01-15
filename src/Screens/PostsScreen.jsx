@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -11,11 +11,9 @@ import { ContentBlock, ContentBox, User } from "../components";
 
 const PostsScreen = () => {
   const dispatch = useDispatch();
-  // const isFocused = useIsFocused();
   const { uid, email, displayName, avatarUrl } = userAuth();
   const posts = useSelector(selectPosts);
   const [flagRerender, setFlagRerender] = useState(false);
-  // const [userSelectedId, setUserSelectedId] = useState(null);
   const userSelectedId = useSelector(selectUserSelectedId);
   const [isBlocked, setIsBlocked] = useState(false);
 
@@ -28,7 +26,6 @@ const PostsScreen = () => {
 
   useFocusEffect(
     useCallback(() => {
-      // if (isBlocked) return;
       if (!userSelectedId) {
         // console.log("call getAllPosts");
         // dispatch(setMode({ posts: [] }));
