@@ -19,21 +19,18 @@ const storSlice = createSlice({
         state.usersList = [];
       })
       .addCase(getAllUser.fulfilled, (state, action) => {
-        // console.log("action.payload :>> ", action.payload);
         state.usersList = action.payload;
       })
       .addCase(getPostsByUserId.pending, (state, action) => {
         state.posts = [];
       })
       .addCase(getPostsByUserId.fulfilled, (state, action) => {
-        // console.log("action.payload :>> ", action.payload);
         state.posts = action.payload;
       })
       .addCase(getAllPosts.pending, (state, action) => {
         state.posts = [];
       })
       .addCase(getAllPosts.fulfilled, (state, action) => {
-        // console.log("action.payload :>> ", action.payload);
         state.posts = action.payload;
       })
       .addMatcher(isPendingAction, commonHandle.pending)

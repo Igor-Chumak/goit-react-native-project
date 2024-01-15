@@ -28,17 +28,12 @@ const PostsScreen = () => {
   useFocusEffect(
     useCallback(() => {
       if (!userSelectedId) {
-        // console.log("call getAllPosts");
-        // dispatch(setMode({ posts: [] }));
         dispatch(storeThunk.getAllPosts());
       } else {
-        // console.log("call getPostsByUserId");
-        // dispatch(setMode({ posts: [] }));
         dispatch(storeThunk.getPostsByUserId(userSelectedId));
       }
       setIsBlocked(true);
       return () => {
-        // console.log("un mount Posts");
         setIsBlocked(false);
       };
     }, [userSelectedId, flagRerender])
