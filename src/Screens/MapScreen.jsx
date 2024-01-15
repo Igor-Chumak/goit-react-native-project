@@ -56,8 +56,6 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
     backgroundColor: "white",
-    // borderWidth: 1,
-    // borderColor: "blue",
   },
   contentImageBox: {
     display: "relative",

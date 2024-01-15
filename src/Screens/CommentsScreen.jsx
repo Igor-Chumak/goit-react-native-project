@@ -36,7 +36,6 @@ const CommentsScreen = () => {
     (isFocused) => {
       async function fetchData() {
         const data = await firebaseApiAsync.getCommentsByPostId(postId);
-        // console.log("Comments data :>> ", data);
         setComments(data);
       }
       fetchData();

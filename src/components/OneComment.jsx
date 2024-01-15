@@ -22,7 +22,6 @@ export const OneComment = ({ comment }) => {
     async function defineImageUrl(authorId) {
       if (uid === authorId) return setImageUrl(avatarUrl);
       const urlAuthor = await firebaseApiAsync.getPhotoUrlByUserId(authorId);
-      // console.log("OneComment urlAuthor :>> ", urlAuthor);
       return setImageUrl(urlAuthor);
     }
     defineImageUrl(comment.authorId);

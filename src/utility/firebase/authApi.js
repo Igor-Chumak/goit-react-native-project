@@ -53,8 +53,6 @@ const registerUser = async ({ email, password, displayName, photoURL }) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
 
-    // console.log("registerUser res.user :>> ", res.user);
-
     const uploadUrl = await storageApiAsync.uploadFileToStorage({
       collection: "avatars",
       name: res.user.uid + "_avatar",
