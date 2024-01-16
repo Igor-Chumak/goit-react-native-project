@@ -1,12 +1,12 @@
-import { useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
 //
 import { userAuth } from "../hooks";
-import { authApiAsync, firebaseApiAsync } from "../utility/firebase/index";
+import { authThunk, storeThunk } from "../store";
+import { selectPosts } from "../store/selectors";
 import { AvatarBox, ContentBlock, LogOutIconBox } from "../components";
-import { login } from "../store/authSlice";
 import BGImage from "../images/photo_BG.png";
 
 function localReducer(state, { type, payload }) {
@@ -20,41 +20,32 @@ function localReducer(state, { type, payload }) {
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
-  const isFocused = useIsFocused();
   const {
     uid,
     // email,
     displayName,
-    // isLoggedIn,
     avatarUrl: currentAvatarUrlUser,
   } = userAuth();
-  // console.log("ProfileScreen userAuth() :>> ", userAuth());
-  const [posts, setPosts] = useState([]);
+  const posts = useSelector(selectPosts);
   const [{ avatarUrl }, localDispatch] = useReducer(localReducer, {
     avatarUrl: currentAvatarUrlUser,
   });
   const [isFirstRender, setIsFirstRender] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(false);
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await firebaseApiAsync.getPostsByUserId(uid);
-      // console.log("Profile data :>> ", data);
-      setPosts(data);
-    }
-    fetchData();
-  }, [isFocused]);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(storeThunk.getPostsByUserId(uid));
+      setIsBlocked(true);
+      return () => {
+        setIsBlocked(false);
+      };
+    }, [])
+  );
 
   useEffect(() => {
     if (!isFirstRender) return;
-    async function fetchData() {
-      const data = await authApiAsync.updateAvatar(avatarUrl);
-      dispatch(
-        login({
-          avatarUrl: data.photoURL,
-        })
-      );
-    }
-    fetchData();
+    dispatch(authThunk.updateAvatar({ avatarUrl }));
     return setIsFirstRender(false);
   }, [avatarUrl, isFirstRender]);
 
@@ -73,7 +64,8 @@ const ProfileScreen = () => {
             <Text style={styles.title}>{displayName}</Text>
           </View>
           <ScrollView style={{ height: "100%" }} contentContainerStyle={{ flexGrow: 1, gap: 32 }}>
-            {posts.length > 0 &&
+            {isBlocked &&
+              posts.length > 0 &&
               posts.map((post) => <ContentBlock key={post.id} {...post} disabledChange={true} />)}
           </ScrollView>
         </View>

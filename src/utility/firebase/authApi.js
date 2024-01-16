@@ -27,8 +27,6 @@ const signOutUser = async () => {
 };
 
 const updateAvatar = async (photoURL) => {
-  // console.log("updateAvatar auth.currentUser :>> ", auth.currentUser);
-
   try {
     const uploadUrl = await storageApiAsync.uploadFileToStorage({
       collection: "avatars",
@@ -55,8 +53,6 @@ const registerUser = async ({ email, password, displayName, photoURL }) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password);
 
-    // console.log("registerUser res.user :>> ", res.user);
-
     const uploadUrl = await storageApiAsync.uploadFileToStorage({
       collection: "avatars",
       name: res.user.uid + "_avatar",
@@ -67,8 +63,6 @@ const registerUser = async ({ email, password, displayName, photoURL }) => {
       displayName,
       photoURL: uploadUrl,
     });
-
-    // console.log("auth.currentUser :>> ", auth.currentUser);
 
     await firebaseApiAsync.addUser({
       uid: res.user.uid,
@@ -91,5 +85,4 @@ export default {
   signOutUser,
   registerUser,
   updateAvatar,
-  auth,
 };

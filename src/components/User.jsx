@@ -1,5 +1,6 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-// import { useNavigation } from "@react-navigation/native";
+//
+import { setMode } from "../store/storSlice";
 
 const AVATAR_DEFAULT = "../images/avatar_default.png";
 
@@ -8,14 +9,13 @@ export const User = ({
   userEmail,
   userDisplayName,
   userAvatarUrl,
-  setUserSelectedId,
+  dispatch,
   isSelected = false,
 }) => {
-  // const navigation = useNavigation();
   const imgSource = userAvatarUrl ? { uri: userAvatarUrl } : require(AVATAR_DEFAULT);
 
   return (
-    <Pressable style={styles.userBox} onPress={() => setUserSelectedId(userId)}>
+    <Pressable style={styles.userBox} onPress={() => dispatch(setMode({ userSelectedId: userId }))}>
       <Image
         source={imgSource}
         style={[styles.userPhoto, isSelected ? styles.isSelected : {}]}

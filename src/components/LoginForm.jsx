@@ -1,10 +1,11 @@
 import { useEffect, useReducer, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 //
-import { login } from "../store/authSlice";
-import { authApiAsync } from "../utility/firebase/index";
+import { authThunk } from "../store";
+import { selectError } from "../store/selectors";
+import { setMode } from "../store/storSlice";
 
 function localReducer(state, { type, payload }) {
   switch (type) {
@@ -18,7 +19,7 @@ function localReducer(state, { type, payload }) {
 }
 
 const INITIAL_STATE = {
-  email: "email8@email.com", // null,
+  email: "email@email.com", // null,
   password: "password", // null,
 };
 
@@ -30,34 +31,30 @@ export const LoginForm = () => {
     ...INITIAL_STATE,
   });
   const [passwordHidden, setPasswordHidden] = useState(true);
+  const errorAPI = useSelector(selectError);
 
   useEffect(() => {
     if (!params) return;
     localDispatch({ type: "update", payload: { ...params } });
   }, [params]);
 
+  useEffect(() => {
+    if (errorAPI === "Firebase: Error (auth/invalid-credential).") {
+      dispatch(setMode({ error: "" }));
+      return alert("The login or password is incorrect");
+    }
+  }, [errorAPI]);
+
   const handleSubmit = async () => {
     if (!email || !password) return;
     setPasswordHidden(true);
-    try {
-      const user = await authApiAsync.signInUser({
+    dispatch(
+      authThunk.logIn({
         email,
         password,
-      });
-      dispatch(
-        login({
-          email: user.email,
-          displayName: user.displayName,
-          uid: user.uid,
-          avatarUrl: user.photoURL,
-        })
-      );
-      localDispatch({ type: "clear" });
-      return;
-    } catch (error) {
-      console.log("Something went wrong: ", error.message);
-      alert(error.message);
-    }
+      })
+    );
+    // localDispatch({ type: "clear" });
     return;
   };
 

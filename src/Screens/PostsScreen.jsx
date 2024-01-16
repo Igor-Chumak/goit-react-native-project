@@ -1,37 +1,45 @@
-import { useEffect, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
+import { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FlatList, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { userAuth } from "../hooks";
-import { firebaseApiAsync } from "../utility/firebase/index";
+import { storeThunk } from "../store";
+import { setMode } from "../store/storSlice";
+import { selectPosts, selectUserSelectedId, selectUsersList } from "../store/selectors";
 import { ContentBlock, ContentBox, User } from "../components";
 
 const PostsScreen = () => {
-  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
   const { uid, email, displayName, avatarUrl } = userAuth();
-  const [posts, setPosts] = useState([]);
+  const posts = useSelector(selectPosts);
   const [flagRerender, setFlagRerender] = useState(false);
-  const [userSelectedId, setUserSelectedId] = useState(null);
+  const usersList = useSelector(selectUsersList);
+  const userSelectedId = useSelector(selectUserSelectedId);
+  const [isBlocked, setIsBlocked] = useState(false);
 
-  useEffect(() => {
-    async function fetchAllData() {
-      const data = await firebaseApiAsync.getAllPosts();
-      // console.log("Posts data :>> ", data);
-      setPosts(data);
-    }
-    async function fetchIdData() {
-      const data = await firebaseApiAsync.getPostsByUserId(uid);
-      // console.log("Posts data :>> ", data);
-      setPosts(data);
-    }
-    if (!userSelectedId) {
-      fetchAllData();
-      // console.log("all");
-    } else {
-      fetchIdData();
-      // console.log("id");
-    }
-  }, [isFocused, userSelectedId, flagRerender]);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(storeThunk.getAllUser());
+      return () => {};
+    }, [])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!userSelectedId) {
+        dispatch(storeThunk.getAllPosts());
+      } else {
+        dispatch(storeThunk.getPostsByUserId(userSelectedId));
+      }
+      setIsBlocked(true);
+      return () => {
+        setIsBlocked(false);
+      };
+    }, [userSelectedId, flagRerender])
+  );
+
+  const initialScrollIndex = usersList.findIndex((user) => user.id === userSelectedId);
 
   return (
     <View style={styles.container}>
@@ -39,7 +47,7 @@ const PostsScreen = () => {
         <View style={styles.userBoxWrap}>
           <Pressable
             style={[styles.userBox, userSelectedId ? styles.userBoxNoSelected : {}]}
-            onPress={() => setUserSelectedId(null)}
+            onPress={() => dispatch(setMode({ userSelectedId: null }))}
           >
             <Text
               style={[styles.btnText, userSelectedId ? { color: "#212121" } : { color: "white" }]}
@@ -52,18 +60,29 @@ const PostsScreen = () => {
               Posts
             </Text>
           </Pressable>
-          <User
-            key={uid}
-            userId={uid}
-            userEmail={email}
-            userDisplayName={displayName}
-            userAvatarUrl={avatarUrl}
-            setUserSelectedId={setUserSelectedId}
-            isSelected={userSelectedId}
-          />
+          {isBlocked && usersList.length > 0 && (
+            <FlatList
+              horizontal
+              data={usersList}
+              renderItem={({ item }) => (
+                <User
+                  key={item.id}
+                  userId={item.id}
+                  userEmail={item.email}
+                  userDisplayName={item.displayName}
+                  userAvatarUrl={item.photoURL}
+                  dispatch={dispatch}
+                  isSelected={userSelectedId === item.id ? true : false}
+                />
+              )}
+              initialScrollIndex={initialScrollIndex < 0 ? 0 : initialScrollIndex}
+              showsHorizontalScrollIndicator={false}
+            />
+          )}
         </View>
         <ScrollView style={{ height: "100%" }} contentContainerStyle={{ gap: 32 }}>
-          {posts.length > 0 &&
+          {isBlocked &&
+            posts.length > 0 &&
             posts.map((post) => (
               <ContentBlock key={post.id} {...post} setFlagRerender={setFlagRerender} />
             ))}

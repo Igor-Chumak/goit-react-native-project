@@ -13,10 +13,28 @@ import {
   arrayRemove,
   orderBy,
 } from "firebase/firestore";
-import storageApiAsync from "./storageApi";
 import uuid from "react-native-uuid";
-
+//
 import { db } from "./config";
+import storageApiAsync from "./storageApi";
+
+const addUser = async ({ uid, user }) => {
+  try {
+    return await setDoc(doc(db, "users", uid), { ...user }, { merge: true });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const getAllUser = async () => {
+  try {
+    const q = query(collection(db, "users"), orderBy("displayName", "asc"));
+    const res = await getDocs(q);
+    return res.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 
 const addPost = async (uid, post) => {
   try {
@@ -32,15 +50,6 @@ const addPost = async (uid, post) => {
       owner: uid,
       createdAt: Timestamp.now(),
     });
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
-
-const addUser = async ({ uid, user }) => {
-  try {
-    return await setDoc(doc(db, "users", uid), { ...user }, { merge: true });
-    // return await addDoc(collection(db, "users"), { ...user });
   } catch (error) {
     throw new Error(error.message);
   }
@@ -71,7 +80,6 @@ const getPostsByUserId = async (uid) => {
 };
 
 const changeLike = async ({ postId, data, type }) => {
-  // console.log("props :>> ", { postId, data, type });
   try {
     postRef = doc(db, "posts", postId);
     switch (type) {
@@ -89,7 +97,6 @@ const changeLike = async ({ postId, data, type }) => {
 };
 
 const addComment = async ({ postId, data, type }) => {
-  // console.log("props :>> ", { postId, data, type });
   try {
     postRef = doc(db, "posts", postId);
     switch (type) {
@@ -107,7 +114,6 @@ const addComment = async ({ postId, data, type }) => {
 };
 
 const getCommentsByPostId = async (postId) => {
-  // console.log("props :>> ", postId);
   postRef = doc(db, "posts", postId);
   try {
     const docSnap = await getDoc(postRef);
@@ -118,7 +124,6 @@ const getCommentsByPostId = async (postId) => {
 };
 
 const getPhotoUrlByUserId = async (userId) => {
-  // console.log("props :>> ", v);
   userRef = doc(db, "users", userId);
   try {
     const docSnap = await getDoc(userRef);
@@ -129,8 +134,9 @@ const getPhotoUrlByUserId = async (userId) => {
 };
 
 export default {
-  addPost,
   addUser,
+  getAllUser,
+  addPost,
   getAllPosts,
   getPostsByUserId,
   changeLike,

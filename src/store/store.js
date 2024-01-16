@@ -1,4 +1,7 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  // combineReducers
+} from "@reduxjs/toolkit";
 import {
   persistReducer,
   persistStore,
@@ -12,26 +15,44 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import storReducer from "./storSlice";
 import authReducer from "./authSlice";
+import { storeThunk } from "./storeOperations";
 
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
 };
 
-const rootReducer = combineReducers({
-  auth: authReducer,
-  store: storReducer,
-});
+// const rootReducer = combineReducers({
+//   auth: authReducer,
+//   store: storReducer,
+// });
 
-const reducer = persistReducer(persistConfig, rootReducer);
+// const reducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer,
+  reducer: {
+    auth: persistReducer(persistConfig, authReducer),
+    store: storReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      thunk: {
+        extraArgument: storeThunk,
       },
+      serializableCheck: {
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+          "store/getPostsByUserId/fulfilled",
+          "store/getAllPosts/fulfilled",
+        ],
+        ignoredPaths: ["store.posts"],
+      },
+      immutableCheck: false,
     }),
 });
 
